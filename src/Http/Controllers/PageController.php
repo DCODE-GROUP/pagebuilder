@@ -1,0 +1,83 @@
+<?php
+
+namespace Dcodegroup\PageBuilder\Http\Controllers;
+
+use Dcodegroup\PageBuilder\Http\Requests\PageRequest;
+use Dcodegroup\PageBuilder\Models\Page;
+use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
+use Dcodegroup\PageBuilder\Services\PageService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class PageController extends Controller
+{
+    public function __construct(protected ModuleRepository $moduleRepository)
+    {
+    }
+
+    public function index(Request $request): View
+    {
+        $query = Page::query();
+
+        // Search filter
+        if ($request->filled('search')) {
+            $term = '%'.$request->input('search').'%';
+            $query->where('title', 'like', $term)->orWhere('abstract', 'like', $term)->orWhere('content', 'like', $term)
+                  ->orWhere('dynamic_content', 'like', $term);
+        }
+
+        return view('page-builder::pages.index')->with('pages', $query->orderByDesc('created_at')->paginate());
+    }
+
+    public function create(): View
+    {
+        return view('page-builder::pages.edit')->with('CMSModules', PageService::getModules($this->moduleRepository->getValues()));
+    }
+
+    public function store(PageRequest $request): RedirectResponse
+    {
+        PageService::save($request->only(PageService::REQUEST_PARAMS));
+
+        return redirect()->route('pages.index')->with('status', 'Page was successfully created');
+    }
+
+    public function preview(Page $page): View
+    {
+        return view('page-builder::pages.preview')->with('page', PageService::generatePreviewPage($page));
+    }
+
+    public function updatePreview(Page $page): Response
+    {
+        PageService::persistPreview($page, request()->only('title', 'abstract', 'content'));
+
+        return response(null, 200);
+    }
+
+    public function edit(Page $page): View
+    {
+        $CMSModules = PageService::getModules($this->moduleRepository->getValues());
+        $DynamicCMSModules = PageService::getDynamicPageModules($page);
+
+        return view('page-builder::pages.edit', compact('page', 'CMSModules', 'DynamicCMSModules'));
+    }
+
+    public function update(PageRequest $request, Page $page): RedirectResponse
+    {
+        PageService::save($request->only(PageService::REQUEST_PARAMS), $page);
+
+        return redirect()->route('pages.edit', $page)->with('status', 'Page was successfully updated');
+    }
+
+    public function destroy(Page $page): RedirectResponse
+    {
+        if ($page->isDynamic) {
+            return abort(405);
+        }
+
+        PageService::delete($page);
+
+        return redirect()->route('pages.index')->with('status', 'Page was successfully deleted');
+    }
+}

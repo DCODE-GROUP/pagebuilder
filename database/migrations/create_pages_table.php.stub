@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('pages', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('route')->nullable();
+            $table->string('featured_image')->nullable();
+            $table->string('featured_image_mobile')->nullable();
+
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('pages');
+
+            $table->unsignedBigInteger('template_id')->nullable();
+            $table->foreign('template_id')->references('id')->on('templates');
+
+            $table->text('abstract')->nullable();
+            $table->json('content')->nullable();
+            $table->json('dynamic_content')->nullable();
+            $table->boolean('active')->default(1);
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('pages');
+    }
+};
