@@ -1,19 +1,17 @@
-{{--@extends('layouts.acn')--}}
+<x-page-builder::layouts.page>
 
-{{--@section('title', $page->seo->title ?? $page->title)--}}
+    {{--@section('title', $page->seo->title ?? $page->title)--}}
+    @section('title', $page->title)
 
-{{--@if ($page->seo)--}}
-{{--    @section('description', $page->seo->description)--}}
-{{--    @section('keywords', $page->seo->keywords)--}}
-{{--@endif--}}
+    @if (false && $page->seo)
+        @section('description', $page->seo->description)
+        @section('keywords', $page->seo->keywords)
+    @endif
 
-{{--@if ($page->featured_image)--}}
-{{--	@section('metaImage', $page->featured_image)--}}
-{{--@endif--}}
+    @if ($page->featured_image)
+        @section('metaImage', $page->featured_image)
+    @endif
 
-{{--@section('content')--}}
-
-    {{-- PageService   --}}
     {!! $page->render() !!}
 
-{{--@endsection--}}
+</x-page-builder::layouts.page>
