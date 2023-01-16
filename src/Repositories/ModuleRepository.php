@@ -31,11 +31,12 @@ class ModuleRepository
 
     public function buildConfigurations(bool $json = true): string|Collection
     {
-        $modules = collect($this->getValues())
-            ->map(function (string $class) {
+        $modules = collect($this->getKeys())
+            ->mapWithKeys(function (string $key) {
                 /** @var Module $module */
+                $class = $this->findByName($key);
                 $module = new $class();
-                return $module->module();
+                return [$key => $module->module()];
             });
 
         return $json ? json_encode($modules) : $modules;

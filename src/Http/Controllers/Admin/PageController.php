@@ -36,7 +36,8 @@ class PageController extends Controller
     public function create(): View
     {
         return view('page-builder::pages.edit')
-            ->with('CMSModules', $this->moduleRepository->buildConfigurations());
+            ->with('CMSModules', $this->moduleRepository->buildConfigurations())
+            ->with('pageService', $this->pageService);
     }
 
     public function store(PageRequest $request): RedirectResponse
@@ -60,11 +61,9 @@ class PageController extends Controller
 
     public function edit(Page $page): View
     {
-        $CMSModules = $this->moduleRepository->buildConfigurations();
-
         return view('page-builder::pages.edit')
             ->with('page', $page)
-            ->with('CMSModules', $CMSModules)
+            ->with('CMSModules', $this->moduleRepository->buildConfigurations())
             ->with('pageService', $this->pageService);
     }
 
