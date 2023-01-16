@@ -3,6 +3,22 @@
     "lodash": "^4.17.21",
     "uuid": "^9.0.0",
     "vue-select-3": "^1.0.1",
-    "vuedraggable": "^4.1.0"
-  }
+    "vuedraggable": "^4.1.0",
+    "@tinymce/tinymce-vue": "^4.0.7",
+    "tinymce": "^6.2.0"
+  },
+  "name": "page-builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-dcode.com:DCODE-GROUP/pagebuilder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

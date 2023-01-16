@@ -3,6 +3,12 @@ import Module from './Module.vue';
 import PagePreview from './PagePreview.vue';
 import SelectMedia from './SelectMedia.vue';
 import TitleSlug from './TitleSlug.vue';
+import Heading from "./cms/Heading.vue"
+import ImageSlider from "./cms/ImageSlider.vue"
+import SingleColumn from "./cms/SingleColumn.vue"
+import TwoColumn from "./cms/TwoColumn.vue"
+import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
+
 import vuedraggable from "vuedraggable";
 
 const contentBuilderPlugin = {
@@ -15,8 +21,17 @@ const contentBuilderPlugin = {
         app.component('SelectMedia', SelectMedia);
         app.component('TitleSlug', TitleSlug);
 
-        Object.keys(options.modules).forEach(function(key) {
-            app.component(key, options.modules[key]);
+        const modules = {
+            Heading,
+            SingleColumn,
+            ImageSlider,
+            TwoColumn,
+            TwoColumnWithImage,
+            ...(options?.modules || {})
+        };
+
+        Object.keys(modules).forEach(key => {
+            app.component(key, modules[key]);
         });
     },
 };
