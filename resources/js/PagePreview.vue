@@ -1,7 +1,7 @@
 <template>
     <button
             id="cms-page-preview"
-            :class="{ loading: isLoading, 'button': true, 'hollow': true }"
+            :class="{ loading: isLoading, 'btn btn-primary-outlined': true, 'hollow': true }"
             type="button"
             @click="preview"
             :disabled="isLoading"
