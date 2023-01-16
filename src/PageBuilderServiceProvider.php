@@ -3,10 +3,12 @@
 namespace Dcodegroup\PageBuilder;
 
 use Collective\Html\FormBuilder;
+use Dcodegroup\PageBuilder\Http\Controllers\SiteController;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
-use Dcodegroup\PageBuilder\Http\Controllers\PageController;
-use Dcodegroup\PageBuilder\Http\Controllers\PageRevisionController;
+use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageController;
+use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageRevisionController;
 use Illuminate\Support\Facades\Route;
 
 class PageBuilderServiceProvider extends ServiceProvider
@@ -48,7 +50,7 @@ class PageBuilderServiceProvider extends ServiceProvider
 
     private function registerRoutes()
     {
-        Route::macro('pagebuilder', function (
+        Route::macro('pageBuilder', function (
             string $prefix = 'pages',
             string $name = 'pages',
         ) {
@@ -78,6 +80,10 @@ class PageBuilderServiceProvider extends ServiceProvider
                 PageRevisionController::class,
                 'destroy',
             ])->name("$name.revisions.destroy");
+        });
+
+        Route::macro('cms', function () {
+            Route::get('/{slug}', SiteController::class)->name('cms.view');
         });
     }
 

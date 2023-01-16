@@ -28,7 +28,7 @@
                             <hr />
                         @endif
                         <h5>Content</h5>
-                        {!! CMS::render($page) !!}
+                        {!! $page->render() !!}
                     </td>
                     <td>{!! nl2br($revision->updatedByForHumans) !!}</td>
                     <td>
@@ -36,7 +36,7 @@
                             {{ Form::open(['route' => ['admin.pages.revisions.restore', $revision], 'method' => 'put']) }}
                                 <button type="submit" class="button success">Restore</button>
                             {{ Form::close() }}
-                            @include('_partials.delete-confirm', [
+                            @include('page-builder::_partials.delete-confirm', [
                                 'route' => 'admin.pages.revisions.destroy',
                                 'object' => $revision,
                                 'label' => 'this page revision',
@@ -50,7 +50,7 @@
         </table>
         {{ $revisions->appends(request()->except(['page','_token']))->links() }}
     @else
-        @include('_partials.components.no-results', ['label' => 'pages'])
+        @include('page-builder::_partials.components.no-results', ['label' => 'pages'])
     @endif
 
 @endsection

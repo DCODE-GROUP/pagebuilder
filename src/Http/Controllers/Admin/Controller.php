@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcodegroup\PageBuilder\Http\Controllers;
+namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

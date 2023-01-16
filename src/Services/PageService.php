@@ -2,6 +2,7 @@
 
 namespace Dcodegroup\PageBuilder\Services;
 
+use Dcodegroup\PageBuilder\Classes\Module;
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
@@ -43,7 +44,6 @@ class PageService
         'abstract',
         'content',
         'dynamic_content',
-        'site_id',
         'template_id',
         'active',
     ];
@@ -62,6 +62,10 @@ class PageService
      * @var string
      */
     public const PREVIEW_SESSION_KEY = 'page_preview';
+
+    public function __construct(protected ModuleRepository $moduleRepository)
+    {
+    }
 
     /**
      * @param  array  $data
@@ -97,7 +101,6 @@ class PageService
             $page->dynamic_content = $data['dynamic_content'];
             $page->user_id = $data['user_id'] ?? $page->user_id;
             $page->slug = $data['slug'] ?? $page->slug;
-            $page->site_id = $data['site_id'] ?? $page->site_id;
             $page->template_id = $data['template_id'] ?? $page->template_id;
             $page->active = $page->isDynamic ? true : (isset($data['active']) ? true : false);
 
@@ -108,11 +111,7 @@ class PageService
         return Page::create($data + ['user_id' => auth()->user()->id]);
     }
 
-    /**
-     * @param  string  $slug
-     * @return mixed
-     */
-    public static function getPageBySlug(string $slug)
+    public function getPageBySlug(string $slug): ?Page
     {
         if (strstr($slug, '/') && $path = explode('/', $slug)) {
             // Limit to 5 nested TODO validate on save
@@ -121,18 +120,14 @@ class PageService
             }
 
             // Get first page
-            $page = Page::where('slug', array_shift($path))->whereNull('parent_id')->first();
+            $page = Page::query()->where('slug', array_shift($path))->whereNull('parent_id')->first();
 
             // Loop over path and fetch each page down the chain
             for ($i = 0; count($path) > $i; $i++) {
-                $page = Page::where('slug', $path[$i]);
+                $page = Page::query()->where('slug', $path[$i]);
 
                 if (isset($page->parent_id)) {
                     $page = $page->where('parent_id', $page->parent_id);
-                }
-
-                if (count($path) === $i) {
-                    $page = $page->with('site');
                 }
 
                 $page = $page->first();
@@ -141,34 +136,20 @@ class PageService
             return $page;
         }
 
-        return Page::where('slug', $slug)->whereNull('parent_id')->with('site')->first();
+        return Page::query()->where('slug', $slug)->whereNull('parent_id')->first();
     }
 
-    /**
-     * @param  Page  $page
-     * @return bool|null
-     *
-     * @throws \Exception
-     */
-    public static function delete(Page $page)
+    public static function delete(Page $page): bool|null
     {
         return $page->delete();
     }
 
-    /**
-     * @param  Page  $page
-     * @param  array  $data
-     */
-    public static function persistPreview(Page $page, array $data)
+    public static function persistPreview(Page $page, array $data): void
     {
         session()->flash(self::PREVIEW_SESSION_KEY.$page->id, $data);
     }
 
-    /**
-     * @param  Page  $page
-     * @return null
-     */
-    public static function generatePreviewPage(Page $page)
+    public static function generatePreviewPage(Page $page): mixed
     {
         if (! session()->has(self::PREVIEW_SESSION_KEY.$page->id)) {
             return abort(419);
@@ -182,10 +163,7 @@ class PageService
         return $page;
     }
 
-    /**
-     * @param  Page  $page
-     */
-    public static function saveRevision(Page $page)
+    public static function saveRevision(Page $page): void
     {
         PageRevision::create([
             'page_id' => $page->id,
@@ -196,12 +174,7 @@ class PageService
         ]);
     }
 
-    /**
-     * @param  PageRevision  $revision
-     *
-     * @throws \Exception
-     */
-    public static function restoreRevision(PageRevision $revision)
+    public static function restoreRevision(PageRevision $revision): void
     {
         $pageData = array_merge($revision->attributesToArray(), $revision->page->attributesToArray());
 
@@ -211,53 +184,25 @@ class PageService
         self::deleteRevision($revision);
     }
 
-    /**
-     * @param  PageRevision  $revision
-     *
-     * @throws \Exception
-     */
-    public static function deleteRevision(PageRevision $revision)
+    public static function deleteRevision(PageRevision $revision): void
     {
         $revision->delete();
     }
 
-    /**
-     * @param  array  $source
-     * @param  bool  $json
-     * @return false|string
-     */
-    public static function getModules($source, $json = true)
+    public function constructPageContent(string $content): string
     {
-        $modules = [];
-
-        foreach ($source as $class) {
-            try {
-                $modules[(new ReflectionClass($class))->getShortName()] = call_user_func($class.'::module');
-            } catch (ReflectionException $exception) {
-                continue;
-            }
-        }
-
-        return $json ? json_encode($modules) : $modules;
-    }
-
-    /**
-     * @param  string  $content
-     * @return string
-     */
-    public static function constructPageContent(string $content)
-    {
-        $moduleRepository = resolve(ModuleRepository::class);
-
         try {
             $content = json_decode($content);
 
-            foreach ($content as &$m) {
-                $module = $moduleRepository->findByName($m->module);
-                $d = call_user_func($module.'::template');
-                foreach ($d['fields'] as $key => $field) {
-                    if (! isset($m->fields->{$key})) {
-                        $m->fields->{$key} = (object) $field;
+            foreach ($content as &$moduleConfig) {
+                $module = $this->moduleRepository->findByName($moduleConfig->module);
+                $module = resolve($module);
+
+                $data = app()->call([$module, 'template']);
+
+                foreach ($data['fields'] as $key => $field) {
+                    if (! isset($moduleConfig->fields->{$key})) {
+                        $moduleConfig->fields->{$key} = (object) $field;
                     }
                 }
             }
@@ -268,38 +213,28 @@ class PageService
         return json_encode($content);
     }
 
-    /**
-     * @param  Page  $page
-     * @return |null
-     */
-    public static function getDynamicPageModules(Page $page)
-    {
-        if (! isset($page->route) || ! ($d = collect(self::DYNAMIC_PAGES)->where('route', $page->route)
-                                                                         ->first()) || ! isset($d['modules'])) {
-            return null;
-        }
+//    public static function getDynamicPageModules(Page $page)
+//    {
+//        if (! isset($page->route) || ! ($d = collect(self::DYNAMIC_PAGES)->where('route', $page->route)
+//                                                                         ->first()) || ! isset($d['modules'])) {
+//            return null;
+//        }
+//
+//        $c = json_decode($page->dynamic_content);
+//
+//        return collect(self::getModules($d['modules'], false))->map(function ($module, $class) use ($c) {
+//            $module['module'] = $class;
+//            $module['id'] = (string) Str::uuid();
+//
+//            foreach ($module['fields'] as $key => &$field) {
+//                $field['value'] = $c->{$class}->fields->{$key}->value ?? $field['value'];
+//            }
+//
+//            return $module;
+//        })->toJson();
+//    }
 
-        $c = json_decode($page->dynamic_content);
-
-        return collect(self::getModules($d['modules'], false))->map(function ($module, $class) use ($c) {
-            $module['module'] = $class;
-            $module['id'] = (string) Str::uuid();
-
-            foreach ($module['fields'] as $key => &$field) {
-                $field['value'] = $c->{$class}->fields->{$key}->value ?? $field['value'];
-            }
-
-            return $module;
-        })->toJson();
-    }
-
-    /**
-     * @param  Page  $page
-     * @return string
-     *
-     * @throws \Throwable
-     */
-    public static function render(Page $page)
+    public function render(Page $page): string|null
     {
         if (! $modules = json_decode($page->content)) {
             return null;
@@ -307,26 +242,40 @@ class PageService
 
         $html = '';
 
+        $config = $this->moduleRepository->buildConfigurations(json: false);
+
         foreach ($modules as $content) {
-            $template = call_user_func('App\Services\CMS\Modules\\'.$content->module.'::template');
+            $module = $config->firstWhere('name', $content->name);
 
-            if (($view = 'cms.modules.'.Str::kebab($content->module)) && ! view()->exists($view)) {
-                $html .= '<p>View '.$view.' does not exist.</p>';
-
+            if (! $module) {
+                $html .= "<p>Module {$content->name} does not exist.</p>";
                 continue;
             }
 
-            $templateFields = json_decode(json_encode($template['fields']));
-            if ($content->module == 'ProjectSlider') {
-                $contentArray = (array) $content->fields;
-                $templateArray = (array) $templateFields;
+            $moduleClass = $module['className'];
 
-                $merge = array_merge($templateArray, $contentArray);
-                $merge['items'] = $templateArray['items'];
-                $content->fields = (object) $merge;
-            } else {
-                $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
+            /** @var Module $module */
+            $module = resolve($moduleClass);
+
+            $template = app()->call([$module, 'template']);
+
+            $view = $module->viewName();
+            if (! view()->exists($view)) {
+                $html .= '<p>View '.$view.' does not exist.</p>';
+                continue;
             }
+
+            $templateFields = $template['fields'];
+//            if ($content->module == 'ProjectSlider') {
+//                $contentArray = (array) $content->fields;
+//                $templateArray = (array) $templateFields;
+//
+//                $merge = array_merge($templateArray, $contentArray);
+//                $merge['items'] = $templateArray['items'];
+//                $content->fields = (object) $merge;
+//            } else {
+                $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
+//            }
 
             $html .= view($view)->with('fields', $content->fields)->render();
         }
@@ -334,11 +283,7 @@ class PageService
         return $html;
     }
 
-    /**
-     * @param  string  $string
-     * @return string|string[]|null
-     */
-    public static function stripSpaces(string $string)
+    public static function stripSpaces(string $string): string
     {
         return preg_replace('/\s+/', '', $string);
     }

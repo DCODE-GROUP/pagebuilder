@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcodegroup\PageBuilder\Http\Controllers;
+namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;

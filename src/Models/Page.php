@@ -3,6 +3,7 @@
 namespace Dcodegroup\PageBuilder\Models;
 
 use Dcodegroup\PageBuilder\Models\Seo;
+use Dcodegroup\PageBuilder\Services\PageService;
 use Dcodegroup\PageBuilder\Traits\CMSMenuResource;
 use Dcodegroup\PageBuilder\Traits\DatesForHumans;
 use Dcodegroup\PageBuilder\Traits\ScopeActive;
@@ -107,5 +108,10 @@ class Page extends Model
         });
 
         return $options;
+    }
+
+    public function render()
+    {
+        return resolve(PageService::class)->render($this);
     }
 }

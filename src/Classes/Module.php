@@ -2,19 +2,22 @@
 
 namespace Dcodegroup\PageBuilder\Classes;
 
+use Illuminate\Support\Str;
+
 abstract class Module
 {
-    /**
-     * @return mixed
-     */
-    abstract public static function template();
+    abstract public function template(): array;
 
-    /**
-     * @return array
-     */
-    public static function module()
+    public function viewName(): string
     {
-        $template = static::template();
+        // NOTE: use static instead of self because of inheritance
+        return 'page-builder::modules.' . Str::slug(class_basename(static::class));
+    }
+
+    public function module(): array
+    {
+        $template = $this->template();
+
         foreach ($template['fields'] as &$field) {
             unset($field['rules']);
         }

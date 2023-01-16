@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcodegroup\PageBuilder\Http\Controllers;
+namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Dcodegroup\PageBuilder\Services\MenuService;
 use Illuminate\Contracts\View\View;

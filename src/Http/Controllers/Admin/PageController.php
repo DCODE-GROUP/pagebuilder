@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcodegroup\PageBuilder\Http\Controllers;
+namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Dcodegroup\PageBuilder\Http\Requests\PageRequest;
 use Dcodegroup\PageBuilder\Models\Page;
@@ -13,7 +13,7 @@ use Illuminate\Http\Response;
 
 class PageController extends Controller
 {
-    public function __construct(protected ModuleRepository $moduleRepository)
+    public function __construct(protected ModuleRepository $moduleRepository, protected PageService $pageService)
     {
     }
 
@@ -24,8 +24,10 @@ class PageController extends Controller
         // Search filter
         if ($request->filled('search')) {
             $term = '%'.$request->input('search').'%';
-            $query->where('title', 'like', $term)->orWhere('abstract', 'like', $term)->orWhere('content', 'like', $term)
-                  ->orWhere('dynamic_content', 'like', $term);
+            $query->where('title', 'like', $term)
+                ->orWhere('abstract', 'like', $term)
+                ->orWhere('content', 'like', $term)
+                ->orWhere('dynamic_content', 'like', $term);
         }
 
         return view('page-builder::pages.index')->with('pages', $query->orderByDesc('created_at')->paginate());
@@ -33,7 +35,8 @@ class PageController extends Controller
 
     public function create(): View
     {
-        return view('page-builder::pages.edit')->with('CMSModules', PageService::getModules($this->moduleRepository->getValues()));
+        return view('page-builder::pages.edit')
+            ->with('CMSModules', $this->moduleRepository->buildConfigurations());
     }
 
     public function store(PageRequest $request): RedirectResponse
@@ -57,10 +60,12 @@ class PageController extends Controller
 
     public function edit(Page $page): View
     {
-        $CMSModules = PageService::getModules($this->moduleRepository->getValues());
-        $DynamicCMSModules = PageService::getDynamicPageModules($page);
+        $CMSModules = $this->moduleRepository->buildConfigurations();
 
-        return view('page-builder::pages.edit', compact('page', 'CMSModules', 'DynamicCMSModules'));
+        return view('page-builder::pages.edit')
+            ->with('page', $page)
+            ->with('CMSModules', $CMSModules)
+            ->with('pageService', $this->pageService);
     }
 
     public function update(PageRequest $request, Page $page): RedirectResponse

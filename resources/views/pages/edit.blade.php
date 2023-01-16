@@ -77,7 +77,7 @@
                 <content-builder
                         :modules="{{ $CMSModules }}"
                         :dynamic-modules="{{ $DynamicCMSModules ?? '{}' }}"
-                        :page-content="{{ PageService::constructPageContent(old('content') ?? $page->content ?? '[]') }}"></content-builder>
+                        :page-content="{{ $pageService->constructPageContent(old('content') ?? $page->content ?? '[]') }}"></content-builder>
                 {!! $errors->first('content', '<span class="form-error is-visible">:message</span>') !!}
             </div>
         </div>
@@ -104,7 +104,7 @@
                     @endisset
                 </div>
                 @if (isset($page) && !$page->isDynamic)
-                    @include('_partials.delete-confirm', [
+                    @include('page-builder::_partials.delete-confirm', [
                         'object' => $page,
                         'type' => 'page',
                         'route' => 'admin.pages.destroy',
