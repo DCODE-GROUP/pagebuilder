@@ -4,6 +4,8 @@ namespace Dcodegroup\PageBuilder;
 
 use Collective\Html\FormBuilder;
 use Dcodegroup\PageBuilder\Http\Controllers\SiteController;
+use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +18,18 @@ class PageBuilderServiceProvider extends ServiceProvider
     public function register()
     {
         $this->providesDefaultConfig();
+
+        $this->app->bind(ModuleRepository::class, function (Application $app) {
+            return new ModuleRepository($app->tagged('page-builder-modules'));
+        });
+
+        // EXAMPLE 1: Overwrite a default module with own:
+        //  $this->app->bind(\Dcodegroup\PageBuilder\Modules\Heading::class, Heading::class);
+
+        // EXAMPLE 2: Add new modules
+        //  $this->app->tag([
+        //      Heading::class
+        //  ], 'page-builder-modules');
     }
 
     public function boot()
@@ -28,6 +42,8 @@ class PageBuilderServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerViews();
         $this->registerMacros();
+
+        $this->registerDefaultModules();
     }
 
     private function publishConfigs()
@@ -116,5 +132,16 @@ class PageBuilderServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/page-builder.php', 'page-builder'
         );
+    }
+
+    private function registerDefaultModules()
+    {
+        $this->app->tag([
+            Modules\Heading::class,
+            Modules\ImageSlider::class,
+            Modules\SingleColumn::class,
+            Modules\TwoColumn::class,
+            Modules\TwoColumnWithImage::class,
+        ], 'page-builder-modules');
     }
 }
