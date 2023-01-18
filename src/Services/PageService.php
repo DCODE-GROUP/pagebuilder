@@ -195,11 +195,9 @@ class PageService
             $content = json_decode($content);
 
             foreach ($content as &$moduleConfig) {
-                $module = $this->moduleRepository->findByName($moduleConfig->module);
-                $module = resolve($module);
+                $data = $this->moduleRepository->buildConfiguration($moduleConfig->module);
 
-                $data = app()->call([$module, 'template']);
-
+                // Merge with default values
                 foreach ($data['fields'] as $key => $field) {
                     if (! isset($moduleConfig->fields->{$key})) {
                         $moduleConfig->fields->{$key} = (object) $field;
@@ -257,7 +255,7 @@ class PageService
             /** @var Module $module */
             $module = resolve($moduleClass);
 
-            $template = app()->call([$module, 'template']);
+            $template = app()->call([$module, 'configuration']);
 
             $view = $module->viewName();
             if (! view()->exists($view)) {

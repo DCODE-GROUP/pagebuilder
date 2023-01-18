@@ -6,7 +6,7 @@ use Dcodegroup\PageBuilder\Classes\Module;
 
 class SingleColumn extends Module
 {
-    public function template(): array
+    public function configuration(): array
     {
         return [
             'name' => 'Single column',

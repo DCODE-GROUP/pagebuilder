@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 abstract class Module
 {
-    abstract public function template(): array;
+    abstract public function configuration(): array;
 
     public function viewName(): string
     {
@@ -14,14 +14,8 @@ abstract class Module
         return 'page-builder::modules.' . Str::slug(class_basename(static::class));
     }
 
-    public function configuration(): array
+    public function availableTemplates(): array
     {
-        $template = $this->template();
-
-        foreach ($template['fields'] as &$field) {
-            unset($field['rules']);
-        }
-
-        return $template;
+        return [];
     }
 }
