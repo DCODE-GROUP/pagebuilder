@@ -13,9 +13,9 @@ return [
         'front' => [
             'middlewares' => [],
 
-            'prefix' => '',
+            'prefix' => '/',
 
-            'name_prefix' => '',
+            'name_prefix' => 'cms.',
         ],
     ],
 ];
