@@ -15,7 +15,8 @@
 </template>
 
 <script>
-    import vSelect from 'vue-select-3';
+import vSelect from 'vue-select'
+
     import _ from 'lodash'
 
     export default {

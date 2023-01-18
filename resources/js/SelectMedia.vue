@@ -1,36 +1,30 @@
 <template>
     <div class="select-media" :class="{'-single': ! selectMobile}">
-        <div class="-files">
-            <div class="-file -desktop"
+        <div class="flex space-x-4 -files ">
+            <div class="-file -desktop media"
                  title="1570x1000px desktop (or 575x500px) / no more than 200kb"
                  @click="openManager"
-                 :class="{'-set':item}">
-                <span class="-icon">
-                    <i class="fal fa-desktop"></i>
-                </span>
-                <span v-if="item" class="-clear" @click.stop="selectItem('')">
-                    <i class="fal fa-times"></i>
-                </span>
-                <h4 v-if="! item">
-                    <i class="fal fa-plus"></i><br>
-                    <span>{{ label }}</span>
-                </h4>
+                 :class="{'!w-full':single}">
+                 <div>
+                     <span v-if="item" class="-clear" @click.stop="selectItem('')">x</span>
+                     <h5 v-else>
+                        <p>+</p>
+                         <span>{{ label }}</span>
+                     </h5>
+                 </div>
             </div>
-            <div class="-file -phone"
+            <div class="-file -phone media"
                  title="650x700px mobile (325x350px) / no more than 100kb"
                  @click="openManager($event, true)"
                  v-if="selectMobile"
-                 :class="{'-set':mobileItem}">
-                <span class="-icon">
-                    <i class="fal fa-mobile-android"></i>
-                </span>
-                <span v-if="mobileItem" class="-clear" @click.stop="selectItem('', true)">
-                    <i class="fal fa-times"></i>
-                </span>
-                <h4 v-if="! mobileItem">
-                    <i class="fal fa-plus"></i><br>
-                    <span>Mobile Image</span>
-                </h4>
+                 :class="{'!w-full':single}">
+                 <div>
+                     <span v-if="mobileItem" class="-clear" @click.stop="selectItem('', true)">x</span>
+                     <h5 v-else>
+                        <p>+</p>
+                         <p>Mobile Image</p>
+                     </h5>
+                 </div>
             </div>
         </div>
         <input type="hidden" :name="field" :id="field" v-model="item" v-if="field"/>
@@ -45,6 +39,10 @@
             selectMobile: {
                 type: Boolean,
                 default: true
+            },
+            single: {
+                type: Boolean,
+                default: false
             },
             field: {
                 type: String,
@@ -101,3 +99,10 @@
         }
     }
 </script>
+
+<style lang="postcss" scoped>
+.media {
+    @apply inline-flex items-center justify-center w-1/2 h-40 border rounded-lg border-brand-green text-center;
+    @apply cursor-pointer transition-colors hover:bg-brand-almond-100;
+}
+</style>

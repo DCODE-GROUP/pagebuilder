@@ -1,50 +1,65 @@
 <template>
     <div>
-        <h3>Two Column With Image</h3>
-
-        <label>
-            Body
+        <header class="pb-2 mb-4 border-b border-gray-400">
+            <h3>Two Column With Image</h3>
+        </header>
+        
+        <div class="mb-4">
+            <label class="form-label">Body</label>
             <tinymce-editor v-model="body" :init="tinyMCEConfig" @onChange="update('body')"></tinymce-editor>
-        </label>
-        <label>
-            Image
-            <select-media v-model="image" @input="update('image')" :select-mobile="false"></select-media>
-        </label>
-        <label>
-            Image Link
-            <input type="text" v-model="imageLink" @change="update('imageLink')"/>
-        </label>
-        <label>
-            Rounded Image?
-            <input type="checkbox" v-model="rounded" @change="update('rounded')"/>
-        </label>
-        <label>
-            Icon
-            <select-media v-model="icon" :select-mobile="false" @input="update('icon')"></select-media>
-        </label>
-        <label>
-            Anchor name (for on-page links)
-            <input type="text" v-model="anchor" @change="update('anchor')"/>
-        </label>
-        <label>
-            Padding
-            <input type="checkbox" v-model="padding" @change="update('padding')"/>
-        </label>
-        <label>
-            Style
-            <select v-model="style" @change="update('style')">
-                <option value="">Default</option>
-                <option value="dark">Dark</option>
-                <option value="boxed-white">Boxed white</option>
-            </select>
-        </label>
-        <label>
-            Image Alignment
-            <select v-model="alignment" @change="update('alignment')">
-                <option value="right">Right</option>
-                <option value="left">Left</option>
-            </select>
-        </label>
+        </div>
+        
+        <div class="flex mb-4 space-x-4">
+            <div class="w-1/2">
+                <label class="form-label">Image</label>
+                <select-media v-model="image" @input="update('image')" :select-mobile="false" single></select-media>
+            </div>
+            
+            <div class="w-1/2">
+                <label class="form-label">Icon</label>
+                <select-media v-model="icon" :select-mobile="false" label="Icon Image" @input="update('icon')" single></select-media>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <label class="form-label">Image Link</label>
+            <input type="text" class="form-input" v-model="imageLink" @change="update('imageLink')"/>
+        </div>
+        
+
+        <div class="mb-4">
+            <label class="form-label">Anchor name (for on-page links)</label>
+            <input type="text" class="form-input" v-model="anchor" @change="update('anchor')"/>
+        </div>
+        
+        <div class="grid grid-cols-4 gap-4">
+            <div class="mb-4">
+                <label class="form-label">Padding</label>
+                <input type="checkbox" v-model="padding" @change="update('padding')"/>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Rounded Image?</label>
+                <input type="checkbox" v-model="rounded" @change="update('rounded')"/>
+            </div>
+            <div>
+                <label class="form-label">Style</label>
+                <select class="form-input" v-model="style" @change="update('style')">
+                    <option value="">Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="boxed-white">Boxed white</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label">Image Alignment</label>
+                <select class="form-input" v-model="alignment" @change="update('alignment')">
+                    <option value="right">Right</option>
+                    <option value="left">Left</option>
+                </select>
+            </div>
+        </div>
+        
+        
+
     </div>
 </template>
 

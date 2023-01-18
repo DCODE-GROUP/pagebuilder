@@ -8,6 +8,7 @@ import ImageSlider from "./cms/ImageSlider.vue"
 import SingleColumn from "./cms/SingleColumn.vue"
 import TwoColumn from "./cms/TwoColumn.vue"
 import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
+import Selector from "./Selector.vue"
 
 import vuedraggable from "vuedraggable";
 
@@ -20,6 +21,7 @@ const contentBuilderPlugin = {
         app.component('PagePreview', PagePreview);
         app.component('SelectMedia', SelectMedia);
         app.component('TitleSlug', TitleSlug);
+        app.component('Selector', Selector);
 
         const modules = {
             Heading,

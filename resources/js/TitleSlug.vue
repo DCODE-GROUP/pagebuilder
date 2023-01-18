@@ -1,17 +1,17 @@
 <template>
     <div class="flex mb-4 space-x-4">
         <div class="w-1/2">
-            <label for="title">
+            <label for="title" class="form-label">
                 Title
                 <span data-tooltip title="The title of the page displayed on the first heading.">
                     <i class="fal fa-info-circle"></i>
                 </span>
             </label>
-            <input id="title" name="title" type="text" v-model="title" @keyup="titleKeyUp" @blur="slugifyTitle" class="w-full">
+            <input id="title" name="title" type="text" v-model="title" @keyup="titleKeyUp" @blur="slugifyTitle" class="form-input">
             <span v-if="titleError" class="form-error is-visible">{{ titleError }}</span>
         </div>
         <div class="w-1/2">
-            <label for="slug">
+            <label for="slug" class="form-label">
                 Slug
                 <span data-tooltip title="The slug is used in the page URL, this is generated from the title but can also be manually edited.">
                     <i class="fal fa-info-circle"></i>
@@ -19,8 +19,10 @@
             </label>
             <div class="input-group">
                 <div class="flex items-center">
-                    <span class="mr-2">/</span>
-                    <input id="slug" name="slug" type="text" class="w-full input-group-field" v-model="slug" @keyup="slugKeyUp" @blur="slugifySlug" >
+                    <div class="inline-flex items-center h-10 mr-2">
+                        <span>/</span>
+                    </div>
+                    <input id="slug" name="slug" type="text" class="form-input" v-model="slug" @keyup="slugKeyUp" @blur="slugifySlug" >
                 </div>
             </div>
             <span v-if="slugError" class="form-error is-visible">{{ slugError }}</span>

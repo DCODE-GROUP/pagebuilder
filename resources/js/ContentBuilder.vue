@@ -1,6 +1,6 @@
 <template>
-  <div class="grid-x grid-margin-x align-top">
-    <div class="cell medium-3 content-list-wrap">
+  <div class="flex space-x-4">
+    <div class="w-1/3">
       <template v-if="!isEmpty(dynamicContent)">
         <h5>Dynamic page content</h5>
         <ul class="menu-list">
@@ -24,32 +24,34 @@
           item-key="id"
       >
         <template #item="{element, index}">
-          <li @click="component = element" :class="{ active: component === element }">
-            <i class="fal fa-align-justify handle"></i>
-            {{ element.name }}
+          <li class="list-item" @click="component = element" :class="{ active: component === element }">
+            <div class="">
+            <i class="mr-2 fal fa-align-justify cursor-handle"></i>
+              {{ element.name }}
+            </div>
             <button type="button" @click="remove(index)">
-              <i class="fal fa-times close"></i>
+            <i class="mr-2 fal fa-close"></i>
             </button>
           </li>
         </template>
       </draggable>
 
-      <button class="button expanded margin-bottom-0" type="button"
-              @click="showModuleOptions = !showModuleOptions">
+      <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
         Add module
         <i class="fal fa-plus"></i>
       </button>
 
-      <div id="add-module-menu" v-if="showModuleOptions">
-        <a v-for="(o, m) in modules" @click="add(o, m)">
+      <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-2 gap-4 p-4 bg-gray-100">
+        <a v-for="(o, m) in modules" @click="add(o, m)" :key="o" class="w-full btn btn-primary-outlined">
           <i :class="'fal fa-' + o.icon"></i>
           {{ o.name }}
         </a>
       </div>
     </div>
 
-    <div class="cell medium-9 content-edit-module-wrap">
-      <section class="content-edit-module" v-if="component" :key="component.id">
+    <div class="w-2/3">
+      
+      <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
         <component
             :is="component.module"
             :key="component.id"
@@ -58,10 +60,14 @@
             @update-content="update"
         ></component>
       </section>
-      <section class="content-edit-module content-edit-module-default" v-else>
-        <h3>Click on a module's handle and drag to re-order</h3>
-        <h4>Select a module to edit content</h4>
+
+      <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-else>
+        <div>
+          <h4>Click on a module's handle and drag to re-order</h4>
+          <h6>Select a module to edit content</h6>
+        </div>
       </section>
+
     </div>
 
     <!--        <pre>{{ content }}</pre>-->
@@ -163,3 +169,9 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.list-item {
+  @apply flex items-center justify-between py-2 px-4 border border-gray-200 mb-4 rounded;
+}
+</style>

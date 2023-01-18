@@ -1,26 +1,29 @@
 <template>
     <div>
-        <h3>Two Column</h3>
+        <header class="pb-2 mb-4 border-b border-gray-400">
+            <h3>Two Column</h3>
+        </header>
 
-        <label>
-            Heading
-            <input type="text" v-model="heading" @keyup="update('heading')"/>
-        </label>
-        <label>
-            First column content
-            <tinymce-editor v-model="body_one" :init="tinyMCEConfig" @onChange="update('body_one')"></tinymce-editor>
-        </label>
-        <label>
-            Second column content
-            <tinymce-editor v-model="body_two" :init="tinyMCEConfig" @onChange="update('body_two')"></tinymce-editor>
-        </label>
-
-        <hr/>
-
-        <label>
-            Padding
+        <div class="mb-4">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-input" v-model="heading" @keyup="update('heading')"/>
+        </div>
+        
+        <div class="flex mb-4 space-x-4">
+            <div class="w-1/2">
+                <label class="form-label">First column content</label>
+                <tinymce-editor v-model="body_one" :init="tinyMCEConfig" @onChange="update('body_one')"></tinymce-editor>
+            </div>
+            <div class="w-1/2">
+                <label class="form-label">Second column content</label>
+                <tinymce-editor v-model="body_two" :init="tinyMCEConfig" @onChange="update('body_two')"></tinymce-editor>
+            </div>
+        </div>
+        
+        <div class="flex">
             <input type="checkbox" v-model="padding" @change="update('padding')"/>
-        </label>
+            <label class="ml-2 form-label">Padding</label>
+        </div>
     </div>
 </template>
 

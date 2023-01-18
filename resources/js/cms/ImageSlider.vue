@@ -1,30 +1,34 @@
 <template>
     <div class="image-slider-module">
-        <h3>Image Slider</h3>
+        <header class="pb-2 mb-4 border-b border-gray-400">
+            <h3>Image Slider</h3>
+        </header>
 
         <draggable
             tag="div"
-            :list="items"
+            :list="items" 
+            item-key="id"
             handle=".handle"
         >
-            <div class="module-item -slider" v-for="(o, i) in items" :key="o.id">
+        <template #item="{element, index}">
+            <div class="module-item -slider">
                 <div class="handle"></div>
                 <div class="-images">
-                    <select-media v-model="o.image" :select-mobile="false"></select-media>
-                    <select-media v-model="o.mobile_image" :select-mobile="false" label="Mobile Image"></select-media>
+                    <select-media v-model="element.image" :select-mobile="false"></select-media>
+                    <select-media v-model="element.mobile_image" :select-mobile="false" label="Mobile Image"></select-media>
                 </div>
                 <div class="module-item-options">
                     <label>
                         Caption
-                        <input type="text" v-model="o.caption"/>
+                        <input type="text" v-model="element.caption"/>
                     </label>
                     <label>
                         Link
-                        <input type="text" v-model="o.link"/>
+                        <input type="text" v-model="element.link"/>
                     </label>
                     <label>
                         Image Alignment
-                        <select v-model="o.alignment" @change="update('alignment')">
+                        <select v-model="element.alignment" @change="update('alignment')">
                             <option value="center">Center</option>
                             <option value="top">Top</option>
                             <option value="bottom">Bottom</option>
@@ -36,6 +40,7 @@
                     </button>
                 </div>
             </div>
+            </template>
         </draggable>
 
         <button type="button" class="button tiny" @click="add">
@@ -67,6 +72,7 @@
 <script>
 import Module from "../Module.vue"
 import Draggable from "vuedraggable";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     extends: Module,

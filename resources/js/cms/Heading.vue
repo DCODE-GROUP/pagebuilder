@@ -1,22 +1,33 @@
 <template>
     <div>
-        <h3>Heading</h3>
+        <header class="pb-2 mb-4 border-b border-gray-400">
+            <h3 class="">Heading</h3>
+        </header>
 
-        <label>
-            Heading
-            <input type="text" v-model="heading" @keyup="update('heading')"/>
-        </label>
-        <label>
-            Sub heading
-            <input type="text" v-model="sub_heading" @keyup="update('sub_heading')"/>
-        </label>
-
-        <hr/>
-
-        <label>
-            Dark
+        <div class="flex mb-4 space-x-4">
+            <div class="w-1/3">
+                <label class="form-label">Heading</label>
+                <input 
+                    type="text" 
+                    class="form-input"
+                    v-model="heading" 
+                    @keyup="update('heading')"
+                />
+            </div>
+            <div class="w-1/3">
+                <label class="form-label">Sub heading</label>
+                <input 
+                    type="text" 
+                    class="form-input"
+                    v-model="sub_heading" 
+                    @keyup="update('sub_heading')"
+                />
+            </div>
+        </div>
+        <div class="flex">
             <input type="checkbox" v-model="dark" @change="update('dark')"/>
-        </label>
+            <label class="ml-2 form-label">Dark</label>
+        </div>
     </div>
 </template>
 
