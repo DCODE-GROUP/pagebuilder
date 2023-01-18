@@ -42,15 +42,15 @@
       </button>
 
       <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-2 gap-4 p-4 bg-gray-100">
-        <a v-for="(o, m) in modules" @click="add(o, m)" :key="o" class="w-full btn btn-primary-outlined">
-          <i :class="'fal fa-' + o.icon"></i>
-          {{ o.name }}
+        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="w-full btn btn-primary-outlined">
+          <i :class="'fal fa-' + module.icon"></i>
+          {{ module.name }}
         </a>
       </div>
     </div>
 
     <div class="w-2/3">
-      
+
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
         <div>
           <div>
@@ -126,53 +126,49 @@ export default {
     },
   },
   methods: {
-    json(c = 'content') {
-      return JSON.stringify(this[c]);
+    json(prop = 'content') {
+      return JSON.stringify(this[prop]);
     },
-    remove(i) {
-      this.content.splice(i, 1);
+    remove(index) {
+      this.content.splice(index, 1);
       this.component = null;
     },
-    add(o, m) {
-      const c = _.cloneDeep(o);
-
+    add(module, name) {
       const component = {
         id: uuidv4(),
-        module: m,
-        name: c.name,
-        fields: c.fields,
-        show: true
+        module: name,
+        show: true,
+        ...module,
       };
 
       this.content.push(component);
       this.showModuleOptions = false;
       this.component = component;
     },
-    update(a) {
-      const i = _.findIndex(this.content, (o) => {
-        return o.id === a[0];
+    update(payload) {
+      const [uuid, prop, value] = payload;
+
+      const i = _.findIndex(this.content, (module) => {
+        return module.id === uuid;
       });
 
-      Object.keys(this.dynamicContent).forEach((key) => {
-        if (this.dynamicContent[key].id === a[0]) {
-          return this.dynamicContent[key].fields[a[1]].value = a[2];
-        }
-      })
+      // Object.keys(this.dynamicContent).forEach((key) => {
+      //   if (this.dynamicContent[key].id === uuid) {
+      //     return this.dynamicContent[key].fields[prop].value = value;
+      //   }
+      // })
 
       if (i === -1) {
         return;
       }
 
-      if (typeof this.content[i].fields[a[1]] === 'undefined') {
-        this.content[i].fields[a[1]] = {
-          value: a[2]
-        }
-      }
-
-      return this.content[i].fields[a[1]].value = a[2];
+      this.content[i].fields[prop] = {
+        ...this.content[i].fields[prop],
+        value,
+      };
     },
-    isEmpty(o) {
-      return _.isEmpty(o);
+    isEmpty(object) {
+      return _.isEmpty(object);
     }
   }
 }
