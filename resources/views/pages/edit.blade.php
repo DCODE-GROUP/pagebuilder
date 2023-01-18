@@ -2,9 +2,9 @@
 <x-app-layout>
     <div class="pt-8 pb-32">
         @if (isset($page))
-        {{ Form::model($page, ['route' => ['admin.pages.update', $page], 'method' => 'PUT', 'autocomplete' => 'off', 'name' => 'page_form']) }}
+        {{ Form::model($page, ['route' => [\Dcodegroup\PageBuilder\Routes::admin('pages.update'), $page], 'method' => 'PUT', 'autocomplete' => 'off', 'name' => 'page_form']) }}
         @else
-        {{ Form::open(['route' => 'admin.pages.store', 'method' => 'post', 'autocomplete' => 'off', 'name' => 'page_form']) }}
+        {{ Form::open(['route' => \Dcodegroup\PageBuilder\Routes::admin('pages.store'), 'method' => 'post', 'autocomplete' => 'off', 'name' => 'page_form']) }}
         @endif
 
         <header class="mb-4">
@@ -83,7 +83,7 @@
         @include('page-builder::_partials.delete-confirm', [
         'object' => $page,
         'type' => 'page',
-        'route' => 'admin.pages.destroy',
+        'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
         'label' => 'page ' . $page->title
         ])
         @endif
@@ -99,7 +99,7 @@
                     <page-preview {{ isset($page) ? 'page-id=' . $page->id : ''}}></page-preview>
 
                     @isset ($page)
-                    <a href="{{ route('admin.pages.revisions.index', $page) }}" class="btn btn-primary btn-primary-outlined">
+                    <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
                         Revisions {{ $page->revisionsCount ? '(' . $page->revisionsCount . ')' : null }}
                     </a>
                     @endisset

@@ -5,6 +5,7 @@ namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 use Dcodegroup\PageBuilder\Http\Requests\PageRequest;
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
+use Dcodegroup\PageBuilder\Routes;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -44,7 +45,7 @@ class PageController extends Controller
     {
         PageService::save($request->only(PageService::REQUEST_PARAMS));
 
-        return redirect()->route('pages.index')->with('status', 'Page was successfully created');
+        return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully created');
     }
 
     public function preview(Page $page): View
@@ -71,7 +72,7 @@ class PageController extends Controller
     {
         PageService::save($request->only(PageService::REQUEST_PARAMS), $page);
 
-        return redirect()->route('pages.edit', $page)->with('status', 'Page was successfully updated');
+        return redirect()->route(Routes::admin('pages.edit'), $page)->with('status', 'Page was successfully updated');
     }
 
     public function destroy(Page $page): RedirectResponse
@@ -82,6 +83,6 @@ class PageController extends Controller
 
         PageService::delete($page);
 
-        return redirect()->route('pages.index')->with('status', 'Page was successfully deleted');
+        return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully deleted');
     }
 }

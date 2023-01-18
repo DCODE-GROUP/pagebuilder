@@ -4,6 +4,7 @@ namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;
+use Dcodegroup\PageBuilder\Routes;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +22,7 @@ class PageRevisionController extends Controller
     {
         PageService::restoreRevision($revision);
 
-        return redirect()->route('admin.pages.edit', $revision->page)
+        return redirect()->route(Routes::admin('pages.edit'), $revision->page)
                          ->with('status', 'Page revision content was restored');
     }
 

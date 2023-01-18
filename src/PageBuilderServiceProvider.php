@@ -67,39 +67,47 @@ class PageBuilderServiceProvider extends ServiceProvider
     private function registerRoutes()
     {
         Route::macro('pageBuilder', function (
-            string $prefix = 'pages',
-            string $name = 'pages',
         ) {
-            Route::resource($prefix, PageController::class)->except('show');
+            Route::name(config('page-builder.routing.admin.name_prefix'))
+                ->prefix(config('page-builder.routing.admin.prefix'))
+                ->middleware(config('page-builder.routing.admin.middlewares'))
+                ->group(function () {
+                    Route::resource('pages', PageController::class)->except('show');
 
-            Route::get("$prefix/{page}/preview", [
-                PageController::class,
-                'preview',
-            ])->name("$name.preview");
+                    Route::get("pages/{page}/preview", [
+                        PageController::class,
+                        'preview',
+                    ])->name("pages.preview");
 
-            Route::put("$prefix/{page}/preview", [
-                PageController::class,
-                'updatePreview',
-            ])->name("$name.preview.update");
+                    Route::put("pages/{page}/preview", [
+                        PageController::class,
+                        'updatePreview',
+                    ])->name("pages.preview.update");
 
-            Route::get("$prefix/{page}/revisions", [
-                PageRevisionController::class,
-                'index',
-            ])->name("$name.revisions.index");
+                    Route::get("pages/{page}/revisions", [
+                        PageRevisionController::class,
+                        'index',
+                    ])->name("pages.revisions.index");
 
-            Route::put("$prefix/revisions/{revision}", [
-                PageRevisionController::class,
-                'restore',
-            ])->name("$name.revisions.restore");
+                    Route::put("pages/revisions/{revision}", [
+                        PageRevisionController::class,
+                        'restore',
+                    ])->name("pages.revisions.restore");
 
-            Route::delete("$prefix/revisions/{revision}", [
-                PageRevisionController::class,
-                'destroy',
-            ])->name("$name.revisions.destroy");
+                    Route::delete("pages/revisions/{revision}", [
+                        PageRevisionController::class,
+                        'destroy',
+                    ])->name("pages.revisions.destroy");
+                });
         });
 
-        Route::macro('cms', function () {
-            Route::get('/{slug}', SiteController::class)->name('cms.view');
+        Route::macro('cmsFront', function () {
+            Route::name(config('page-builder.routing.front.name_prefix'))
+                ->prefix(config('page-builder.routing.front.prefix'))
+                ->middleware(config('page-builder.routing.admin.middlewares'))
+                ->group(function () {
+                    Route::get('/{slug}', SiteController::class)->name('view');
+                });
         });
     }
 
