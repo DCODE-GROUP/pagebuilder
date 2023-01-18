@@ -14,7 +14,7 @@ class PageRevisionController extends Controller
     {
         $revisions = $page->revisions()->paginate(20);
 
-        return view('admin.cms.revisions.index', compact('page', 'revisions'));
+        return view('page-builder::revisions.index', compact('page', 'revisions'));
     }
 
     public function restore(PageRevision $revision): RedirectResponse
