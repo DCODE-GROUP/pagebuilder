@@ -15,7 +15,7 @@ class PageBuilderServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
+        $this->providesDefaultConfig();
     }
 
     public function boot()
@@ -109,5 +109,12 @@ class PageBuilderServiceProvider extends ServiceProvider
 
             return new HtmlString('<selector name="'.$name.'" initial="'.$selected.'" :options=\''.json_encode(call_user_func($class.'::'.$method, $this->model)).'\' '.$a.'/>');
         });
+    }
+
+    private function providesDefaultConfig()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/page-builder.php', 'page-builder'
+        );
     }
 }
