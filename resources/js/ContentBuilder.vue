@@ -56,6 +56,14 @@
           <div>
             <header class="pb-2 mb-4 border-b border-gray-400 flex justify-between">
               <h3 class="">{{ component.name }}</h3>
+              <div v-if="component.templates.length > 1" class="space-x-4">
+                <span>Template:</span>
+                <select>
+                  <option v-for="template in component.templates" :value="template">
+                    {{ template }}
+                  </option>
+                </select>
+              </div>
             </header>
           </div>
 
