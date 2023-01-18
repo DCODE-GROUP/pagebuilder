@@ -1,9 +1,5 @@
 <template>
     <div>
-        <header class="pb-2 mb-4 border-b border-gray-400">
-            <h3>Single Column</h3>
-        </header>
-
         <div class="flex mb-4 space-x-4">
             <div class="w-1/3">
                 <label class="form-label">Heading</label>

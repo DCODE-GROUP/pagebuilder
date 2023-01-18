@@ -52,13 +52,21 @@
     <div class="w-2/3">
       
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
-        <component
-            :is="component.module"
-            :key="component.id"
-            :id="component.id"
-            :fields="component.fields"
-            @update-content="update"
-        ></component>
+        <div>
+          <div>
+            <header class="pb-2 mb-4 border-b border-gray-400 flex justify-between">
+              <h3 class="">{{ component.name }}</h3>
+            </header>
+          </div>
+
+          <component
+              :is="component.module"
+              :key="component.id"
+              :id="component.id"
+              :fields="component.fields"
+              @update-content="update"
+          ></component>
+        </div>
       </section>
 
       <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-else>

@@ -1,9 +1,5 @@
 <template>
     <div>
-        <header class="pb-2 mb-4 border-b border-gray-400">
-            <h3>Two Column</h3>
-        </header>
-
         <div class="mb-4">
             <label class="form-label">Heading</label>
             <input type="text" class="form-input" v-model="heading" @keyup="update('heading')"/>

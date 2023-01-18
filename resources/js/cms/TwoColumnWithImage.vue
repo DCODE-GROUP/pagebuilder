@@ -1,9 +1,5 @@
 <template>
     <div>
-        <header class="pb-2 mb-4 border-b border-gray-400">
-            <h3>Two Column With Image</h3>
-        </header>
-        
         <div class="mb-4">
             <label class="form-label">Body</label>
             <tinymce-editor v-model="body" :init="tinyMCEConfig" @onChange="update('body')"></tinymce-editor>
