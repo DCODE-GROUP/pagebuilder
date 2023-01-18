@@ -26,9 +26,6 @@
                 @foreach($pages as $page)
                 <tr>
                     <td>
-                        @if ($page->isDynamic)
-                        <i class="fal fa-thumbtack"></i>&nbsp;
-                        @endif
                         {{ $page->title }}
                     </td>
                     <td>{{ $page->relativeSlug }}</td>

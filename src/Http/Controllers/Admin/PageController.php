@@ -27,8 +27,7 @@ class PageController extends Controller
             $term = '%'.$request->input('search').'%';
             $query->where('title', 'like', $term)
                 ->orWhere('abstract', 'like', $term)
-                ->orWhere('content', 'like', $term)
-                ->orWhere('dynamic_content', 'like', $term);
+                ->orWhere('content', 'like', $term);
         }
 
         return view('page-builder::pages.index')->with('pages', $query->orderByDesc('created_at')->paginate());
@@ -77,10 +76,6 @@ class PageController extends Controller
 
     public function destroy(Page $page): RedirectResponse
     {
-        if ($page->isDynamic) {
-            return abort(405);
-        }
-
         PageService::delete($page);
 
         return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully deleted');

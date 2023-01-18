@@ -11,25 +11,6 @@ use Exception;
 class PageService
 {
     /**
-     * List any dynamic pages here from our routes
-     * Dynamic pages are not CMS generated but are provided as fixed routes
-     *
-     * @var array
-     */
-    public const DYNAMIC_PAGES = [
-        //
-    ];
-
-    /**
-     * List dynamic page routes that can be edited in CMS
-     *
-     * @var array
-     */
-    public const EDITABLE_DYNAMIC_PAGES = [
-        //
-    ];
-
-    /**
      * @var array
      */
     public const REQUEST_PARAMS = [
@@ -40,7 +21,6 @@ class PageService
         'parent_id',
         'abstract',
         'content',
-        'dynamic_content',
         'template_id',
         'active',
     ];
@@ -52,7 +32,6 @@ class PageService
         'title',
         'abstract',
         'content',
-        'dynamic_content',
     ];
 
     /**
@@ -95,11 +74,10 @@ class PageService
             $page->parent_id = $data['parent_id'] ?? null;
             $page->abstract = $data['abstract'];
             $page->content = $data['content'];
-            $page->dynamic_content = $data['dynamic_content'];
             $page->user_id = $data['user_id'] ?? $page->user_id;
             $page->slug = $data['slug'] ?? $page->slug;
             $page->template_id = $data['template_id'] ?? $page->template_id;
-            $page->active = $page->isDynamic ? true : (isset($data['active']) ? true : false);
+            $page->active = (isset($data['active']) ? true : false);
 
             return $page->update();
         }
@@ -207,27 +185,6 @@ class PageService
 
         return json_encode($content);
     }
-
-//    public static function getDynamicPageModules(Page $page)
-//    {
-//        if (! isset($page->route) || ! ($d = collect(self::DYNAMIC_PAGES)->where('route', $page->route)
-//                                                                         ->first()) || ! isset($d['modules'])) {
-//            return null;
-//        }
-//
-//        $c = json_decode($page->dynamic_content);
-//
-//        return collect(self::getModules($d['modules'], false))->map(function ($module, $class) use ($c) {
-//            $module['module'] = $class;
-//            $module['id'] = (string) Str::uuid();
-//
-//            foreach ($module['fields'] as $key => &$field) {
-//                $field['value'] = $c->{$class}->fields->{$key}->value ?? $field['value'];
-//            }
-//
-//            return $module;
-//        })->toJson();
-//    }
 
     public function render(Page $page): string|null
     {

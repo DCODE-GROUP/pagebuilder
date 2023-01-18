@@ -1,18 +1,6 @@
 <template>
   <div class="flex space-x-4">
     <div class="w-1/3">
-      <template v-if="!isEmpty(dynamicContent)">
-        <h5>Dynamic page content</h5>
-        <ul class="menu-list">
-          <li v-for="(o, m) in dynamicContent">
-            <a @click="component = o">
-              {{ o.name }}
-            </a>
-          </li>
-        </ul>
-        <hr/>
-      </template>
-
       <draggable
           tag="ul"
           class="content-list no-bullet"
@@ -88,7 +76,6 @@
 
     <!--        <pre>{{ content }}</pre>-->
     <input type="hidden" name="content" :value="json()"/>
-    <input type="hidden" name="dynamic_content" :value="json('dynamicContent')"/>
   </div>
 </template>
 <script>
@@ -101,16 +88,11 @@ export default {
   },
   props: {
     modules: Object,
-    dynamicModules: {
-      type: Object,
-      default: null
-    },
     pageContent: Array
   },
   data() {
     return {
       content: [],
-      dynamicContent: {},
       showModuleOptions: false,
       component: null
     }
@@ -118,10 +100,6 @@ export default {
   created() {
     if (this.pageContent.length) {
       this.content = _.cloneDeep(this.pageContent);
-    }
-
-    if (!this.isEmpty(this.dynamicModules)) {
-      this.dynamicContent = _.cloneDeep(this.dynamicModules);
     }
   },
   computed: {
@@ -159,12 +137,6 @@ export default {
       const i = _.findIndex(this.content, (module) => {
         return module.id === uuid;
       });
-
-      // Object.keys(this.dynamicContent).forEach((key) => {
-      //   if (this.dynamicContent[key].id === uuid) {
-      //     return this.dynamicContent[key].fields[prop].value = value;
-      //   }
-      // })
 
       if (i === -1) {
         return;
