@@ -36,7 +36,7 @@ class ModuleRepository
                 /** @var Module $module */
                 $class = $this->findByName($key);
                 $module = new $class();
-                return [$key => $module->module()];
+                return [$key => $module->configuration()];
             });
 
         return $json ? json_encode($modules) : $modules;

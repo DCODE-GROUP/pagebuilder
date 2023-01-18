@@ -14,7 +14,7 @@ abstract class Module
         return 'page-builder::modules.' . Str::slug(class_basename(static::class));
     }
 
-    public function module(): array
+    public function configuration(): array
     {
         $template = $this->template();
 
