@@ -52,16 +52,25 @@ class ModuleRepository
         //   if we need the DI container, this is a must-fix
         $module = new $class();
 
-        $configuration = $module->configuration();
-        foreach ($configuration['fields'] as &$field) {
-            unset($field['rules']);
-        }
+        return [
+            'name' => $module->name(),
+            'icon' => $module->icon(),
+            'className' => $class,
+            'fields' => collect($module->fields())
+                ->mapWithKeys(function ($field, $key) {
+                    $fieldWithoutRules = collect($field)
+                        ->filter(function ($_, $key) {
+                            return $key !== 'rules';
+                        });
 
-        $configuration['templates'] = [
-            'base',
-            ...$module->availableTemplates(),
+                    return [$key => $fieldWithoutRules];
+                })
+                ->toArray(),
+            'selected_template' => 'base',
+            'templates' => [
+                'base',
+                ...$module->availableTemplates(),
+            ],
         ];
-
-        return $configuration;
     }
 }

@@ -240,40 +240,26 @@ class PageService
 
         $html = '';
 
-        $config = $this->moduleRepository->buildConfigurations(json: false);
-
         foreach ($modules as $content) {
-            $module = $config->firstWhere('name', $content->name);
+            $module = $this->moduleRepository->buildConfiguration($content->name);
 
             if (! $module) {
-                $html .= "<p>Module {$content->name} does not exist.</p>";
-                continue;
+                throw new \RuntimeException("Module {$content->name} does not exist.");
             }
 
             $moduleClass = $module['className'];
 
             /** @var Module $module */
-            $module = resolve($moduleClass);
+            $module = new $moduleClass();
 
-            $template = app()->call([$module, 'configuration']);
-
-            $view = $module->viewName();
+            $view = $module->viewName($content->selected_template);
             if (! view()->exists($view)) {
-                $html .= '<p>View '.$view.' does not exist.</p>';
-                continue;
+                throw new \RuntimeException("View {$view} does not exist.");
             }
 
-            $templateFields = $template['fields'];
-//            if ($content->module == 'ProjectSlider') {
-//                $contentArray = (array) $content->fields;
-//                $templateArray = (array) $templateFields;
-//
-//                $merge = array_merge($templateArray, $contentArray);
-//                $merge['items'] = $templateArray['items'];
-//                $content->fields = (object) $merge;
-//            } else {
-                $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
-//            }
+            $templateFields = app()->call([$module, 'fields']);
+
+            $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
 
             $html .= view($view)->with('fields', $content->fields)->render();
         }

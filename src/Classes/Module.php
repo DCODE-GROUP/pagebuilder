@@ -6,16 +6,29 @@ use Illuminate\Support\Str;
 
 abstract class Module
 {
-    abstract public function configuration(): array;
+    protected string $name;
+    protected string $icon;
 
-    public function viewName(): string
+    abstract public function fields(): array;
+
+    public function viewName(string $selectedTemplate = 'base'): string
     {
         // NOTE: use static instead of self because of inheritance
-        return 'page-builder::modules.' . Str::slug(class_basename(static::class));
+        return 'page-builder::modules.' . Str::slug(class_basename(static::class)) . '.' . $selectedTemplate;
     }
 
     public function availableTemplates(): array
     {
         return [];
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function icon(): string
+    {
+        return $this->icon;
     }
 }
