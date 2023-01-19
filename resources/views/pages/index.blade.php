@@ -5,7 +5,7 @@
         </header>
         <div class="flex justify-between mb-8">
             <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.create')) }}" class="btn btn-primary">
-                <i class="fal fa-plus"></i>
+                <i class="mr-2 fa-solid fa-plus"></i>
                 Add
             </a>
             @include('page-builder::_partials.filters.search')
@@ -32,7 +32,7 @@
                     <td>{{ $page->status }}</td>
                     <td>{{ $page->updatedAtForHumans }}</td>
                     <td>
-                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}" class="button secondary tiny">
+                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}">
                             Edit
                         </a>
                     </td>

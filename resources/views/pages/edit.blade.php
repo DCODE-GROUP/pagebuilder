@@ -14,14 +14,18 @@
             <h1>Create new page</h1>
             @endif
         </header>
-        <div class="top-form grid-container full has-admin-controls">
+        <div class="top-form grid-container full has-admin-controls ">
             <title-slug set-title="{{ $page->title ?? null }}" title-error="{{ $errors->first('title') }}" set-slug="{{ $page->slug ?? null }}" slug-error="{{ $errors->first('slug') }}"></title-slug>
             <section class="flex mb-4 space-x-4">
                 <div class="w-1/2">
-                    {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label']) }}
-                    <span data-tooltip title="If a parent page is selected, this page's URL will be prefixed with the parent page slug.">
-                        <i class="fal fa-info-circle"></i>
-                    </span>
+                    <div class="flex items-center">
+                        {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label']) }}
+
+                        <tooltip iconclasses="ml-1 -mt-2 text-brand-green">If a parent page is selected, this page's URL will be prefixed with the parent page slug.</tooltip>
+                        <!-- <span data-tooltip title="" class="ml-2 -mt-2 text-brand-green">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </span> -->
+                    </div>
                     {{ Form::vSelect('parent_id', Page::class,
                  $page->parent_id ?? old('parent_id') ?? null,
                  ['placeholder' => 'Select a parent page']) }}
@@ -38,19 +42,17 @@
 
             <section class="flex mb-4 space-x-4">
                 <div class="w-1/2">
-                    {{ Form::label('abstract', 'Abstract', ['class' => 'form-label']) }}
-                    <span data-tooltip title="The abstract displayed on listing pages.">
-                        <i class="fal fa-info-circle"></i>
-                    </span>
+                    <div class="flex items-center">
+                        {{ Form::label('abstract', 'Abstract', ['class' => 'form-label']) }}
+                        <tooltip iconclasses="ml-1 -mt-2 text-brand-green">The abstract displayed on listing pages.</tooltip>
+                    </div>
                     {{ Form::textarea('abstract', null, ['rows' => 7, 'class' => 'form-input']) }}
                     {!! $errors->first('abstract', '<span class="form-error is-visible">:message</span>') !!}
                 </div>
                 <div class="w-1/2">
                     <label class="form-label">
                         Featured image
-                        <span data-tooltip title="If a featured image is set, it will appear as a hero image on the page.">
-                            <i class="fal fa-info-circle"></i>
-                        </span>
+                        <tooltip iconclasses="ml-1 -mt-2 text-brand-green">If a featured image is set, it will appear as a hero image on the page.</tooltip>
                     </label>
                     <select-media field="featured_image" value="{{ $page->featured_image ?? null }}" mobile-value="{{ $page->featured_image_mobile ?? null }}"></select-media>
                 </div>
@@ -58,8 +60,10 @@
 
             <section class="mb-10">
                 <div class="cell medium-1 -no-label">
-                    {{ Form::label('active', 'Active') }}
-                    {{ Form::checkbox('active', 1, $page->active ?? true) }}
+                    <label class="sm-toggleable sm-switch" for="active">
+                        {{ Form::checkbox('active', 1, $page->active ?? true) }}
+                        <span class="form-label">Active</span>
+                    </label>
                 </div>
             </section>
 
@@ -88,7 +92,7 @@
             <div class="container">
                 <div class="flex items-center space-x-2">
                     <button type="submit" class="btn btn-primary" onclick="document.page_form.submit()">
-                        <i class="fal fa-save"></i>
+                        <i class="mr-2 fa-regular fa-floppy-disk"></i>
                         {{ isset($page) ? 'Update' : 'Create' }} page
                     </button>
 

@@ -9,8 +9,10 @@ import SingleColumn from "./cms/SingleColumn.vue"
 import TwoColumn from "./cms/TwoColumn.vue"
 import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
 import Selector from "./Selector.vue"
+import Tooltip from "./components/Tooltip.vue"
 
 import vuedraggable from "vuedraggable";
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
 const contentBuilderPlugin = {
     install(app, options) {
@@ -22,6 +24,10 @@ const contentBuilderPlugin = {
         app.component('SelectMedia', SelectMedia);
         app.component('TitleSlug', TitleSlug);
         app.component('Selector', Selector);
+        
+        app.component('Tooltip', Tooltip);
+
+        app.use(autoAnimatePlugin);
 
         const modules = {
             Heading,

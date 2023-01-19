@@ -20,10 +20,10 @@
                 />
             </div>
         </div>
-        <div class="flex">
-            <input type="checkbox" v-model="dark" @change="update('dark')"/>
-            <label class="ml-2 form-label">Dark</label>
-        </div>
+        <label class="sm-toggleable sm-switch" for="darkHeading">
+            <input type="checkbox" id="darkHeading" v-model="dark" @change="update('dark')"/>
+            <span class="form-label">Dark</span>
+        </label>
     </div>
 </template>
 

@@ -15,11 +15,12 @@
                 <tinymce-editor v-model="body_two" :init="tinyMCEConfig" @onChange="update('body_two')"></tinymce-editor>
             </div>
         </div>
-        
-        <div class="flex">
-            <input type="checkbox" v-model="padding" @change="update('padding')"/>
-            <label class="ml-2 form-label">Padding</label>
-        </div>
+
+        <label class="sm-toggleable sm-switch" for="twoColumnPadding">
+            <input type="checkbox" id="twoColumnPadding" v-model="padding" @change="update('padding')"/>
+            <span class="form-label">Padding</span>
+        </label>
+
     </div>
 </template>
 

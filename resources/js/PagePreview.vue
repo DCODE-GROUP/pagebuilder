@@ -6,7 +6,7 @@
             @click="preview"
             :disabled="isLoading"
     >
-        <i class="fal fa-eye"></i>
+        <i class="mr-2 fa-solid fa-eye"></i>
         Preview
     </button>
 </template>

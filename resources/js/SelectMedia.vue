@@ -8,8 +8,10 @@
                  <div>
                      <span v-if="item" class="-clear" @click.stop="selectItem('')">x</span>
                      <h5 v-else>
-                        <p>+</p>
-                         <span>{{ label }}</span>
+                        <p>
+                            <i class="fa-solid fa-plus"></i>
+                        </p>
+                        <p>{{ label }}</p>
                      </h5>
                  </div>
             </div>
@@ -21,8 +23,10 @@
                  <div>
                      <span v-if="mobileItem" class="-clear" @click.stop="selectItem('', true)">x</span>
                      <h5 v-else>
-                        <p>+</p>
-                         <p>Mobile Image</p>
+                        <p>
+                            <i class="fa-solid fa-plus"></i>
+                        </p>
+                        <p>Mobile Image</p>
                      </h5>
                  </div>
             </div>

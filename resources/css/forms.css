@@ -1,0 +1,78 @@
+.sm-toggleable {
+	@apply inline-block relative mr-4;
+
+	> span {
+			@apply inline-block align-middle h-6 pl-8 relative cursor-pointer;
+			@apply leading-4 text-gray-500;
+
+			&:before,
+			&:after {
+					@apply transition-all;
+					content: "";
+			}
+
+			&:before {
+					@apply inline-block rounded-[0.25rem] h-6 w-6 absolute top-0 left-0;
+					@apply bg-white border border-black/20;
+			}
+
+			&:hover {
+					&:before {
+							@apply border-gray-400;
+					}
+			}
+	}
+
+	input {
+			@apply m-0 opacity-0 z-10 hidden;
+
+			&:checked + span {
+					&:before {
+							@apply bg-brand-green border-brand-green;
+					}
+			}
+	}
+
+	&.disabled {
+			@apply opacity-20;
+
+			span {
+					@apply cursor-auto;
+
+					&:after {
+							@apply cursor-auto;
+					}
+			}
+	}
+}
+
+.sm-switch {
+
+	> span {
+			@apply pl-12 h-6 inline-flex items-center;
+
+			&:before,
+			&:after {
+					@apply rounded-full;
+			}
+
+			&:before {
+					@apply w-10;
+			}
+
+			&:after {
+					@apply absolute top-0 left-0 w-6 h-6 z-10;
+					@apply scale-75 transition-all bg-gray-400;
+			}
+	}
+
+	input[type="checkbox"] {
+
+			&:checked + span {
+
+					&:after {
+							@apply left-4 bg-white;
+					}
+			}
+	}
+}

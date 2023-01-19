@@ -30,12 +30,18 @@
         
         <div class="grid grid-cols-4 gap-4">
             <div class="mb-4">
-                <label class="form-label">Padding</label>
-                <input type="checkbox" v-model="padding" @change="update('padding')"/>
+                <label class="form-label" for="twoColumnImagePadding">Padding</label>
+                <label class="sm-toggleable sm-switch" for="twoColumnImagePadding">
+                    <input type="checkbox" id="twoColumnImagePadding" v-model="padding" @change="update('padding')"/>
+                    <span class="form-label"></span>
+                </label>
             </div>
             <div class="mb-4">
-                <label class="form-label">Rounded Image?</label>
-                <input type="checkbox" v-model="rounded" @change="update('rounded')"/>
+                <label class="form-label" for="twoColumnImageRounding">Rounded Image</label>
+                <label class="sm-toggleable sm-switch" for="twoColumnImageRounding">
+                    <input type="checkbox" id="twoColumnImageRounding" v-model="rounded" @change="update('rounded')"/>
+                    <span class="form-label"></span>
+                </label>
             </div>
             <div>
                 <label class="form-label">Style</label>

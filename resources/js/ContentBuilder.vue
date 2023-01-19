@@ -14,25 +14,30 @@
         <template #item="{element, index}">
           <li class="list-item" @click="component = element" :class="{ active: component === element }">
             <div class="">
-            <i class="mr-2 fal fa-align-justify cursor-handle"></i>
+            <!-- <i class="mr-2 fal fa-align-justify handle"></i> -->
+              <i class="mr-2 cursor-move fa-solid fa-align-justify handle"></i>
               {{ element.name }}
             </div>
             <button type="button" @click="remove(index)">
-            <i class="mr-2 fal fa-close"></i>
+              <i class="fa-regular fa-trash-can"></i>
             </button>
           </li>
         </template>
       </draggable>
 
       <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
+        <i class="mr-2 fa-solid fa-plus"></i>
         Add module
-        <i class="fal fa-plus"></i>
       </button>
 
-      <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-2 gap-4 p-4 bg-gray-100">
-        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="w-full btn btn-primary-outlined">
-          <i :class="'fal fa-' + module.icon"></i>
-          {{ module.name }}
+      <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-3 gap-4 p-4 bg-gray-100">
+        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="flex-col w-full !py-4 btn btn-primary-outlined text-center">
+          <p class="mb-1 text-2xl">
+            <i :class="'fa-solid fa-' + module.icon"></i>
+          </p>
+          <p class="text-xs">
+            {{ module.name }}
+          </p>
         </a>
       </div>
     </div>
@@ -42,7 +47,7 @@
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
         <div>
           <div>
-            <header class="pb-2 mb-4 border-b border-gray-400 flex justify-between">
+            <header class="flex justify-between pb-2 mb-4 border-b border-gray-400">
               <h3 class="">{{ component.name }}</h3>
               <div v-if="component.templates.length > 1" class="space-x-4">
                 <span>Template:</span>

@@ -26,10 +26,10 @@
             <tinymce-editor v-model="body" :init="tinyMCEConfig" @onChange="update('body')"></tinymce-editor>
         </div>
 
-        <div class="flex">
-            <input type="checkbox" v-model="padding" @change="update('padding')"/>
-            <label class="ml-2 form-label">Padding</label>
-        </div>
+        <label class="sm-toggleable sm-switch" for="singleColumnPadding">
+            <input type="checkbox" id="singleColumnPadding" v-model="padding" @change="update('padding')"/>
+            <span class="form-label">Padding</span>
+        </label>
     </div>
 </template>
 

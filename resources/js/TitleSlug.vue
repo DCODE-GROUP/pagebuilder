@@ -3,9 +3,10 @@
         <div class="w-1/2">
             <label for="title" class="form-label">
                 Title
-                <span data-tooltip title="The title of the page displayed on the first heading.">
-                    <i class="fal fa-info-circle"></i>
-                </span>
+                <tooltip>The title of the page displayed on the first heading.</tooltip>
+                <!-- <span data-tooltip title="The title of the page displayed on the first heading.">
+                    <i class="fa-solid fa-circle-info"></i>
+                </span> -->
             </label>
             <input id="title" name="title" type="text" v-model="title" @keyup="titleKeyUp" @blur="slugifyTitle" class="form-input">
             <span v-if="titleError" class="form-error is-visible">{{ titleError }}</span>
@@ -13,9 +14,7 @@
         <div class="w-1/2">
             <label for="slug" class="form-label">
                 Slug
-                <span data-tooltip title="The slug is used in the page URL, this is generated from the title but can also be manually edited.">
-                    <i class="fal fa-info-circle"></i>
-                </span>
+                <tooltip icon-class="bg-red">The slug is used in the page URL, this is generated from the title but can also be manually edited.</tooltip>
             </label>
             <div class="input-group">
                 <div class="flex items-center">
