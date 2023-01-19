@@ -10,10 +10,17 @@ import TwoColumn from "./cms/TwoColumn.vue"
 import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
 import Selector from "./Selector.vue"
 
+import $bus from "./lib/Vue3EventBus";
+
 import vuedraggable from "vuedraggable";
+
+import shadow from 'vue-shadow-dom';
 
 const contentBuilderPlugin = {
     install(app, options) {
+        app.use(shadow);
+        app.provide("bus", $bus);
+
         app.component('draggable', vuedraggable);
 
         app.component('ContentBuilder', ContentBuilder);

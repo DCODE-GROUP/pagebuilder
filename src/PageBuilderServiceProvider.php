@@ -56,7 +56,7 @@ class PageBuilderServiceProvider extends ServiceProvider
         ) {
             Route::resource($prefix, PageController::class)->except('show');
 
-            Route::get("$prefix/{page}/preview", [
+            Route::post("$prefix/preview", [
                 PageController::class,
                 'preview',
             ])->name("$name.preview");
