@@ -5,6 +5,7 @@ namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 use Dcodegroup\PageBuilder\Http\Requests\PageRequest;
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
+use Dcodegroup\PageBuilder\Routes;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -26,8 +27,7 @@ class PageController extends Controller
             $term = '%'.$request->input('search').'%';
             $query->where('title', 'like', $term)
                 ->orWhere('abstract', 'like', $term)
-                ->orWhere('content', 'like', $term)
-                ->orWhere('dynamic_content', 'like', $term);
+                ->orWhere('content', 'like', $term);
         }
 
         return view('page-builder::pages.index')->with('pages', $query->orderByDesc('created_at')->paginate());
@@ -44,7 +44,7 @@ class PageController extends Controller
     {
         PageService::save($request->only(PageService::REQUEST_PARAMS));
 
-        return redirect()->route('pages.index')->with('status', 'Page was successfully created');
+        return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully created');
     }
 
     public function preview(Request $request)
@@ -80,17 +80,13 @@ class PageController extends Controller
     {
         PageService::save($request->only(PageService::REQUEST_PARAMS), $page);
 
-        return redirect()->route('pages.edit', $page)->with('status', 'Page was successfully updated');
+        return redirect()->route(Routes::admin('pages.edit'), $page)->with('status', 'Page was successfully updated');
     }
 
     public function destroy(Page $page): RedirectResponse
     {
-        if ($page->isDynamic) {
-            return abort(405);
-        }
-
         PageService::delete($page);
 
-        return redirect()->route('pages.index')->with('status', 'Page was successfully deleted');
+        return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully deleted');
     }
 }

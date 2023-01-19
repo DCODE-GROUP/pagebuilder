@@ -1,7 +1,7 @@
 <x-admin-layout>
 @section('title', 'Revisions for page ' . $page->title)
 
-<a href="{{ route('admin.pages.edit', $page) }}" class="button">
+<a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}" class="button">
     Back to page
 </a>
 
@@ -31,11 +31,11 @@
                 <td>{!! nl2br($revision->updatedByForHumans) !!}</td>
                 <td>
                     <div class="button-group">
-                        {{ Form::open(['route' => ['admin.pages.revisions.restore', $revision], 'method' => 'put']) }}
+                        {{ Form::open(['route' => [\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.restore'), $revision], 'method' => 'put']) }}
                             <button type="submit" class="button success">Restore</button>
                         {{ Form::close() }}
                         @include('page-builder::_partials.delete-confirm', [
-                            'route' => 'admin.pages.revisions.destroy',
+                            'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.revisions.destroy'),
                             'object' => $revision,
                             'label' => 'this page revision',
                             'type' => 'revision'

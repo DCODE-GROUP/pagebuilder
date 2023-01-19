@@ -34,7 +34,6 @@ class MenuService
      * @var array
      */
     public const MENU_RESOURCES = [
-        'Dynamic pages' => PageService::DYNAMIC_PAGES,
         'Feeds' => self::FEED_PAGES,
         'Pages' => Page::class,
     ];

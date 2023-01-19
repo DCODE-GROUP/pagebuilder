@@ -1,9 +1,5 @@
 <template>
     <div class="image-slider-module">
-        <header class="pb-2 mb-4 border-b border-gray-400">
-            <h3>Image Slider</h3>
-        </header>
-
         <draggable
             tag="div"
             :list="items" 

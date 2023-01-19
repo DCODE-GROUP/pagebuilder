@@ -1,18 +1,6 @@
 <template>
   <div class="flex space-x-4">
     <div class="w-1/3">
-      <template v-if="!isEmpty(dynamicContent)">
-        <h5>Dynamic page content</h5>
-        <ul class="menu-list">
-          <li v-for="(o, m) in dynamicContent">
-            <a @click="component = o">
-              {{ o.name }}
-            </a>
-          </li>
-        </ul>
-        <hr/>
-      </template>
-
       <draggable
           tag="ul"
           class="content-list no-bullet"
@@ -42,23 +30,39 @@
       </button>
 
       <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-2 gap-4 p-4 bg-gray-100">
-        <a v-for="(o, m) in modules" @click="add(o, m)" :key="o" class="w-full btn btn-primary-outlined">
-          <i :class="'fal fa-' + o.icon"></i>
-          {{ o.name }}
+        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="w-full btn btn-primary-outlined">
+          <i :class="'fal fa-' + module.icon"></i>
+          {{ module.name }}
         </a>
       </div>
     </div>
 
     <div class="w-2/3">
-      
+
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
-        <component
-            :is="component.module"
-            :key="component.id"
-            :id="component.id"
-            :fields="component.fields"
-            @update-content="update"
-        ></component>
+        <div>
+          <div>
+            <header class="pb-2 mb-4 border-b border-gray-400 flex justify-between">
+              <h3 class="">{{ component.name }}</h3>
+              <div v-if="component.templates.length > 1" class="space-x-4">
+                <span>Template:</span>
+                <select v-model="component.selected_template">
+                  <option v-for="template in component.templates" :value="template">
+                    {{ template }}
+                  </option>
+                </select>
+              </div>
+            </header>
+          </div>
+
+          <component
+              :is="component.module"
+              :key="component.id"
+              :id="component.id"
+              :fields="component.fields"
+              @update-content="update"
+          ></component>
+        </div>
       </section>
 
       <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-else>
@@ -72,7 +76,6 @@
 
     <!--        <pre>{{ content }}</pre>-->
     <input type="hidden" name="content" :value="json()"/>
-    <input type="hidden" name="dynamic_content" :value="json('dynamicContent')"/>
   </div>
 </template>
 <script>
@@ -86,16 +89,11 @@ export default {
   },
   props: {
     modules: Object,
-    dynamicModules: {
-      type: Object,
-      default: null
-    },
     pageContent: Array
   },
   data() {
     return {
       content: [],
-      dynamicContent: {},
       showModuleOptions: false,
       component: null
     }
@@ -103,10 +101,6 @@ export default {
   created() {
     if (this.pageContent.length) {
       this.content = _.cloneDeep(this.pageContent);
-    }
-
-    if (!this.isEmpty(this.dynamicModules)) {
-      this.dynamicContent = _.cloneDeep(this.dynamicModules);
     }
   },
   computed: {
@@ -119,54 +113,44 @@ export default {
     },
   },
   methods: {
-    json(c = 'content') {
-      return JSON.stringify(this[c]);
+    json(prop = 'content') {
+      return JSON.stringify(this[prop]);
     },
-    remove(i) {
-      this.content.splice(i, 1);
+    remove(index) {
+      this.content.splice(index, 1);
       this.component = null;
     },
-    add(o, m) {
-      const c = _.cloneDeep(o);
-
+    add(module, name) {
       const component = {
         id: uuidv4(),
-        module: m,
-        name: c.name,
-        fields: c.fields,
-        show: true
+        module: name,
+        show: true,
+        ...module,
       };
 
-      this.content.push(component);
+      this.content = this.content.concat([component]);
       this.showModuleOptions = false;
       this.component = component;
     },
-    update(a) {
+    update(payload) {
       this.bus.$emit('refresh-preview', {});
-      const i = _.findIndex(this.content, (o) => {
-        return o.id === a[0];
-      });
+      const [uuid, prop, value] = payload;
 
-      Object.keys(this.dynamicContent).forEach((key) => {
-        if (this.dynamicContent[key].id === a[0]) {
-          return this.dynamicContent[key].fields[a[1]].value = a[2];
-        }
-      })
+      const i = _.findIndex(this.content, (module) => {
+        return module.id === uuid;
+      });
 
       if (i === -1) {
         return;
       }
 
-      if (typeof this.content[i].fields[a[1]] === 'undefined') {
-        this.content[i].fields[a[1]] = {
-          value: a[2]
-        }
-      }
-
-      return this.content[i].fields[a[1]].value = a[2];
+      this.content[i].fields[prop] = {
+        ...this.content[i].fields[prop],
+        value,
+      };
     },
-    isEmpty(o) {
-      return _.isEmpty(o);
+    isEmpty(object) {
+      return _.isEmpty(object);
     }
   }
 }

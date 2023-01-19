@@ -11,8 +11,8 @@
     "vue-shadow-dom": "^4.2.0",
     "vuedraggable": "^4.1.0"
   },
-  "name": "page-builder",
-  "version": "1.0.0",
+  "name": "@dcodegroup-au/page-builder",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

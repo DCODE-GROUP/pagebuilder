@@ -8,7 +8,6 @@ use Dcodegroup\PageBuilder\Traits\CMSMenuResource;
 use Dcodegroup\PageBuilder\Traits\DatesForHumans;
 use Dcodegroup\PageBuilder\Traits\ScopeActive;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -41,17 +40,17 @@ class Page extends Model
         return $this->hasMany(PageRevision::class);
     }
 
-    public function seo(): MorphOne
-    {
-        return $this->morphOne(Seo::class, 'seoable');
-    }
+//    public function seo(): MorphOne
+//    {
+//        return $this->morphOne(Seo::class, 'seoable');
+//    }
 
     /**
      * @return string
      */
     public function getRelativeSlugAttribute()
     {
-        return $this->isDynamic ? route($this->route, [], false) : '/'.$this->slug;
+        return '/'.$this->slug;
     }
 
     /**
@@ -68,22 +67,6 @@ class Page extends Model
     public function getRevisionsCountAttribute()
     {
         return $this->revisions()->count();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsDynamicAttribute()
-    {
-        return isset($this->route);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDynamicPageContentAttribute()
-    {
-        return json_decode($this->dynamic_content);
     }
 
     /**

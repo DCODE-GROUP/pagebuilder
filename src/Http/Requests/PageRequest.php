@@ -30,7 +30,6 @@ class PageRequest extends FormRequest
                     'template_id' => 'nullable|exists:templates,id',
                     'abstract' => 'nullable|max:65535',
                     'content' => 'nullable|json',
-                    'dynamic_content' => 'nullable|json',
                 ];
                 break;
         }

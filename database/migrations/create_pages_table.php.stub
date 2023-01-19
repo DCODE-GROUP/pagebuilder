@@ -30,7 +30,7 @@ return new class extends Migration
 
             $table->text('abstract')->nullable();
             $table->json('content')->nullable();
-            $table->json('dynamic_content')->nullable();
+            // $table->json('dynamic_content')->nullable();
             $table->boolean('active')->default(1);
 
             $table->unsignedBigInteger('user_id');

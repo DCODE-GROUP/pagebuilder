@@ -7,31 +7,9 @@ use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Exception;
-use Illuminate\Support\Str;
-use ReflectionClass;
-use ReflectionException;
 
 class PageService
 {
-    /**
-     * List any dynamic pages here from our routes
-     * Dynamic pages are not CMS generated but are provided as fixed routes
-     *
-     * @var array
-     */
-    public const DYNAMIC_PAGES = [
-        //
-    ];
-
-    /**
-     * List dynamic page routes that can be edited in CMS
-     *
-     * @var array
-     */
-    public const EDITABLE_DYNAMIC_PAGES = [
-        //
-    ];
-
     /**
      * @var array
      */
@@ -43,7 +21,6 @@ class PageService
         'parent_id',
         'abstract',
         'content',
-        'dynamic_content',
         'template_id',
         'active',
     ];
@@ -55,7 +32,6 @@ class PageService
         'title',
         'abstract',
         'content',
-        'dynamic_content',
     ];
 
     /**
@@ -98,11 +74,10 @@ class PageService
             $page->parent_id = $data['parent_id'] ?? null;
             $page->abstract = $data['abstract'];
             $page->content = $data['content'];
-            $page->dynamic_content = $data['dynamic_content'];
             $page->user_id = $data['user_id'] ?? $page->user_id;
             $page->slug = $data['slug'] ?? $page->slug;
             $page->template_id = $data['template_id'] ?? $page->template_id;
-            $page->active = $page->isDynamic ? true : (isset($data['active']) ? true : false);
+            $page->active = (isset($data['active']) ? true : false);
 
             return $page->update();
         }
@@ -195,11 +170,9 @@ class PageService
             $content = json_decode($content);
 
             foreach ($content as &$moduleConfig) {
-                $module = $this->moduleRepository->findByName($moduleConfig->module);
-                $module = resolve($module);
+                $data = $this->moduleRepository->buildConfiguration($moduleConfig->module);
 
-                $data = app()->call([$module, 'template']);
-
+                // Merge with default values
                 foreach ($data['fields'] as $key => $field) {
                     if (! isset($moduleConfig->fields->{$key})) {
                         $moduleConfig->fields->{$key} = (object) $field;
@@ -213,27 +186,6 @@ class PageService
         return json_encode($content);
     }
 
-//    public static function getDynamicPageModules(Page $page)
-//    {
-//        if (! isset($page->route) || ! ($d = collect(self::DYNAMIC_PAGES)->where('route', $page->route)
-//                                                                         ->first()) || ! isset($d['modules'])) {
-//            return null;
-//        }
-//
-//        $c = json_decode($page->dynamic_content);
-//
-//        return collect(self::getModules($d['modules'], false))->map(function ($module, $class) use ($c) {
-//            $module['module'] = $class;
-//            $module['id'] = (string) Str::uuid();
-//
-//            foreach ($module['fields'] as $key => &$field) {
-//                $field['value'] = $c->{$class}->fields->{$key}->value ?? $field['value'];
-//            }
-//
-//            return $module;
-//        })->toJson();
-//    }
-
     public function render(Page $page): string|null
     {
         if (! $modules = json_decode($page->content)) {
@@ -242,40 +194,26 @@ class PageService
 
         $html = '';
 
-        $config = $this->moduleRepository->buildConfigurations(json: false);
-
         foreach ($modules as $content) {
-            $module = $config->firstWhere('name', $content->name);
+            $module = $this->moduleRepository->buildConfiguration($content->name);
 
             if (! $module) {
-                $html .= "<p>Module {$content->name} does not exist.</p>";
-                continue;
+                throw new \RuntimeException("Module {$content->name} does not exist.");
             }
 
             $moduleClass = $module['className'];
 
             /** @var Module $module */
-            $module = resolve($moduleClass);
+            $module = new $moduleClass();
 
-            $template = app()->call([$module, 'template']);
-
-            $view = $module->viewName();
+            $view = $module->viewName($content->selected_template);
             if (! view()->exists($view)) {
-                $html .= '<p>View '.$view.' does not exist.</p>';
-                continue;
+                throw new \RuntimeException("View {$view} does not exist.");
             }
 
-            $templateFields = $template['fields'];
-//            if ($content->module == 'ProjectSlider') {
-//                $contentArray = (array) $content->fields;
-//                $templateArray = (array) $templateFields;
-//
-//                $merge = array_merge($templateArray, $contentArray);
-//                $merge['items'] = $templateArray['items'];
-//                $content->fields = (object) $merge;
-//            } else {
-                $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
-//            }
+            $templateFields = app()->call([$module, 'fields']);
+
+            $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
 
             $html .= view($view)->with('fields', $content->fields)->render();
         }

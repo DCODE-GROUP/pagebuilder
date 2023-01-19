@@ -2,9 +2,9 @@
 <x-app-layout>
     <div class="pt-8 pb-32">
         @if (isset($page))
-        {{ Form::model($page, ['route' => ['admin.pages.update', $page], 'method' => 'PUT', 'autocomplete' => 'off', 'name' => 'page_form']) }}
+        {{ Form::model($page, ['route' => [\Dcodegroup\PageBuilder\Routes::admin('pages.update'), $page], 'method' => 'PUT', 'autocomplete' => 'off', 'name' => 'page_form']) }}
         @else
-        {{ Form::open(['route' => 'admin.pages.store', 'method' => 'post', 'autocomplete' => 'off', 'name' => 'page_form']) }}
+        {{ Form::open(['route' => \Dcodegroup\PageBuilder\Routes::admin('pages.store'), 'method' => 'post', 'autocomplete' => 'off', 'name' => 'page_form']) }}
         @endif
 
         <header class="mb-4">
@@ -15,9 +15,7 @@
             @endif
         </header>
         <div class="top-form grid-container full has-admin-controls">
-            @if (!isset($page) || !$page->isDynamic)
             <title-slug set-title="{{ $page->title ?? null }}" title-error="{{ $errors->first('title') }}" set-slug="{{ $page->slug ?? null }}" slug-error="{{ $errors->first('slug') }}"></title-slug>
-            @endif
             <section class="flex mb-4 space-x-4">
                 <div class="w-1/2">
                     {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label']) }}
@@ -60,10 +58,8 @@
 
             <section class="mb-10">
                 <div class="cell medium-1 -no-label">
-                    @if (!isset($page) || !$page->isDynamic)
                     {{ Form::label('active', 'Active') }}
                     {{ Form::checkbox('active', 1, $page->active ?? true) }}
-                    @endif
                 </div>
             </section>
 
@@ -71,7 +67,7 @@
                 <header class="mb-8">
                     <h2>Content</h2>
                 </header>
-                <content-builder :modules="{{ $CMSModules }}" :dynamic-modules="{{ $DynamicCMSModules ?? '{}' }}" :page-content="{{ $pageService->constructPageContent(old('content') ?? $page->content ?? '[]') }}"></content-builder>
+                <content-builder :modules="{{ $CMSModules }}" :page-content="{{ $pageService->constructPageContent(old('content') ?? $page->content ?? '[]') }}"></content-builder>
                 {!! $errors->first('content', '<span class="form-error is-visible">:message</span>') !!}
             </section>
         </div>
@@ -79,11 +75,11 @@
         {{ Form::close() }}
 
         <div class="my-20 border-t border-black"></div>
-        @if (isset($page) && !$page->isDynamic)
+        @if (isset($page))
         @include('page-builder::_partials.delete-confirm', [
         'object' => $page,
         'type' => 'page',
-        'route' => 'admin.pages.destroy',
+        'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
         'label' => 'page ' . $page->title
         ])
         @endif
@@ -99,7 +95,7 @@
                     </button>
 
                     @isset ($page)
-                    <a href="{{ route('admin.pages.revisions.index', $page) }}" class="btn btn-primary btn-primary-outlined">
+                    <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
                         Revisions {{ $page->revisionsCount ? '(' . $page->revisionsCount . ')' : null }}
                     </a>
                     @endisset

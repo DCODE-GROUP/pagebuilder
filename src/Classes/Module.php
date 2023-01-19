@@ -6,22 +6,29 @@ use Illuminate\Support\Str;
 
 abstract class Module
 {
-    abstract public function template(): array;
+    protected string $name;
+    protected string $icon;
 
-    public function viewName(): string
+    abstract public function fields(): array;
+
+    public function viewName(string $selectedTemplate = 'base'): string
     {
         // NOTE: use static instead of self because of inheritance
-        return 'page-builder::modules.' . Str::slug(class_basename(static::class));
+        return 'page-builder::modules.' . Str::slug(class_basename(static::class)) . '.' . $selectedTemplate;
     }
 
-    public function module(): array
+    public function availableTemplates(): array
     {
-        $template = $this->template();
+        return [];
+    }
 
-        foreach ($template['fields'] as &$field) {
-            unset($field['rules']);
-        }
+    public function name(): string
+    {
+        return $this->name;
+    }
 
-        return $template;
+    public function icon(): string
+    {
+        return $this->icon;
     }
 }

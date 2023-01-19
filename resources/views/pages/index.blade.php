@@ -4,7 +4,7 @@
             <h1>Pages</h1>
         </header>
         <div class="flex justify-between mb-8">
-            <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">
+            <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.create')) }}" class="btn btn-primary">
                 <i class="fal fa-plus"></i>
                 Add
             </a>
@@ -26,16 +26,13 @@
                 @foreach($pages as $page)
                 <tr>
                     <td>
-                        @if ($page->isDynamic)
-                        <i class="fal fa-thumbtack"></i>&nbsp;
-                        @endif
                         {{ $page->title }}
                     </td>
                     <td>{{ $page->relativeSlug }}</td>
                     <td>{{ $page->status }}</td>
                     <td>{{ $page->updatedAtForHumans }}</td>
                     <td>
-                        <a href="{{ route('admin.pages.edit', $page) }}" class="button secondary tiny">
+                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}" class="button secondary tiny">
                             Edit
                         </a>
                     </td>
