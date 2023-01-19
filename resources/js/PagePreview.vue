@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <iframe :srcdoc="html" width="1440" height="720" />
+  <div class="flex flex-1">
+    <iframe :srcdoc="html" width="100%" height="720" />
   </div>
 </template>
 <script>

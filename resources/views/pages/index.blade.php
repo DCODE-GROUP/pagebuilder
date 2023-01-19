@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-page-builder::layouts.admin>
     <div class="pt-8">
         <header class="mb-4">
             <h1>Pages</h1>
@@ -45,4 +45,4 @@
         @include('page-builder::_partials.components.no-results', ['label' => 'pages'])
         @endif
     </div>
-</x-app-layout>
+</x-page-builder::layouts.admin>
