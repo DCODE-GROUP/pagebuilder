@@ -1,3 +1,5 @@
+import PageBuilderLayout from './layouts/PageBuilderLayout.vue';
+import PageBuilderSidebar from './layouts/PageBuilderSidebar.vue';
 import ContentBuilder from './ContentBuilder.vue';
 import Module from './Module.vue';
 import PagePreview from './PagePreview.vue';
@@ -25,7 +27,10 @@ const contentBuilderPlugin = {
         app.provide("bus", $bus);
 
         app.component('draggable', vuedraggable);
-
+        
+        app.component('PageBuilderLayout', PageBuilderLayout);
+        app.component('PageBuilderSidebar', PageBuilderSidebar);
+        
         app.component('ContentBuilder', ContentBuilder);
         app.component('Module', Module);
         app.component('PagePreview', PagePreview);

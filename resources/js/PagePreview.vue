@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col flex-1 items-center bg-primary-400">
-    <div class="w-full flex py-2 justify-center">
-      <div class="btn-group space-x-4">
+  <div class="flex flex-col items-center flex-1 bg-primary-400">
+    <div class="flex justify-center w-full py-2">
+      <div class="space-x-4 btn-group">
         <button type="button" class="btn btn-primary-outlined" @click="setWidth('1920')">1920px</button>
         <button type="button" class="btn btn-primary-outlined" @click="setWidth('1440')">1440px</button>
         <button type="button" class="btn btn-primary-outlined" @click="setWidth('768')">768px</button>
@@ -30,9 +30,9 @@ export default {
     }
   },
   created() {
-    // this.bus.$on('refresh-preview', () => {
-    //   this.preview();
-    // });
+    this.bus.$on('refresh-preview', () => {
+      this.preview();
+    });
   },
   mounted() {
     this.preview();
@@ -49,18 +49,20 @@ export default {
     async preview() {
       this.isLoading = true;
 
-      try {
-        const response = await axios.post(this.url, {
-          title: document.querySelector('#title').value,
-          abstract: document.querySelector('#abstract').value,
-          content: document.querySelector('[name="content"]').value
-        });
-        this.html = response.data.page;
-      } catch (error) {
-        alert('An error occurred while fetching your preview, please try again')
-      } finally {
-        this.isLoading = false;
-      }
+        try {
+          const response = await axios.post(this.url, {
+            title: document.querySelector('#title').value,
+            abstract: document.querySelector('#abstract').value,
+            content: document.querySelector('[name="content"]').value
+          });
+          this.html = response.data.page;
+        } catch (error) {
+          console.log(error);
+          alert('An error occurred while fetching your preview, please try again')
+        } finally {
+          this.isLoading = false;
+        }
+
     },
     setWidth(width) {
       this.width = width;

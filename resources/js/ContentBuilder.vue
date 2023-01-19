@@ -1,10 +1,28 @@
 <template>
-  <div class="flex space-x-4">
-    <div class="w-1/3">
+  <div class="">
+
+    <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
+      <i class="mr-2 fa-solid fa-plus"></i>
+      Add module
+    </button>
+
+    <div v-auto-animate="{ duration: 100 }" class="mb-4">
+      <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-3 gap-4 p-4 bg-gray-100">
+        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="flex-col w-full !py-4 btn btn-primary-outlined text-center">
+          <p class="mb-1 text-2xl">
+            <i :class="'fa-solid fa-' + module.icon"></i>
+          </p>
+          <p class="text-xs">
+            {{ module.name }}
+          </p>
+        </a>
+      </div>
+    </div>
+
       <div>
         <draggable
             tag="ul"
-            class="content-list no-bullet"
+            class="mt-4 content-list no-bullet"
             :list="content"
             v-bind="animate"
             @start="drag=true"
@@ -27,27 +45,6 @@
           </template>
         </draggable>
       </div>
-
-      <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
-        <i class="mr-2 fa-solid fa-plus"></i>
-        Add module
-      </button>
-
-      <div v-auto-animate="{ duration: 100 }">
-        <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-3 gap-4 p-4 bg-gray-100">
-          <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="flex-col w-full !py-4 btn btn-primary-outlined text-center">
-            <p class="mb-1 text-2xl">
-              <i :class="'fa-solid fa-' + module.icon"></i>
-            </p>
-            <p class="text-xs">
-              {{ module.name }}
-            </p>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-2/3">
 
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
         <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
@@ -77,13 +74,11 @@
           <h6>Select a module to edit content</h6>
         </div>
       </section>
-
+    
+      <input type="hidden" name="content" :value="json()"/>
     </div>
-
-    <!--        <pre>{{ content }}</pre>-->
-    <input type="hidden" name="content" :value="json()"/>
-  </div>
 </template>
+
 <script>
 import Draggable from 'vuedraggable';
 import { v4 as uuidv4 } from 'uuid';
