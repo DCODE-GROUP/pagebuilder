@@ -47,9 +47,18 @@ class PageController extends Controller
         return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully created');
     }
 
-    public function preview(Page $page): View
+    public function preview(Request $request)
     {
-        return view('page-builder::pages.preview')->with('page', PageService::generatePreviewPage($page));
+        $fakePage = new Page([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'abstract' => $request->input('abstract'),
+        ]);
+
+        return response()->json([
+            'page' => $fakePage->render()
+        ]);
+//        return view('page-builder::pages.preview')->with('page', PageService::generatePreviewPage($page));
     }
 
     public function updatePreview(Page $page): Response

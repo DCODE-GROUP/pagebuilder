@@ -88,6 +88,7 @@ import Draggable from 'vuedraggable';
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
+  inject: ["bus"],
   components: {
     Draggable,
   },
@@ -137,6 +138,7 @@ export default {
       this.component = component;
     },
     update(payload) {
+      this.bus.$emit('refresh-preview', {});
       const [uuid, prop, value] = payload;
 
       const i = _.findIndex(this.content, (module) => {

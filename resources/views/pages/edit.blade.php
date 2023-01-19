@@ -88,6 +88,8 @@
         ])
         @endif
 
+        <page-preview {{ isset($page) ? 'page-id=' . $page->id : ''}}></page-preview>
+
         <footer class="fixed bottom-0 left-0 w-full px-6 py-4 bg-brand-almond-100">
             <div class="container">
                 <div class="flex items-center space-x-2">
@@ -95,8 +97,6 @@
                         <i class="mr-2 fa-regular fa-floppy-disk"></i>
                         {{ isset($page) ? 'Update' : 'Create' }} page
                     </button>
-
-                    <page-preview {{ isset($page) ? 'page-id=' . $page->id : ''}}></page-preview>
 
                     @isset ($page)
                     <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
