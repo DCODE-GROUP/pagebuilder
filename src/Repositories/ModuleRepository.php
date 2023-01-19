@@ -20,7 +20,19 @@ class ModuleRepository
 
     public function findByName(string $name)
     {
-        return $this->modules->get($name);
+        return $this->modules->first(function ($class, $key) use ($name) {
+            if ($key === $name) {
+                return true;
+            }
+
+            if (is_string($class)) {
+                $module = new $class();
+            } else {
+                $module = $class;
+            }
+
+            return $module->name() === $name;
+        });
     }
 
     public function getValues(): array
@@ -50,7 +62,13 @@ class ModuleRepository
         /** @var Module $module */
         // TODO: this fails if we use app()->make(), not sure why.
         //   if we need the DI container, this is a must-fix
-        $module = new $class();
+        if (is_object($class)) {
+            $module = $class;
+        } elseif (is_null($class)) {
+            throw new \Exception("$key cannot be resolved to a CMS module.");
+        } else {
+            $module = new $class();
+        }
 
         return [
             'name' => $module->name(),
