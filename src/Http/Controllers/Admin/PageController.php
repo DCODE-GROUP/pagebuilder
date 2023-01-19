@@ -56,9 +56,11 @@ class PageController extends Controller
         ]);
 
         return response()->json([
-            'page' => $fakePage->render()
+//            'page' => $fakePage->render()
+            'page' => view('page-builder::pages.preview')
+                ->with('page', $fakePage)
+                ->render(),
         ]);
-//        return view('page-builder::pages.preview')->with('page', PageService::generatePreviewPage($page));
     }
 
     public function updatePreview(Page $page): Response

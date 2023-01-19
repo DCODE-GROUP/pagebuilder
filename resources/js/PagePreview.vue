@@ -1,8 +1,6 @@
 <template>
   <div>
-    <shadow-root>
-      <div v-html="html"></div>
-    </shadow-root>
+    <iframe :srcdoc="html" width="1440" height="720" />
   </div>
 </template>
 <script>
@@ -33,7 +31,7 @@ export default {
       axios.post(this.url, {
         title: document.querySelector('#title').value,
         abstract: document.querySelector('#abstract').value,
-        content: document.querySelector('[name="content"').value
+        content: document.querySelector('[name="content"]').value
       })
           .then((response) => {
             this.html = response.data.page;
