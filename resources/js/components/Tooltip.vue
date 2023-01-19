@@ -1,6 +1,6 @@
 <template>
 	<span class="relative z-50">
-		<span v-auto-animate>
+		<span v-auto-animate="{ duration: 100 }">
 			<span v-if="tooltipIsVisible" class="absolute left-0 p-2 text-xs bg-white border border-gray-100 rounded bottom-full">
 				<p class="min-w-[14rem] font-body font-normal text-black text-xs">
 					<slot />

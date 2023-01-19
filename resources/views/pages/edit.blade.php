@@ -61,7 +61,7 @@
             <section class="mb-10">
                 <div class="cell medium-1 -no-label">
                     <label class="sm-toggleable sm-switch" for="active">
-                        {{ Form::checkbox('active', 1, $page->active ?? true) }}
+                        {{ Form::checkbox('active', 1, $page->active ?? true, ["id" => "active"]) }}
                         <span class="form-label">Active</span>
                     </label>
                 </div>
@@ -78,16 +78,6 @@
 
         {{ Form::close() }}
 
-        <div class="my-20 border-t border-black"></div>
-        @if (isset($page))
-        @include('page-builder::_partials.delete-confirm', [
-        'object' => $page,
-        'type' => 'page',
-        'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
-        'label' => 'page ' . $page->title
-        ])
-        @endif
-
         <page-preview {{ isset($page) ? 'page-id=' . $page->id : ''}}></page-preview>
 
         <footer class="fixed bottom-0 left-0 w-full px-6 py-4 bg-brand-almond-100">
@@ -103,6 +93,17 @@
                         Revisions {{ $page->revisionsCount ? '(' . $page->revisionsCount . ')' : null }}
                     </a>
                     @endisset
+
+                    <modal button-text="Delete">
+                        @if (isset($page))
+                        @include('page-builder::_partials.delete-confirm', [
+                        'object' => $page,
+                        'type' => 'page',
+                        'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
+                        'label' => 'page ' . $page->title
+                        ])
+                        @endif
+                    </modal>
                 </div>
             </div>
         </footer>

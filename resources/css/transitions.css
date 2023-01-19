@@ -1,0 +1,33 @@
+.fade {
+  &-enter-active,
+  &-leave-active {
+    @apply transition-all;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    @apply opacity-0;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    @apply opacity-100;
+  }
+}
+
+.fade-from-top {
+  &-enter-active,
+  &-leave-active {
+    @apply transition-all;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    @apply opacity-0 -translate-y-4;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    @apply opacity-100 translate-y-0;
+  }
+}
