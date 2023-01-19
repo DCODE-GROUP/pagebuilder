@@ -13,74 +13,77 @@
             :list="items" 
             item-key="id"
             handle=".handle"
+            v-auto-animate="{ duration: 100 }"
         >
-        <template #item="{element, index}">
-            <div class="relative p-4 pl-10 mb-4 border border-gray-300 rounded bg-gray-50 module-item -slider">
-                <div class="absolute top-0 left-0 flex items-center justify-center w-6 h-full bg-gray-300 cursor-move handle">
-                    <i class="text-white fa-solid fa-align-justify"></i>
-                </div>
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <select-media v-model="element.image" :select-mobile="false" single></select-media>
-                    <select-media v-model="element.mobile_image" :select-mobile="false" label="Mobile Image" single></select-media>
-                </div>
-                <div class="module-item-options">
-                    <div class="grid grid-cols-4 gap-4">
-                        <div>
-                            <label class="form-label">Caption</label>
-                            <input type="text" class="form-input" v-model="element.caption"/>
-                        </div>
-                        <div>
-                            <label class="form-label">Link</label>
-                            <input type="text" class="form-input" v-model="element.link"/>
-                        </div>
-                        <div>
-                            <label class="form-label">Image Alignment</label>
-                            <select class="form-input" v-model="element.alignment" @change="update('alignment')">
-                                <option value="center">Center</option>
-                                <option value="top">Top</option>
-                                <option value="bottom">Bottom</option>
-                            </select>
-                        </div>
-                        <div class="text-right">
-                            <label class="form-label">Delete slide</label>
-                            <button type="button" class="btn btn-danger btn-sm" @click="remove(i)">
-                                <i class="mr-2 fa-regular fa-trash-can"></i>
-                                Delete
-                            </button>
+            <template #item="{element, index}">
+                <div class="relative p-4 pl-10 mb-4 border border-gray-300 rounded bg-gray-50 module-item -slider">
+                    <div class="absolute top-0 left-0 flex items-center justify-center w-6 h-full bg-gray-300 cursor-move handle">
+                        <i class="text-white fa-solid fa-align-justify"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <select-media v-model="element.image" :select-mobile="false" single></select-media>
+                        <select-media v-model="element.mobile_image" :select-mobile="false" label="Mobile Image" single></select-media>
+                    </div>
+                    <div class="module-item-options">
+                        <div class="grid grid-cols-4 gap-4">
+                            <div>
+                                <label class="form-label">Caption</label>
+                                <input type="text" class="form-input" v-model="element.caption"/>
+                            </div>
+                            <div>
+                                <label class="form-label">Link</label>
+                                <input type="text" class="form-input" v-model="element.link"/>
+                            </div>
+                            <div>
+                                <label class="form-label">Image Alignment</label>
+                                <select class="form-input" v-model="element.alignment" @change="update('alignment')">
+                                    <option value="center">Center</option>
+                                    <option value="top">Top</option>
+                                    <option value="bottom">Bottom</option>
+                                </select>
+                            </div>
+                            <div class="text-right">
+                                <label class="form-label">Delete slide</label>
+                                <button type="button" class="btn btn-danger btn-sm" @click="remove(i)">
+                                    <i class="mr-2 fa-regular fa-trash-can"></i>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </template>
         </draggable>
 
-        <footer v-if="items.length !== 0" class="grid grid-cols-4 gap-4">
-            <div class="mb-4">
-                <label class="form-label" for="SliderContained">Contained</label>
-                <label class="sm-toggleable sm-switch" for="SliderContained">
-                    <input type="checkbox" id="SliderContained" v-model="contained" @change="update('contained')"/>
-                    <span></span>
-                </label>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="SliderMargins">Margins</label>
-                <label class="sm-toggleable sm-switch" for="SliderMargins">
-                    <input type="checkbox" id="SliderMargins" v-model="margins" @change="update('margins')"/>
-                    <span></span>
-                </label>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="SliderFullHeight">Full height</label>
-                <label class="sm-toggleable sm-switch" for="SliderFullHeight">
-                    <input type="checkbox" id="SliderFullHeight" v-model="fullHeight" @change="update('fullHeight')"/>
-                    <span></span>
-                </label>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="">Interval</label>
-                <input type="number" v-model="interval" step="1000" @keyup="update('interval')" class="form-input" />
-            </div>
-        </footer>
+        <div v-auto-animate="{ duration: 100 }">
+            <footer v-if="items.length !== 0" class="grid grid-cols-4 gap-4">
+                <div class="mb-4">
+                    <label class="form-label" for="SliderContained">Contained</label>
+                    <label class="sm-toggleable sm-switch" for="SliderContained">
+                        <input type="checkbox" id="SliderContained" v-model="contained" @change="update('contained')"/>
+                        <span></span>
+                    </label>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="SliderMargins">Margins</label>
+                    <label class="sm-toggleable sm-switch" for="SliderMargins">
+                        <input type="checkbox" id="SliderMargins" v-model="margins" @change="update('margins')"/>
+                        <span></span>
+                    </label>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="SliderFullHeight">Full height</label>
+                    <label class="sm-toggleable sm-switch" for="SliderFullHeight">
+                        <input type="checkbox" id="SliderFullHeight" v-model="fullHeight" @change="update('fullHeight')"/>
+                        <span></span>
+                    </label>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label" for="">Interval</label>
+                    <input type="number" v-model="interval" step="1000" @keyup="update('interval')" class="form-input" />
+                </div>
+            </footer>
+        </div>
     </div>
 </template>
 

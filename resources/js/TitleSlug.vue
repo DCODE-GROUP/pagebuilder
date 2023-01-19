@@ -14,7 +14,7 @@
         <div class="w-full">
             <label for="slug" class="form-label">
                 Slug
-                <tooltip icon-class="bg-red">The slug is used in the page URL, this is generated from the title but can also be manually edited.</tooltip>
+                <tooltip>The slug is used in the page URL, this is generated from the title but can also be manually edited.</tooltip>
             </label>
             <div class="input-group">
                 <div class="flex items-center">

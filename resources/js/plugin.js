@@ -10,6 +10,7 @@ import TwoColumn from "./cms/TwoColumn.vue"
 import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
 import Selector from "./Selector.vue"
 import Tooltip from "./components/Tooltip.vue"
+import Modal from "./components/Modal.vue"
 
 import $bus from "./lib/Vue3EventBus";
 
@@ -33,6 +34,7 @@ const contentBuilderPlugin = {
         app.component('Selector', Selector);
         
         app.component('Tooltip', Tooltip);
+        app.component('Modal', Modal);
 
         app.use(autoAnimatePlugin);
 

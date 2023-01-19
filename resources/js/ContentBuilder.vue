@@ -1,73 +1,74 @@
 <template>
   <div class="flex space-x-4">
     <div class="w-1/3">
-      <draggable
-          tag="ul"
-          class="content-list no-bullet"
-          :list="content"
-          v-bind="animate"
-          @start="drag=true"
-          @end="drag=false"
-          handle=".handle"
-          item-key="id"
-      >
-        <template #item="{element, index}">
-          <li class="list-item" @click="component = element" :class="{ active: component === element }">
-            <div class="">
-            <!-- <i class="mr-2 fal fa-align-justify handle"></i> -->
-              <i class="mr-2 cursor-move fa-solid fa-align-justify handle"></i>
-              {{ element.name }}
-            </div>
-            <button type="button" @click="remove(index)">
-              <i class="fa-regular fa-trash-can"></i>
-            </button>
-          </li>
-        </template>
-      </draggable>
+      <div>
+        <draggable
+            tag="ul"
+            class="content-list no-bullet"
+            :list="content"
+            v-bind="animate"
+            @start="drag=true"
+            @end="drag=false"
+            handle=".handle"
+            item-key="id"
+            v-auto-animate="{ duration: 100 }"
+        >
+          <template #item="{element, index}">
+            <li class="list-item" @click="component = element" :class="{ 'bg-gray-100': component === element }">
+              <div class="">
+              <!-- <i class="mr-2 fal fa-align-justify handle"></i> -->
+                <i class="mr-2 cursor-move fa-solid fa-align-justify handle"></i>
+                {{ element.name }}
+              </div>
+              <button type="button" @click="remove(index)">
+                <i class="fa-regular fa-trash-can"></i>
+              </button>
+            </li>
+          </template>
+        </draggable>
+      </div>
 
       <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
         <i class="mr-2 fa-solid fa-plus"></i>
         Add module
       </button>
 
-      <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-3 gap-4 p-4 bg-gray-100">
-        <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="flex-col w-full !py-4 btn btn-primary-outlined text-center">
-          <p class="mb-1 text-2xl">
-            <i :class="'fa-solid fa-' + module.icon"></i>
-          </p>
-          <p class="text-xs">
-            {{ module.name }}
-          </p>
-        </a>
+      <div v-auto-animate="{ duration: 100 }">
+        <div v-if="showModuleOptions" id="add-module-menu" class="grid grid-cols-3 gap-4 p-4 bg-gray-100">
+          <a v-for="(module, moduleName) in modules" @click="add(module, moduleName)" :key="module" class="flex-col w-full !py-4 btn btn-primary-outlined text-center">
+            <p class="mb-1 text-2xl">
+              <i :class="'fa-solid fa-' + module.icon"></i>
+            </p>
+            <p class="text-xs">
+              {{ module.name }}
+            </p>
+          </a>
+        </div>
       </div>
     </div>
 
     <div class="w-2/3">
 
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
-        <div>
-          <div>
-            <header class="flex justify-between pb-2 mb-4 border-b border-gray-400">
-              <h3 class="">{{ component.name }}</h3>
-              <div v-if="component.templates.length > 1" class="space-x-4">
-                <span>Template:</span>
-                <select v-model="component.selected_template">
-                  <option v-for="template in component.templates" :value="template">
-                    {{ template }}
-                  </option>
-                </select>
-              </div>
-            </header>
+        <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
+          <h3 class="">{{ component.name }}</h3>
+          <div v-if="component.templates.length > 1" class="space-x-4">
+            <span>Template:</span>
+            <select v-model="component.selected_template">
+              <option v-for="(template, index) in component.templates" :key="index" :value="template">
+                {{ template }}
+              </option>
+            </select>
           </div>
+        </header>
 
-          <component
-              :is="component.module"
-              :key="component.id"
-              :id="component.id"
-              :fields="component.fields"
-              @update-content="update"
-          ></component>
-        </div>
+        <component
+            :is="component.module"
+            :key="component.id"
+            :id="component.id"
+            :fields="component.fields"
+            @update-content="update"
+        ></component>
       </section>
 
       <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-else>
@@ -164,5 +165,6 @@ export default {
 <style lang="postcss" scoped>
 .list-item {
   @apply flex items-center justify-between py-2 px-4 border border-gray-200 mb-4 rounded;
+  @apply transition-colors;
 }
 </style>

@@ -83,5 +83,33 @@
             </section>
         </div>
     </div>
+
+        <footer class="fixed bottom-0 left-0 w-full px-6 py-4 bg-brand-almond-100">
+            <div class="container">
+                <div class="flex items-center space-x-2">
+                    <button type="submit" class="btn btn-primary" onclick="document.page_form.submit()">
+                        <i class="mr-2 fa-regular fa-floppy-disk"></i>
+                        {{ isset($page) ? 'Update' : 'Create' }} page
+                    </button>
+
+                    @isset ($page)
+                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
+                            Revisions {{ $page->revisionsCount ? '(' . $page->revisionsCount . ')' : null }}
+                        </a>
+                    @endisset
+
+                    <modal button-text="Delete">
+                        @if (isset($page))
+                            @include('page-builder::_partials.delete-confirm', [
+                            'object' => $page,
+                            'type' => 'page',
+                            'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
+                            'label' => 'page ' . $page->title
+                            ])
+                        @endif
+                    </modal>
+                </div>
+            </div>
+        </footer>
         {{ Form::close() }}
 </x-page-builder::layouts.admin>

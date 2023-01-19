@@ -1,2 +1,4 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css');
-@import url('./forms.css');
+
+@import 'forms.css';
+@import 'transitions.css';

@@ -30,9 +30,9 @@ export default {
     }
   },
   created() {
-    this.bus.$on('refresh-preview', () => {
-      // this.preview();
-    });
+    // this.bus.$on('refresh-preview', () => {
+    //   this.preview();
+    // });
   },
   mounted() {
     this.preview();
