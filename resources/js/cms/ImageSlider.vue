@@ -25,7 +25,7 @@
                         <select-media v-model="element.mobile_image" :select-mobile="false" label="Mobile Image" single></select-media>
                     </div>
                     <div class="module-item-options">
-                        <div class="grid grid-cols-4 gap-4">
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="form-label">Caption</label>
                                 <input type="text" class="form-input" v-model="element.caption"/>
@@ -34,7 +34,7 @@
                                 <label class="form-label">Link</label>
                                 <input type="text" class="form-input" v-model="element.link"/>
                             </div>
-                            <div>
+                            <div class="col-span-2">
                                 <label class="form-label">Image Alignment</label>
                                 <select class="form-input" v-model="element.alignment" @change="update('alignment')">
                                     <option value="center">Center</option>
@@ -42,14 +42,16 @@
                                     <option value="bottom">Bottom</option>
                                 </select>
                             </div>
-                            <div class="text-right">
-                                <label class="form-label">Delete slide</label>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="text-right">
                                 <button type="button" class="btn btn-danger btn-sm" @click="remove(i)">
                                     <i class="mr-2 fa-regular fa-trash-can"></i>
                                     Delete
                                 </button>
                             </div>
-                        </div>
                     </div>
                 </div>
             </template>

@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col space-y-2">
-        <div class="w-full">
+    <div>
+        <div class="mb-4">
             <label for="title" class="form-label">
                 Title
                 <tooltip>The title of the page displayed on the first heading.</tooltip>
@@ -11,7 +11,7 @@
             <input id="title" name="title" type="text" v-model="title" @keyup="titleKeyUp" @blur="slugifyTitle" class="form-input">
             <span v-if="titleError" class="form-error is-visible">{{ titleError }}</span>
         </div>
-        <div class="w-full">
+        <div class="mb-4">
             <label for="slug" class="form-label">
                 Slug
                 <tooltip>The slug is used in the page URL, this is generated from the title but can also be manually edited.</tooltip>

@@ -17,36 +17,32 @@
             </header>
             <page-builder-sidebar>
                 <template #first>
-                    <div class="space-y-2 top-form grid-container full has-admin-controls">
+                    <div class="top-form grid-container full has-admin-controls">
 
-                        <section class="mb-2">
+                        <section class="mb-4">
                             <label for="active" class="form-label">Active</label>
                             <label class="sm-toggleable sm-switch" for="active">
-                                {{ Form::checkbox('active', 1, $page->active ?? true) }}
+                                {{ Form::checkbox('active', 1, $page->active ?? true, ['id' => 'active']) }}
                                 <span class="form-label"></span>
                             </label>
                         </section>
 
                         <title-slug set-title="{{ $page->title ?? null }}" title-error="{{ $errors->first('title') }}" set-slug="{{ $page->slug ?? null }}" slug-error="{{ $errors->first('slug') }}"></title-slug>
 
-                        <section class="flex flex-col space-y-2">
-                            <div class="w-full">
-                                <div class="flex items-center">
-                                    {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label']) }}
-
-                                    <tooltip iconclasses="ml-1 -mt-2 text-brand-green">If a parent page is selected, this page's URL will be prefixed with the parent page slug.</tooltip>
-                                    <!-- <span data-tooltip title="" class="ml-2 -mt-2 text-brand-green">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </span> -->
+                        <section>
+                            <div class="mb-4">
+                                <div class="flex items-center mb-2">
+                                    {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label !mb-0']) }}
+                                    <tooltip iconclasses="ml-1 text-brand-green">If a parent page is selected, this page's URL will be prefixed with the parent page slug.</tooltip>
+                                </div>
+                                <div>
+                                    {{ Form::vSelect('parent_id', Page::class,
+                                        $page->parent_id ?? old('parent_id') ?? null,
+                                        ['placeholder' => 'Select a parent page']) }}
+                                    {!! $errors->first('parent_id', '<span class="form-error is-visible">:message</span>') !!}
                                 </div>
                             </div>
-                            <div class="w-full">
-                                {{ Form::vSelect('parent_id', Page::class,
-                         $page->parent_id ?? old('parent_id') ?? null,
-                         ['placeholder' => 'Select a parent page']) }}
-                                {!! $errors->first('parent_id', '<span class="form-error is-visible">:message</span>') !!}
-                            </div>
-                            <div class="w-full">
+                            <div class="mb-4">
                                 {{ Form::label('template_id', 'Template', ['class' => 'form-label']) }}
                                 {{ Form::vSelect('template_id', Template::class,
                         $page->template_id ?? old('template_id') ?? null,
@@ -55,19 +51,19 @@
                             </div>
                         </section>
 
-                        <section class="flex flex-col space-y-2">
-                            <div class="w-full">
-                                <div class="flex items-center">
-                                    {{ Form::label('abstract', 'Abstract', ['class' => 'form-label']) }}
-                                    <tooltip iconclasses="ml-1 -mt-2 text-brand-green">The abstract displayed on listing pages.</tooltip>
+                        <section>
+                            <div class="mb-4">
+                                <div class="flex items-center mb-2">
+                                    {{ Form::label('abstract', 'Abstract', ['class' => 'form-label !mb-0']) }}
+                                    <tooltip iconclasses="ml-1 text-brand-green">The abstract displayed on listing pages.</tooltip>
                                 </div>
                                 {{ Form::textarea('abstract', null, ['rows' => 7, 'class' => 'form-input']) }}
                                 {!! $errors->first('abstract', '<span class="form-error is-visible">:message</span>') !!}
                             </div>
-                            <div class="w-full">
+                            <div class="mb-4">
                                 <label class="form-label">
                                     Featured image
-                                    <tooltip iconclasses="ml-1 -mt-2 text-brand-green">If a featured image is set, it will appear as a hero image on the page.</tooltip>
+                                    <tooltip iconclasses="ml-1 text-brand-green">If a featured image is set, it will appear as a hero image on the page.</tooltip>
                                 </label>
                                 <select-media field="featured_image" value="{{ $page->featured_image ?? null }}" mobile-value="{{ $page->featured_image_mobile ?? null }}"></select-media>
                             </div>
@@ -104,16 +100,16 @@
                 </a>
                 @endisset
 
+                @if (isset($page))
                 <modal button-text="Delete">
-                    @if (isset($page))
                     @include('page-builder::_partials.delete-confirm', [
                     'object' => $page,
                     'type' => 'page',
                     'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
                     'label' => 'page ' . $page->title
                     ])
-                    @endif
                 </modal>
+                @endif
             </div>
         </div>
     </footer>

@@ -1,4 +1,3 @@
-import PageBuilderLayout from './layouts/PageBuilderLayout.vue';
 import PageBuilderSidebar from './layouts/PageBuilderSidebar.vue';
 import ContentBuilder from './ContentBuilder.vue';
 import Module from './Module.vue';
@@ -28,7 +27,6 @@ const contentBuilderPlugin = {
 
         app.component('draggable', vuedraggable);
         
-        app.component('PageBuilderLayout', PageBuilderLayout);
         app.component('PageBuilderSidebar', PageBuilderSidebar);
         
         app.component('ContentBuilder', ContentBuilder);

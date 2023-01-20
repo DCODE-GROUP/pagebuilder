@@ -1,14 +1,18 @@
 <template>
-  <div class="flex flex-col items-center flex-1 bg-primary-400">
+  <div class="flex flex-col items-center flex-1 ">
     <div class="flex justify-center w-full py-2">
-      <div class="space-x-4 btn-group">
-        <button type="button" class="btn btn-primary-outlined" @click="setWidth('1920')">1920px</button>
-        <button type="button" class="btn btn-primary-outlined" @click="setWidth('1440')">1440px</button>
-        <button type="button" class="btn btn-primary-outlined" @click="setWidth('768')">768px</button>
+      <div class="btn-group">
+        <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1920'}" @click="setWidth('1920')">1920px</button>
+        <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1440'}" @click="setWidth('1440')">1440px</button>
+        <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1366'}" @click="setWidth('1366')">1366px</button>
+        <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '768'}" @click="setWidth('768')">768px</button>
+        <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '375'}" @click="setWidth('375')">375px</button>
       </div>
     </div>
-    <div class="overflow-hidden" style="height: 720px;" :style="wrapperStyle">
-      <iframe :srcdoc="html" width="100%" height="100%" :style="iframeStyle" />
+    <div class="w-full p-1 overflow-x-scroll border border-gray-300">
+      <div class="mx-auto overflow-hidden border border-gray-300" style="height: 720px;" :style="wrapperStyle">
+          <iframe :srcdoc="html" width="100%" height="100%" :style="iframeStyle" />
+      </div>
     </div>
   </div>
 </template>
@@ -40,45 +44,29 @@ export default {
   computed: {
     wrapperStyle() {
       return {
-        width: `${this.width}px`,
-        maxWidth: '1400px',
+        width: `${this.width}px`
       };
     }
   },
   methods: {
     async preview() {
       this.isLoading = true;
-
-        try {
-          const response = await axios.post(this.url, {
-            title: document.querySelector('#title').value,
-            abstract: document.querySelector('#abstract').value,
-            content: document.querySelector('[name="content"]').value
-          });
-          this.html = response.data.page;
-        } catch (error) {
-          console.log(error);
-          alert('An error occurred while fetching your preview, please try again')
-        } finally {
-          this.isLoading = false;
-        }
-
+      try {
+        const response = await axios.post(this.url, {
+          title: document.querySelector('#title').value,
+          abstract: document.querySelector('#abstract').value,
+          content: document.querySelector('[name="content"]').value
+        });
+        this.html = response.data.page;
+      } catch (error) {
+        console.log(error);
+        alert('An error occurred while fetching your preview, please try again')
+      } finally {
+        this.isLoading = false;
+      }
     },
     setWidth(width) {
       this.width = width;
-      if (width === '1920') {
-        this.iframeStyle = {
-          zoom: 0.75,
-          '-moz-transform': 'scale(0.75)',
-          '-moz-transform-origin': '0 0',
-          '-o-transform': 'scale(0.75)',
-          '-o-transform-origin': '0 0',
-          '-webkit-transform': 'scale(0.75)',
-          '-webkit-transform-origin': '0 0',
-        };
-      } else {
-        this.iframeStyle = null;
-      }
     }
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="pb-24">
 
     <button class="w-full btn btn-primary" type="button" @click="showModuleOptions = !showModuleOptions">
       <i class="mr-2 fa-solid fa-plus"></i>
@@ -34,12 +34,11 @@
           <template #item="{element, index}">
             <li class="list-item" @click="component = element" :class="{ 'bg-gray-100': component === element }">
               <div class="">
-              <!-- <i class="mr-2 fal fa-align-justify handle"></i> -->
-                <i class="mr-2 cursor-move fa-solid fa-align-justify handle"></i>
+                <i class="mr-2 cursor-move fa-solid fa-grip-vertical handle"></i>
                 {{ element.name }}
               </div>
               <button type="button" @click="remove(index)">
-                <i class="fa-regular fa-trash-can"></i>
+                <i class="transition-colors fa-regular fa-trash-can hover:text-error"></i>
               </button>
             </li>
           </template>
@@ -49,9 +48,9 @@
       <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
         <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
           <h3 class="">{{ component.name }}</h3>
-          <div v-if="component.templates.length > 1" class="space-x-4">
+          <div v-if="component.templates.length > 1" class="flex items-center space-x-4">
             <span>Template:</span>
-            <select v-model="component.selected_template">
+            <select v-model="component.selected_template" class="form-input">
               <option v-for="(template, index) in component.templates" :key="index" :value="template">
                 {{ template }}
               </option>

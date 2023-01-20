@@ -28,15 +28,15 @@
             <input type="text" class="form-input" v-model="anchor" @change="update('anchor')"/>
         </div>
         
-        <div class="grid grid-cols-4 gap-4">
-            <div class="mb-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
                 <label class="form-label" for="twoColumnImagePadding">Padding</label>
                 <label class="sm-toggleable sm-switch" for="twoColumnImagePadding">
                     <input type="checkbox" id="twoColumnImagePadding" v-model="padding" @change="update('padding')"/>
                     <span class="form-label"></span>
                 </label>
             </div>
-            <div class="mb-4">
+            <div>
                 <label class="form-label" for="twoColumnImageRounding">Rounded Image</label>
                 <label class="sm-toggleable sm-switch" for="twoColumnImageRounding">
                     <input type="checkbox" id="twoColumnImageRounding" v-model="rounded" @change="update('rounded')"/>
