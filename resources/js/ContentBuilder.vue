@@ -81,6 +81,7 @@
 <script>
 import Draggable from 'vuedraggable';
 import { v4 as uuidv4 } from 'uuid';
+import debounce from 'lodash/debounce';
 
 export default {
   inject: ["bus"],
@@ -133,7 +134,7 @@ export default {
       this.component = component;
     },
     update(payload) {
-      this.bus.$emit('refresh-preview', {});
+      this.triggerRefreshPreview();
       const [uuid, prop, value] = payload;
 
       const i = _.findIndex(this.content, (module) => {
@@ -151,7 +152,10 @@ export default {
     },
     isEmpty(object) {
       return _.isEmpty(object);
-    }
+    },
+    triggerRefreshPreview: debounce(function () {
+      this.bus.$emit('refresh-preview', {});
+    }, 500),
   }
 }
 </script>
