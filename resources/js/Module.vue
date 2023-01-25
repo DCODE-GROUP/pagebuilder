@@ -1,28 +1,25 @@
 <script>
-   export default {
-        props: {
-            id: String,
-            fields: Object
-        },
-        methods: {
-            update(name, value) {
+export default {
+  props: {
+    id: String,
+    fields: Object
+  },
+  methods: {
+    update(name, value) {
+      if (typeof value !== 'undefined') {
+        this[name] = value;
+      }
 
-                if (typeof value !== 'undefined') {
-                    this[name] = value;
-                }
+      this.$emit('update-content', [this.id, name, this[name]]);
+    },
 
-                this.$emit('update-content', [this.id, name, this[name]]);
-            },
+    updateObject(name, index, key) {
+      const i = _.findIndex(this[name], (o) => {
+        return o.id === id;
+      });
 
-            updateObject(name, index, key) {
-                const i = _.findIndex(this[name], (o) => {
-                    return o.id === id;
-                });
-
-                console.log(i);
-
-                this.$emit('update-content', [this.id, name, this[name][i][key]]);
-            }
-        }
+      this.$emit('update-content', [this.id, name, this[name][i][key]]);
     }
+  }
+}
 </script>

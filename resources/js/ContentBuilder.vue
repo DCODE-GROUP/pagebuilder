@@ -50,7 +50,7 @@
           <h3 class="">{{ component.name }}</h3>
           <div v-if="component.templates.length > 1" class="flex items-center space-x-4">
             <span>Template:</span>
-            <select v-model="component.selected_template" class="form-input">
+            <select v-model="component.selected_template" @change="refreshPreview" class="form-input">
               <option v-for="(template, index) in component.templates" :key="index" :value="template">
                 {{ template }}
               </option>
@@ -134,7 +134,7 @@ export default {
       this.component = component;
     },
     update(payload) {
-      this.triggerRefreshPreview();
+      this.debouncedRefreshPreview();
       const [uuid, prop, value] = payload;
 
       const i = _.findIndex(this.content, (module) => {
@@ -153,9 +153,12 @@ export default {
     isEmpty(object) {
       return _.isEmpty(object);
     },
-    triggerRefreshPreview: debounce(function () {
-      this.bus.$emit('refresh-preview', {});
+    debouncedRefreshPreview: debounce(function () {
+      this.refreshPreview();
     }, 500),
+    refreshPreview() {
+      this.bus.$emit('refresh-preview', {});
+    }
   }
 }
 </script>

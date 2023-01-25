@@ -2,7 +2,7 @@
 
 namespace Dcodegroup\PageBuilder\Services;
 
-use Dcodegroup\PageBuilder\Classes\Module;
+use Dcodegroup\PageBuilder\Module;
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;

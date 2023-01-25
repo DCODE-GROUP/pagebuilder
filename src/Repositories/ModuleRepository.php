@@ -2,7 +2,7 @@
 
 namespace Dcodegroup\PageBuilder\Repositories;
 
-use Dcodegroup\PageBuilder\Classes\Module;
+use Dcodegroup\PageBuilder\Module;
 use Illuminate\Support\Collection;
 
 class ModuleRepository

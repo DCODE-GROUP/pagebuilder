@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center flex-1 ">
     <div class="flex justify-center w-full py-2">
-      <div class="btn-group">
+      <div class="btn-group space-x-4">
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1920'}" @click="setWidth('1920')">1920px</button>
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1440'}" @click="setWidth('1440')">1440px</button>
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1366'}" @click="setWidth('1366')">1366px</button>
@@ -9,8 +9,8 @@
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '375'}" @click="setWidth('375')">375px</button>
       </div>
     </div>
-    <div class="w-full p-1 overflow-x-scroll border border-gray-300">
-      <div class="mx-auto overflow-hidden border border-gray-300" style="height: 720px;" :style="wrapperStyle">
+    <div class="w-full overflow-x-scroll border border-gray-300">
+      <div class="mx-auto overflow-hidden" style="height: 720px;" :style="wrapperStyle">
           <iframe :srcdoc="html" width="100%" height="100%" :style="iframeStyle" />
       </div>
     </div>

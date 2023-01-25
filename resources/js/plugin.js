@@ -18,11 +18,8 @@ import $bus from "./lib/Vue3EventBus";
 import vuedraggable from "vuedraggable";
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
-import shadow from 'vue-shadow-dom';
-
 const contentBuilderPlugin = {
     install(app, options) {
-        app.use(shadow);
         app.provide("bus", $bus);
 
         app.component('draggable', vuedraggable);

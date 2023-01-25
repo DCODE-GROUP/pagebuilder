@@ -47,7 +47,5 @@
         </tbody>
     </table>
     {{ $revisions->appends(request()->except(['page','_token']))->links() }}
-@else
-    @include('page-builder::_partials.components.no-results', ['label' => 'pages'])
 @endif
 </x-admin-layout>

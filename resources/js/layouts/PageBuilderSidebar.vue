@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="flex pb-4 mb-4 border-b border-gray-300">
-			<div class="btn-group">
-				<button type="button" class="btn" :class="activeTab === 'first' ? 'btn-primary' : 'btn-primary-outlined'" @click="setActiveTab('first')">Page</button>
-				<button type="button" class="btn" :class="activeTab === 'second' ? 'btn-primary' : 'btn-primary-outlined'" @click="setActiveTab('second')">Content</button>
+			<div class="btn-group space-x-2 flex flex-1">
+				<button type="button" class="btn flex-1" :class="activeTab === 'first' ? 'btn-primary' : 'btn-primary-outlined'" @click="setActiveTab('first')">Page</button>
+				<button type="button" class="btn flex-1" :class="activeTab === 'second' ? 'btn-primary' : 'btn-primary-outlined'" @click="setActiveTab('second')">Content</button>
 			</div>
 		</div>
 		<div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dcodegroup\PageBuilder\Classes;
+namespace Dcodegroup\PageBuilder;
 
 use Illuminate\Support\Str;
 

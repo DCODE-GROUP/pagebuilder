@@ -2,7 +2,7 @@
 
 namespace Dcodegroup\PageBuilder\Modules;
 
-use Dcodegroup\PageBuilder\Classes\Module;
+use Dcodegroup\PageBuilder\Module;
 
 class SingleColumn extends Module
 {
