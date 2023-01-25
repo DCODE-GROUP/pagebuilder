@@ -88,6 +88,11 @@ class PageBuilderServiceProvider extends ServiceProvider
                         'index',
                     ])->name("pages.revisions.index");
 
+                    Route::get("pages/revisions/{revision}", [
+                        PageRevisionController::class,
+                        'show',
+                    ])->name("pages.revisions.show");
+
                     Route::put("pages/revisions/{revision}", [
                         PageRevisionController::class,
                         'restore',

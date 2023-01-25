@@ -13,9 +13,20 @@ class PageRevisionController extends Controller
 {
     public function index(Page $page): View
     {
-        $revisions = $page->revisions()->paginate(20);
+        $revisions = $page->revisions()
+            ->latest()
+            ->paginate(20);
 
         return view('page-builder::revisions.index', compact('page', 'revisions'));
+    }
+
+    public function show(PageRevision $revision): View
+    {
+        $page = $revision->page;
+
+        $page->fill($revision->only(['title', 'abstract', 'content']));
+
+        return view('page-builder::cms.page', ['page' => $page]);
     }
 
     public function restore(PageRevision $revision): RedirectResponse

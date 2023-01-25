@@ -9,37 +9,38 @@
     <table>
         <thead>
         <tr>
-            <th>Content</th>
             <th>Updated</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>Latest</td>
+            <td>
+                <a href="{{ route(\Dcodegroup\PageBuilder\Routes::front('view'), $page->slug) }}" class="btn btn-primary" target="_blank">
+                    View revision
+                </a>
+            </td>
+        </tr>
         @foreach($revisions as $revision)
             <tr>
-                <td>
-                    <h1>{{ $revision->title }}</h1>
-                    <hr />
-                    @if ($revision->abstract)
-                        <h5>Abstract</h5>
-                        {{ $revision->abstract }}
-                        <hr />
-                    @endif
-                    <h5>Content</h5>
-                    {!! $page->render() !!}
-                </td>
                 <td>{!! nl2br($revision->updatedByForHumans) !!}</td>
                 <td>
-                    <div class="button-group">
+                    <div class="btn-group space-x-2 flex flex-1">
+                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.show'), $revision) }}" class="btn btn-primary" target="_blank">
+                            View revision
+                        </a>
                         {{ Form::open(['route' => [\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.restore'), $revision], 'method' => 'put']) }}
-                            <button type="submit" class="button success">Restore</button>
+                            <button type="submit" class="btn btn-primary">Restore</button>
                         {{ Form::close() }}
+                        <modal button-text="Delete">
                         @include('page-builder::_partials.delete-confirm', [
                             'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.revisions.destroy'),
                             'object' => $revision,
                             'label' => 'this page revision',
                             'type' => 'revision'
                         ])
+                        </modal>
                     </div>
                 </td>
             </tr>
