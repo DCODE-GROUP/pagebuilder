@@ -14,6 +14,8 @@ class SiteController
             abort(404);
         }
 
-        return view('page-builder::cms.page', ['page' => $page]);
+        $templateKey = $page->template?->key ?? 'base';
+
+        return view("page-builder::templates.{$templateKey}", ['page' => $page]);
     }
 }

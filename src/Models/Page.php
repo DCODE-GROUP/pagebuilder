@@ -2,12 +2,13 @@
 
 namespace Dcodegroup\PageBuilder\Models;
 
-use Dcodegroup\PageBuilder\Models\Seo;
+//use Dcodegroup\PageBuilder\Models\Seo;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Dcodegroup\PageBuilder\Traits\CMSMenuResource;
 use Dcodegroup\PageBuilder\Traits\DatesForHumans;
 use Dcodegroup\PageBuilder\Traits\ScopeActive;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,6 +39,11 @@ class Page extends Model
     public function revisions(): HasMany
     {
         return $this->hasMany(PageRevision::class);
+    }
+
+    public function template(): BelongsTo
+    {
+        return $this->belongsTo(Template::class);
     }
 
 //    public function seo(): MorphOne
