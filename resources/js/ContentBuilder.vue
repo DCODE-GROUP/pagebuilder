@@ -33,41 +33,46 @@
         >
           <template #item="{element, index}">
             <li class="list-item" @click="component = element" :class="{ 'bg-gray-100': component === element }">
-              <div class="">
-                <i class="mr-2 cursor-move fa-solid fa-grip-vertical handle"></i>
-                {{ element.name }}
+              <div class="w-full">
+                <div class="flex justify-between">
+                  <div class="">
+                    <i class="mr-2 cursor-move fa-solid fa-grip-vertical handle"></i>
+                    {{ element.name }}
+                  </div>
+                  <button type="button" @click="remove(index)">
+                    <i class="transition-colors fa-regular fa-trash-can hover:text-error"></i>
+                  </button>
+                </div>
+
+                <section class="bg-gray-100 rounded content-edit-module mt-4" v-if="component && component === element" :key="component.id">
+                  <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
+                    <h3 class="">{{ component.name }}</h3>
+                    <div v-if="component.templates.length > 1" class="flex items-center space-x-4">
+                      <span>Template:</span>
+                      <select v-model="component.selected_template" @change="refreshPreview" class="form-input">
+                        <option v-for="(template, index) in component.templates" :key="index" :value="template">
+                          {{ template }}
+                        </option>
+                      </select>
+                    </div>
+                  </header>
+
+                  <component
+                      :is="component.module"
+                      :key="component.id"
+                      :id="component.id"
+                      :fields="component.fields"
+                      @update-content="update"
+                  ></component>
+                </section>
+
               </div>
-              <button type="button" @click="remove(index)">
-                <i class="transition-colors fa-regular fa-trash-can hover:text-error"></i>
-              </button>
             </li>
           </template>
         </draggable>
       </div>
 
-      <section class="p-4 bg-gray-100 rounded content-edit-module" v-if="component" :key="component.id">
-        <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
-          <h3 class="">{{ component.name }}</h3>
-          <div v-if="component.templates.length > 1" class="flex items-center space-x-4">
-            <span>Template:</span>
-            <select v-model="component.selected_template" @change="refreshPreview" class="form-input">
-              <option v-for="(template, index) in component.templates" :key="index" :value="template">
-                {{ template }}
-              </option>
-            </select>
-          </div>
-        </header>
-
-        <component
-            :is="component.module"
-            :key="component.id"
-            :id="component.id"
-            :fields="component.fields"
-            @update-content="update"
-        ></component>
-      </section>
-
-      <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-else>
+      <section class="flex items-center justify-center w-full p-4 text-center border h-60 border-brand-almond-200" v-if="!component">
         <div>
           <h4>Click on a module's handle and drag to re-order</h4>
           <h6>Select a module to edit content</h6>
