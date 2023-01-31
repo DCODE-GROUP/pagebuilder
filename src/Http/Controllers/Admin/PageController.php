@@ -55,9 +55,10 @@ class PageController extends Controller
             'abstract' => $request->input('abstract'),
         ]);
 
+        $templateKey = $page->template?->key ?? 'base';
+
         return response()->json([
-//            'page' => $fakePage->render()
-            'page' => view('page-builder::pages.preview')
+            'page' => view("page-builder::templates.{$templateKey}")
                 ->with('page', $fakePage)
                 ->render(),
         ]);
