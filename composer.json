@@ -20,7 +20,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravelcollective/html": "^6.3"
+        "laravelcollective/html": "^6.3",
+        "dcodegroup/laravel-attachments": "dev-master"
     },
     "require-dev": {
         "orchestra/testbench": "^7.18"

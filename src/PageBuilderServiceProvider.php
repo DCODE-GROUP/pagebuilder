@@ -3,6 +3,7 @@
 namespace Dcodegroup\PageBuilder;
 
 use Collective\Html\FormBuilder;
+use Dcodegroup\PageBuilder\Http\Controllers\Media\UploadController;
 use Dcodegroup\PageBuilder\Http\Controllers\SiteController;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Illuminate\Contracts\Foundation\Application;
@@ -102,6 +103,8 @@ class PageBuilderServiceProvider extends ServiceProvider
                         PageRevisionController::class,
                         'destroy',
                     ])->name("pages.revisions.destroy");
+
+                    Route::post("pages/upload-media", UploadController::class)->name("pages.upload-media");
                 });
         });
 
