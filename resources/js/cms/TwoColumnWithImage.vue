@@ -6,22 +6,17 @@
     </div>
 
     <div class="flex mb-4 space-x-4">
-      <div class="w-1/2">
-        <label class="form-label">Image</label>
+      <div class="w-full">
         <attachment
             v-model="image"
             :default-model="pageModel"
-            :page-model-class="pageModelClass"
+            :model-class="pageModelClass"
             :upload-endpoint="mediaUploadEndpoint"
             :field="id"
-            @input="update('image')"
+            :desktop-image="fields.image?.value"
+            :mobile-image="fields.mobileImage?.value"
+            @input="handleAttachment"
         ></attachment>
-      </div>
-
-      <div class="w-1/2">
-        <label class="form-label">Icon</label>
-        <select-media v-model="icon" :select-mobile="false" label="Icon Image" @input="update('icon')"
-                      single></select-media>
       </div>
     </div>
 
@@ -67,8 +62,6 @@
         </select>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -85,7 +78,7 @@ export default {
       image: null,
       imageLink: null,
       rounded: false,
-      icon: null,
+      mobileImage: null,
       anchor: null,
       padding: true,
       style: 'dark',
@@ -93,11 +86,12 @@ export default {
     }
   },
   mounted() {
+    console.log(this.fields);
     this.body = this.fields.body.value;
     this.image = this.fields.image.value;
     this.imageLink = this.fields.imageLink.value;
     this.rounded = this.fields.rounded.value;
-    this.icon = this.fields.icon.value;
+    this.mobileImage = this.fields.mobileImage.value;
     this.anchor = this.fields.anchor.value;
     this.padding = this.fields.padding.value;
     this.style = this.fields.style.value;
@@ -106,6 +100,13 @@ export default {
   components: {
     'tinymce-editor': Editor,
     Attachment
+  },
+  methods: {
+    handleAttachment(data) {
+      const key = data.type === 'desktop' ? 'image' : 'mobileImage'
+
+      this.update(key, data.media);
+    }
   }
 }
 </script>

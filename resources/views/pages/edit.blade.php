@@ -16,7 +16,7 @@
                             <h4>Create new page</h4>
                         @endif
                     </header>
-                    <page-builder-sidebar>
+                    <page-builder-sidebar :page="{{ \Illuminate\Support\Js::from($page) }}">
                         <template #first>
                             <div class="top-form grid-container full has-admin-controls">
 
@@ -103,7 +103,7 @@
             <footer class="fixed bottom-0 left-0 w-full px-6 py-4 bg-brand-almond-100">
                 <div class="container">
                     <div class="flex items-center space-x-2">
-                        <submit :default-value="{{ (bool)!$page->exists }}"></submit>
+                        <submit :default-value="{{ json_encode(!$page->exists) }}"></submit>
 
                         @if ($page->exists)
                             <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">

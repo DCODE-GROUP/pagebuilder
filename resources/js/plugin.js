@@ -23,6 +23,8 @@ import $bus from "./lib/Vue3EventBus";
 import vuedraggable from "vuedraggable";
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
+import "toastify-js/src/toastify.css"
+
 const contentBuilderPlugin = {
     install(app, options) {
         app.provide("bus", $bus);

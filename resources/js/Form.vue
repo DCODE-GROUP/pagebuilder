@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form :action="action" :method="method">
+    <form :action="action" method="post">
       <input type="hidden" name="_method" :value="method">
       <slot name="fields" />
     </form>
@@ -8,6 +8,7 @@
 </template>
 <script>
 import axios from "axios";
+import Toastify from 'toastify-js';
 
 export default {
   inject: ["bus"],
@@ -48,16 +49,29 @@ export default {
         return;
       }
 
-      const response = await axios.post(this.action, data);
+      try {
+        const response = await axios.post(this.action, data);
 
-      if (response.data) {
         this.page = response.data.page;
         this.action = this.updateAction;
 
         this.bus.$emit('set-page', this.page);
 
         this.replaceActionParam();
+      } catch (e) {
+        Toastify({
+          text: e.response.data.message,
+          duration: 3000,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "left", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "#FF0000",
+          },
+        }).showToast();
       }
+
     },
     replaceActionParam() {
       if (this.action.includes(':page')) {

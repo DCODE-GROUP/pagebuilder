@@ -60,14 +60,18 @@ export default {
     },
     titleKeyUp: _.debounce(function () {
       this.slugifyTitle();
+      this.emitEvent();
+    }, 1000),
+    slugKeyUp: _.debounce(function () {
+      this.slugifySlug();
+      this.emitEvent();
+    }, 1000),
+    emitEvent() {
       this.bus.$emit('title-filled', {
         title: this.title,
         slug: this.slug,
       });
-    }, 1000),
-    slugKeyUp: _.debounce(function () {
-      this.slugifySlug();
-    }, 1000)
+    }
   }
 }
 </script>

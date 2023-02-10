@@ -86,7 +86,7 @@ class PageController extends Controller
             ->with('CMSModules', $this->moduleRepository->buildConfigurations())
             ->with('pageService', $this->pageService)
             ->with('featuredImage', $page->getFirstMedia('featured_image'))
-            ->with('mobileFeaturedImage', $page->getFirstMedia('mobiel_featured_image'));
+            ->with('mobileFeaturedImage', $page->getFirstMedia('mobile_featured_image'));
     }
 
     public function update(PageRequest $request, Page $page): RedirectResponse
