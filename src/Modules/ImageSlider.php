@@ -7,6 +7,7 @@ use Dcodegroup\PageBuilder\Module;
 class ImageSlider extends Module
 {
     protected string $name = 'Image Slider';
+
     protected string $icon = 'images';
 
     public function fields(): array

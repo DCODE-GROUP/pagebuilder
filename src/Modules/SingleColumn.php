@@ -7,6 +7,7 @@ use Dcodegroup\PageBuilder\Module;
 class SingleColumn extends Module
 {
     protected string $name = 'Single column';
+
     protected string $icon = 'file-alt';
 
     public function fields(): array
