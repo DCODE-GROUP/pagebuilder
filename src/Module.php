@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 abstract class Module
 {
     protected string $name;
+
     protected string $icon;
 
     abstract public function fields(): array;
@@ -14,7 +15,7 @@ abstract class Module
     public function viewName(string $selectedTemplate = 'base'): string
     {
         // NOTE: use static instead of self because of inheritance
-        return 'page-builder::modules.' . Str::kebab(class_basename(static::class)) . '.' . $selectedTemplate;
+        return 'page-builder::modules.'.Str::kebab(class_basename(static::class)).'.'.$selectedTemplate;
     }
 
     public function availableTemplates(): array

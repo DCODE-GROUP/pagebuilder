@@ -7,6 +7,7 @@ use Dcodegroup\PageBuilder\Module;
 class TwoColumnWithImage extends Module
 {
     protected string $name = 'Two column with Image';
+
     protected string $icon = 'images';
 
     public function fields(): array

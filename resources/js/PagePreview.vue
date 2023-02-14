@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center flex-1 ">
     <div class="flex justify-center w-full py-2">
-      <div class="btn-group">
+      <div class="flex space-x-2">
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1920'}" @click="setWidth('1920')">1920px</button>
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1440'}" @click="setWidth('1440')">1440px</button>
         <button type="button" class="lowercase btn btn-primary-outlined" :class="{ '!bg-brand-green !text-white': width === '1366'}" @click="setWidth('1366')">1366px</button>

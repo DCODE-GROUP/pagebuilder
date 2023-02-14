@@ -14,6 +14,7 @@ class ModuleRepository
         $this->modules = collect(iterator_to_array($modules))
             ->mapWithKeys(function ($module) {
                 $shortName = class_basename($module);
+
                 return [$shortName => $module];
             });
     }
