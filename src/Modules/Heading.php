@@ -7,6 +7,7 @@ use Dcodegroup\PageBuilder\Module;
 class Heading extends Module
 {
     protected string $name = 'Heading';
+
     protected string $icon = 'heading';
 
     public function fields(): array

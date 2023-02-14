@@ -1,206 +1,81 @@
 # Page Builder
 
-This package provides functionality for a page builder in laravel.
+This package provides functionality for a CMS like page builder in Laravel. This includes managing pages and their content.
 
-REST NEEDS UPDATING
+The package is extendable on per-project basis: new components, templates and page layouts can be defined.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require dcodegroup/pagebuilder
+composer require dcodegroup/page-builder
 ```
 
 Then run the install command.
 
 ```bash
-php artsian laravel-xero-timesheet-sync:install
+php artisan vendor:publish --tag=page-builder-config
+php artisan vendor:publish --tag=page-builder-migrations
 ```
 
 This will publish the configuration file and the migrations.
 
-Then run the migrations
+Then run the migrations:
 
 ```bash
-php artsian migrate
+php artisan migrate
 ```
 
-This will add the following fields to timesheets table and create two new tables.
-
-```yaml
-timesheets
----
-can_include_in_xero_sync tinyint(1) DEFAULT=0
-units double(8,2)
-xero_timesheet_id unsignedbigint(255) FK >- xero_timesheets.id
-
-xero_timesheets
----
-id bigint(20) PK IDENTITY
-xerotimeable_type varchar(255)
-xerotimeable_id unsignedbigint
-xero_timesheet_guid varchar(50) NULL # The identifier returned from xero
-xero_employee_id varchar(50) NULL # may be redundant becuase its on the user that should be the polymporphic field. But saves a lookup
-status varchar(50) NULL DEFAULT=DRAFT
-start_date date
-stop_date date
-hours double(8,2)
-synced_at timestamp NULL
-deleted_at timestamp NULL
-created_at timestamp NULL
-updated_at timestamp NULL
-
-xero_timesheets_lines
----
-id bigint(20) PK IDENTITY
-xero_timesheet_id unsignedbigint(255) FK >- xero_timesheets.id
-xero-earnings_rate_id
-date date
-units double(8,2)
-units_override double(8,2)
-deleted_at timestamp NULL
-created_at timestamp NULL
-updated_at timestamp NULL
-
-```
 
 ## Configuration
 
-Most of configuration has been set the fair defaults. However you can review the configuration file at `config/laravel-xero-timesheet-sync.php` and adjust as needed
+Most of configuration has been set the fair defaults. However you can review the configuration file at `config/page-builder.php` and adjust as needed.
 
-You will need to add this field to your fillable array within the Timesheet model. Will not need this if you are extending the base timesheet model as that has guarded [].
-
-```php
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-                   'can_include_in_xero_sync',
-                   'units',
-                   'xero_timesheet_id'
-                   ...
-    ];
-
-```
-
-It is suggested that you also cast the `can_include_in_xero_sync` as a boolean field in the `Timesheet` model.
-
-```php
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    //protected $casts = [
-    //               'can_include_in_xero_sync' => 'boolean',
-    //               ...
-    //];
-    
-    /**
-      *  Merge casts with the existing
-     */
-    public function getCasts(): array
-    {
-        return parent::getCasts() + [
-            'can_include_in_xero_sync' => 'boolean',
-        ];
-    }
-
-```
-
-You should add the interface to the `Timesheet::class` model.
-
-```php
-
-use Dcodegroup\LaravelXeroTimesheetSync\Contracts\SyncsTimesheetsToXero;
-
-class Timesheet extends BaseTimesheet implements SyncsTimesheetsToXero
-{
-
-```
-
-You should add the following trait to the Timesheet model.
-
-```php
-class Timesheet extends Authenticatable
-{
-    use XeroTimesheetable;
-
-```
-
-
-you need to implement these methods
-
-In order for the timesheet row to be used / factored into sending to Xero the `timesheets.can_include_in_xero_sync` needs to be flagged / set as true or value 1.
-This needs to be implemented at the local app level.
-
-Three helper methods are provided in the `XeroTimesheetable.php` trait.
-
-```php
-    public function includeInXeroSync()
-    {
-        $this->update(['can_include_in_xero_sync', true]);
-    }
-
-    public function excludeFromXeroSync()
-    {
-        $this->update(['can_include_in_xero_sync', false]);
-    }
-
-    public function toggleIncludeInXeroSync()
-    {
-        $this->can_include_in_xero_sync = !$this->can_include_in_xero_sync;
-        $this->save();
-    }
-```
+The configuration values are mostly used for adding middleware, prefixes and groups for the routes used by the admin and the site functionality.
 
 ## Routes
 
 The following routes are exposed by the package
 
+Admin side:
 ```
-+--------+----------+-----------------------------+-----------------------------+-------------------------------------------------------------------------------------+----------------------------------+
-| Domain | Method   | URI                         | Name                        | Action                                                                              | Middleware                       |
-+--------+----------+-----------------------------+-----------------------------+-------------------------------------------------------------------------------------+----------------------------------+
-|        | GET|HEAD | xero-timesheet-sync/preview | xero_timesheet_sync.preview | Dcodegroup\LaravelXeroTimesheetSync\Http\Controllers\XeroTimesheetPreviewController | web                              |
-|        |          |                             |                             |                                                                                     | App\Http\Middleware\Authenticate |
-|        | GET|HEAD | xero-timesheet-sync/summary | xero_timesheet_sync.summary | Dcodegroup\LaravelXeroTimesheetSync\Http\Controllers\XeroTimesheetSummaryController | web                              |
-|        |          |                             |                             |                                                                                     | App\Http\Middleware\Authenticate |
-+--------+----------+-----------------------------+-----------------------------+-------------------------------------------------------------------------------------+----------------------------------+
+/admin/pages - List all available pages
+/admin/pages/{page} - Edit page
+/admin/pages/{page}/preview - Ajax endpoint for generating previews for a page
 
-
+/admin/templates - List all available layout templates
 ```
 
-The package exposes some routes that allow you preview timesheets for a user
-
-You can also view a summary of the timesheets for a period
-
-## Jobs
-
-## Commands
-
-There is a command you can run to update the Xero configurations from `dcodegroup/laravel-xero-payroll-au` via Laravels scheduler
-
-```bash
-php artsian laravel-xero-timesheet-sync:update-xero-configuration-data
+Frontend side:
+```
+/{slug} - Renders a page with the given slug. Returns 404 if not found.
 ```
 
-You should add it to your `app/Console/Kernel.php` file to run it once a day. You could run it more often if wanted with the --force flag
+## Extending
+
+### Components
+
+Components can be added or changed using the DI container in Laravel. These examples should be added to one of your `ServiceProvider` (`AppServiceProvider` will do).
+
+New components can be registered with the following method:
 
 ```php
-    /**
-     * Define the application's command schedule.
-     *
-     * @param Schedule $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->command('laravel-xero-timesheet-sync:update-xero-configuration-data')->daily();    
-        ...
-    }
-
+$this->app->tag([
+    \App\MyCMSModules\Heading::class
+], 'page-builder-modules');
 ```
+
+Existing components can be overwritten with the following method:
+
+```php
+$this->app->bind(\Dcodegroup\PageBuilder\Modules\Heading::class, \App\MyCMSModules\Heading::class);
+```
+
+#### Component templates
+
+The available templates for a component can be defined in the component's PHP class by overwriting the `availableTemplates()` method on the Module class. After this, the UI will show a select input where you can select which template do you want to use when rendering the page. The templates must be available as a view with the name of (e.g. for a Heading module): `page-builder::modules.heading.my-template`. For example, in a specific project, this is located at: `{$projectRoot}/resources/views/vendor/page-builder/modules/heading/my-template.blade.php`
+
+### Layout templates
+
+The layout templates are managed from the `/admin/templates` page. First you have to create a new record with each added template. The `key` field of the template will be used when searching for the Blade view. The templates must be available as a view with the name of `page-builder::templates.{$key}`. E.g. in a specific project this can be at `{$projectRoot}/resources/views/vendor/page-builder/templates/my-template.blade.php`. In this case the template key will be `my-template`.

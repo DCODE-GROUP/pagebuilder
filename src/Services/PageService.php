@@ -2,9 +2,9 @@
 
 namespace Dcodegroup\PageBuilder\Services;
 
-use Dcodegroup\PageBuilder\Module;
 use Dcodegroup\PageBuilder\Models\Page;
 use Dcodegroup\PageBuilder\Models\PageRevision;
+use Dcodegroup\PageBuilder\Module;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Exception;
 

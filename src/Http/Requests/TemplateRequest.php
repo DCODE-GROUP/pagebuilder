@@ -5,7 +5,7 @@ namespace Dcodegroup\PageBuilder\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PageRequest extends FormRequest
+class TemplateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -19,18 +19,14 @@ class PageRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'title' => 'sometimes|required|max:255',
-                    'slug' => [
-                        'sometimes',
+                    'name' => 'required|max:255',
+                    'key' => [
                         'required',
                         'max:255',
-                        Rule::unique('pages', 'slug')->ignore($this->route('page')->id ?? null),
+                        Rule::unique('templates', 'key')
+                            ->ignore($this->route('template')->id ?? null),
                     ],
-                    'template_id' => 'nullable|exists:templates,id',
-                    'abstract' => 'nullable|max:65535',
-                    'content' => 'nullable|json',
                 ];
-                break;
         }
     }
 }
