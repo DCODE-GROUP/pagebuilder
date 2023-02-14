@@ -1,5 +1,3 @@
-import attachmentPlugin from "../../vendor/dcodegroup/laravel-attachments/resources/js/plugin";
-
 import PageBuilderSidebar from './layouts/PageBuilderSidebar.vue';
 import ContentBuilder from './ContentBuilder.vue';
 import Module from './Module.vue';
@@ -47,7 +45,6 @@ const contentBuilderPlugin = {
         app.component('Modal', Modal);
 
         app.use(autoAnimatePlugin);
-        app.use(attachmentPlugin);
 
         const modules = {
             Heading,
