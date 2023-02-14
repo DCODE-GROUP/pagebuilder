@@ -43,6 +43,8 @@ Admin side:
 /admin/pages - List all available pages
 /admin/pages/{page} - Edit page
 /admin/pages/{page}/preview - Ajax endpoint for generating previews for a page
+
+/admin/templates - List all available layout templates
 ```
 
 Frontend side:
