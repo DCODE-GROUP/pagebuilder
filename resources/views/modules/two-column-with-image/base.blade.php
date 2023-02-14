@@ -15,33 +15,16 @@
                 <button type="button" class="button read-more">Read more</button>
             </article>
             <aside class="cell small-12 large-6">
-                @if (SiteService::isACN())
-                    <div>
-                        @isset($fields->imageLink->value)
-                            @php $isVideoLink = Video::isVideoLink($fields->imageLink->value); @endphp
-                            <a href="{{ $fields->imageLink->value }}" {!! $isVideoLink ? 'class="video-modal"' : null  !!}>
-                                @endisset
+                <div>
+                    @isset($fields->imageLink->value)
+                        <a href="{{ $fields->imageLink->value }}">
+                    @endisset
 
-                                <img src="{{ $fields->image->value }}"
-                                     class="{{ $fields->style->value === 'dark' ? 'parallax' : null }} {{ $fields->rounded->value ? ' rounded' : null }}">
-
-                    </div>
-                @else
-                    @component('cms.modules.wrap.link', [
-                        'link' => $fields->imageLink->value ?? null,
-                    ])
-                        <div class="img-cover"
-                             style="background-image:url('{{ backgroundImageUri($fields->image->value) }}')">
-                            <img src="{{ $fields->image->value }}"
-                                 class="{{ $fields->style->value === 'dark' ? 'parallax' : null }}
-                                 {{ $fields->rounded->value ? ' rounded' : null }}"
-                            >
-                        </div>
-                    @endcomponent
-                @endif
-                @isset($fields->icon->value)
-                    <img src="{{ $fields->icon->value }}" class="icon-image"/>
-                @endisset
+                        <img src="{{ $fields->image->value->url }}">
+                    @isset($fields->imageLink->value)
+                        </a>
+                    @endisset
+                </div>
             </aside>
         </div>
     </div>

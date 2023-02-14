@@ -33,7 +33,7 @@ class TwoColumnWithImage extends Module
                 'rules' => [],
                 'value' => false,
             ],
-            'icon' => [
+            'mobileImage' => [
                 'type' => 'image',
                 'rules' => [],
                 'value' => null,

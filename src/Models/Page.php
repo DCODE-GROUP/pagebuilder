@@ -3,6 +3,7 @@
 namespace Dcodegroup\PageBuilder\Models;
 
 //use Dcodegroup\PageBuilder\Models\Seo;
+use Dcodegroup\LaravelAttachments\Models\UsesMedia;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Dcodegroup\PageBuilder\Traits\CMSMenuResource;
 use Dcodegroup\PageBuilder\Traits\DatesForHumans;
@@ -10,10 +11,9 @@ use Dcodegroup\PageBuilder\Traits\ScopeActive;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Page extends Model
+class Page extends UsesMedia
 {
     use CMSMenuResource;
     use DatesForHumans;

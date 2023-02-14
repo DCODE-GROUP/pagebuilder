@@ -8,6 +8,7 @@ use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Dcodegroup\PageBuilder\Routes;
 use Dcodegroup\PageBuilder\Services\PageService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -36,13 +37,20 @@ class PageController extends Controller
     public function create(): View
     {
         return view('page-builder::pages.edit')
+            ->with('page', new Page())
             ->with('CMSModules', $this->moduleRepository->buildConfigurations())
             ->with('pageService', $this->pageService);
     }
 
-    public function store(PageRequest $request): RedirectResponse
+    public function store(PageRequest $request): JsonResponse|RedirectResponse
     {
-        PageService::save($request->only(PageService::REQUEST_PARAMS));
+        $page = PageService::save($request->only(PageService::REQUEST_PARAMS));
+
+        if ($request->isJson()) {
+            return response()->json([
+                'page' => $page,
+            ]);
+        }
 
         return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully created');
     }
@@ -76,7 +84,9 @@ class PageController extends Controller
         return view('page-builder::pages.edit')
             ->with('page', $page)
             ->with('CMSModules', $this->moduleRepository->buildConfigurations())
-            ->with('pageService', $this->pageService);
+            ->with('pageService', $this->pageService)
+            ->with('featuredImage', $page->getFirstMedia('featured_image'))
+            ->with('mobileFeaturedImage', $page->getFirstMedia('mobile_featured_image'));
     }
 
     public function update(PageRequest $request, Page $page): RedirectResponse

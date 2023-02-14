@@ -18,11 +18,23 @@
 </template>
 
 <script setup>
-import {ref} from "vue"
+import {ref,inject} from "vue"
 
 const activeTab = ref('first')
+const props = defineProps(['page'])
+
+const bus = inject("bus")
+
+let page = props.page;
+
+bus.$on("set-page", (data) => {
+  page = data
+})
 
 function setActiveTab(tab) {
+  if (!page.id) {
+    return;
+  }
 	activeTab.value = tab
 }
 </script>

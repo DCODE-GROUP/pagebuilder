@@ -62,6 +62,9 @@
                       :key="component.id"
                       :id="component.id"
                       :fields="component.fields"
+                      :page-model="pageModel"
+                      :page-model-class="pageModelClass"
+                      :media-upload-endpoint="mediaUploadEndpoint"
                       @update-content="update"
                   ></component>
                 </section>
@@ -95,19 +98,26 @@ export default {
   },
   props: {
     modules: Object,
-    pageContent: Array
+    pageContent: Array,
+    defaultPageModel: Object,
+    pageModelClass: String,
+    mediaUploadEndpoint: String,
   },
   data() {
     return {
       content: [],
       showModuleOptions: false,
-      component: null
+      component: null,
+      pageModel: this.defaultPageModel,
     }
   },
   created() {
     if (this.pageContent.length) {
       this.content = _.cloneDeep(this.pageContent);
     }
+    this.bus.$on('set-page', (page) => {
+      this.pageModel = page;
+    })
   },
   computed: {
     animate() {

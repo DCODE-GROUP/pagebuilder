@@ -2,7 +2,10 @@
 export default {
   props: {
     id: String,
-    fields: Object
+    fields: Object,
+    pageModel: Object,
+    pageModelClass: String,
+    mediaUploadEndpoint: String,
   },
   methods: {
     update(name, value) {
