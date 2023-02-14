@@ -5,6 +5,7 @@ namespace Dcodegroup\PageBuilder;
 use Collective\Html\FormBuilder;
 use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageController;
 use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageRevisionController;
+use Dcodegroup\PageBuilder\Http\Controllers\Admin\TemplateController;
 use Dcodegroup\PageBuilder\Http\Controllers\SiteController;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Illuminate\Contracts\Foundation\Application;
@@ -71,6 +72,7 @@ class PageBuilderServiceProvider extends ServiceProvider
                 ->middleware(config('page-builder.routing.admin.middlewares'))
                 ->group(function () {
                     Route::resource('pages', PageController::class)->except('show');
+                    Route::resource('templates', TemplateController::class)->except('show');
 
                     Route::post('pages/preview', [
                         PageController::class,
