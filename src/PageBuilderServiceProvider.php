@@ -49,7 +49,7 @@ class PageBuilderServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/page-builder.php' => config_path('page-builder.php'),
-        ], 'config');
+        ], 'page-builder-config');
     }
 
     private function publishMigrations()
@@ -60,7 +60,7 @@ class PageBuilderServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations/create_templates_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() - 1).'_create_templates_table.php'),
             __DIR__.'/../database/migrations/create_pages_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_pages_table.php'),
             __DIR__.'/../database/migrations/create_page_revisions_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_page_revisions_table.php'),
-        ], 'migrations');
+        ], 'page-builder-migrations');
     }
 
     private function registerRoutes()
