@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\ServiceProvider;
 
-
 class PageBuilderServiceProvider extends ServiceProvider
 {
     public function register()
