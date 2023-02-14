@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
             ],
         ];
 
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             Category::query()->firstOrCreate([
                 'type' => $category['type'],
                 'name' => $category['name'],

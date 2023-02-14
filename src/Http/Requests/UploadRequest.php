@@ -25,9 +25,9 @@ class UploadRequest extends FormRequest
     public function rules()
     {
         return [
-            'file'       => ['required', 'file'],
+            'file' => ['required', 'file'],
             'modelClass' => ['required', 'string'],
-            'modelId'    => [
+            'modelId' => [
                 'required',
                 'integer',
                 new ModelExists($this->request->get('modelClass'), 'id'),

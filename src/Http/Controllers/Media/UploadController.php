@@ -2,12 +2,11 @@
 
 namespace Dcodegroup\PageBuilder\Http\Controllers\Media;
 
-use Dcodegroup\PageBuilder\Http\Requests\UploadRequest;
 use Dcodegroup\LaravelAttachments\Models\Media;
+use Dcodegroup\PageBuilder\Http\Requests\UploadRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
 
 class UploadController
 {

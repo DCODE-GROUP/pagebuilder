@@ -103,9 +103,9 @@ class PageBuilderServiceProvider extends ServiceProvider
                     Route::delete('pages/revisions/{revision}', [
                         PageRevisionController::class,
                         'destroy',
-                    ])->name("pages.revisions.destroy");
+                    ])->name('pages.revisions.destroy');
 
-                    Route::post("pages/upload-media", UploadController::class)->name("pages.upload-media");
+                    Route::post('pages/upload-media', UploadController::class)->name('pages.upload-media');
                 });
         });
 
