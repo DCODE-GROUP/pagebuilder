@@ -174,10 +174,12 @@ class PageService
 
                 // Merge with default values
                 foreach ($data['fields'] as $key => $field) {
-                    if (! isset($moduleConfig->fields->{$key}) || $key === 'templates') {
+                    if (! isset($moduleConfig->fields->{$key})) {
                         $moduleConfig->fields->{$key} = (object) $field;
                     }
                 }
+
+                $moduleConfig->templates = $data['templates'];
             }
         } catch (Exception $exception) {
             return '[]';
