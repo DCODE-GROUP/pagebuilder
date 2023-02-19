@@ -2,7 +2,7 @@
   <div>
     <div class="mb-4">
       <label class="form-label">Body</label>
-      <tinymce-editor v-model="body" :init="tinyMCEConfig" @onChange="update('body')"></tinymce-editor>
+      <tinymce-editor v-model="body" :init="tinyMCEConfig" @change="update('body')"></tinymce-editor>
     </div>
 
     <div class="flex mb-4 space-x-4">
