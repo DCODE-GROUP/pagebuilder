@@ -45,8 +45,7 @@
                 </div>
 
                 <section class="bg-gray-100 rounded content-edit-module mt-4" v-if="component && component === element" :key="component.id">
-                  <header class="z-20 flex justify-between pb-2 mb-4 border-b border-gray-400">
-                    <h3 class="">{{ component.name }}</h3>
+                  <header class="z-20 flex justify-end pb-2 mb-4 border-b border-gray-400">
                     <div v-if="component.templates.length > 1" class="flex items-center space-x-4">
                       <span>Template:</span>
                       <select v-model="component.selected_template" @change="refreshPreview" class="form-input">
