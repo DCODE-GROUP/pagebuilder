@@ -20,7 +20,11 @@
                         <a href="{{ $fields->imageLink->value }}">
                     @endisset
 
+                    @if(empty($fields->image->value->url))
+                        Missing image.
+                    @else
                         <img src="{{ $fields->image->value->url }}">
+                    @endif
                     @isset($fields->imageLink->value)
                         </a>
                     @endisset
