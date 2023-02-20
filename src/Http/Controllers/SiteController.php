@@ -6,9 +6,10 @@ use Dcodegroup\PageBuilder\Services\PageService;
 
 class SiteController
 {
-    public function __invoke(PageService $pageService, string $slug)
+    public function __invoke(PageService $pageService, string $parentSlug, string $slug = null)
     {
-        $page = $pageService->getPageBySlug($slug);
+        $fullSlug = $slug ? $parentSlug . '/' . $slug : $parentSlug;
+        $page = $pageService->getPageBySlug($fullSlug);
 
         if (! $page) {
             abort(404);

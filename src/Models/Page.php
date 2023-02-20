@@ -20,17 +20,6 @@ class Page extends UsesMedia
     use ScopeActive;
     use SoftDeletes;
 
-    public static function boot()
-    {
-        parent::boot();
-
-        self::saving(function(self $model) {
-            if ($model->parent()->exists()) {
-                $model->slug = $model->parent->slug . '/' . $model->slug;
-            }
-        });
-    }
-
     /**
      * The attributes that aren't mass assignable.
      *

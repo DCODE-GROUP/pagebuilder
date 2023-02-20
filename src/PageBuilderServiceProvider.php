@@ -114,7 +114,7 @@ class PageBuilderServiceProvider extends ServiceProvider
                 ->prefix(config('page-builder.routing.front.prefix'))
                 ->middleware(config('page-builder.routing.admin.middlewares'))
                 ->group(function () {
-                    Route::get('/{slug}', SiteController::class)->name('view');
+                    Route::get('/{parentSlug}/{slug?}', SiteController::class)->name('view');
                 });
         });
     }
