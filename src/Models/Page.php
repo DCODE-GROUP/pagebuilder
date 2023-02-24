@@ -8,6 +8,7 @@ use Dcodegroup\PageBuilder\Services\PageService;
 use Dcodegroup\PageBuilder\Traits\CMSMenuResource;
 use Dcodegroup\PageBuilder\Traits\DatesForHumans;
 use Dcodegroup\PageBuilder\Traits\ScopeActive;
+use Dcodegroup\SeoSettings\Traits\HasSeo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,7 @@ class Page extends UsesMedia
     use DatesForHumans;
     use ScopeActive;
     use SoftDeletes;
+    use HasSeo;
 
     /**
      * The attributes that aren't mass assignable.

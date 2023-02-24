@@ -21,7 +21,8 @@
     "require": {
         "php": "^8.0",
         "laravelcollective/html": "^6.3",
-        "dcodegroup/laravel-attachments": "dev-master"
+        "dcodegroup/laravel-attachments": "dev-master",
+        "dcodegroup/seo": "dev-develop"
     },
     "require-dev": {
         "orchestra/testbench": "^7.18",
@@ -33,5 +34,11 @@
                 "Dcodegroup\\PageBuilder\\PageBuilderServiceProvider"
             ]
         }
-    }
+    },
+    "repositories":[
+        {
+            "type": "path",
+            "url": "../packages/seo-settings"
+        }
+    ]
 }

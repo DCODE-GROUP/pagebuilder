@@ -35,6 +35,10 @@
                         <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}">
                             Edit
                         </a>
+                        <seo-modal-button
+                            model-class="{{ \Dcodegroup\PageBuilder\Models\Page::class }}"
+                            :model-id="{{ $page->id }}"
+                        ></seo-modal-button>
                     </td>
                 </tr>
                 @endforeach
@@ -43,4 +47,5 @@
         {{ $pages->appends(request()->except(['page','_token']))->links() }}
         @endif
     </div>
+    <seo-data-modal></seo-data-modal>
 </x-page-builder::layouts.admin>
