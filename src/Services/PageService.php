@@ -44,7 +44,6 @@ class PageService
     }
 
     /**
-     * @param  array  $data
      * @param  null  $page
      * @return mixed
      */
