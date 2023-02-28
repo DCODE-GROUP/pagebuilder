@@ -39,7 +39,6 @@ class MenuService
     ];
 
     /**
-     * @param $classOrArray
      * @return \Illuminate\Support\Collection | void
      */
     public static function mapResourceOption($classOrArray)
@@ -112,8 +111,6 @@ class MenuService
     }
 
     /**
-     * @param  int  $siteId
-     * @param  string  $menuLocation
      * @return mixed
      */
     public static function getMenuAtSiteLocation(int $siteId, string $menuLocation)
@@ -126,8 +123,6 @@ class MenuService
 
     /**
      * @param  string  $structureMethod  getTreeStructuredItem | getViewStructuredItem
-     * @param  int  $siteId
-     * @param  string  $menuLocation
      * @return \Illuminate\Support\Collection
      */
     public static function getStructuredMenu(string $structureMethod, int $siteId, string $menuLocation)
@@ -169,8 +164,6 @@ class MenuService
     }
 
     /**
-     * @param $menuItem
-     * @param $item
      * @return mixed
      */
     protected static function generateFeedItems($menuItem, &$item)
@@ -202,7 +195,6 @@ class MenuService
     }
 
     /**
-     * @param  MenuItem  $menuItem
      * @return object
      */
     protected static function getTreeStructuredItem(MenuItem $menuItem)
@@ -221,7 +213,6 @@ class MenuService
     }
 
     /**
-     * @param  MenuItem  $menuItem
      * @return object
      */
     protected static function getViewStructuredItem(MenuItem $menuItem)
@@ -240,7 +231,6 @@ class MenuService
     }
 
     /**
-     * @param  Model  $linkable
      * @return string
      */
     protected static function getLinkableRouteUrl(Model $linkable)
@@ -251,11 +241,6 @@ class MenuService
         }
     }
 
-    /**
-     * @param  array  $menuData
-     * @param  int  $siteId
-     * @param  string  $menuLocation
-     */
     public static function saveMenuAtSiteLocation(array $menuData, int $siteId, string $menuLocation)
     {
         // Fetch existing menu or create new one
@@ -289,12 +274,6 @@ class MenuService
         $menu->items()->whereNotIn('id', $menuItemIds)->delete();
     }
 
-    /**
-     * @param $menuItemData
-     * @param  int  $menuId
-     * @param  int  $parentId
-     * @param $menuItemIds
-     */
     protected static function updateOrCreateMenuItemChildren($menuItemData, int $menuId, int $parentId, &$menuItemIds)
     {
         if (! isset($menuItemData->children)) {
@@ -309,10 +288,6 @@ class MenuService
     }
 
     /**
-     * @param $menuItemData
-     * @param  int  $menuId
-     * @param  int  $position
-     * @param  int|null  $parentId
      * @return mixed
      */
     protected static function updateOrCreateMenuItem($menuItemData, int $menuId, int $position, int $parentId = null)
