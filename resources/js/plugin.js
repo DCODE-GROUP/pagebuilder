@@ -20,7 +20,7 @@ import $bus from "./lib/Vue3EventBus";
 
 import vuedraggable from "vuedraggable";
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
-import seoSettingsPlugin from "../../../seo/resources/js/plugin"
+import seoSettingsPlugin from "~vendor/dcodegroup/seo/resources/js/plugin"
 
 import "toastify-js/src/toastify.css"
 
