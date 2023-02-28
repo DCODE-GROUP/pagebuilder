@@ -37,8 +37,8 @@
     },
     "repositories":[
         {
-            "type": "path",
-            "url": "../packages/seo-settings"
+            "type": "git",
+            "url": "https://github.com/dcodegroup/seo.git"
         }
     ]
 }
