@@ -5,7 +5,6 @@ namespace Dcodegroup\PageBuilder\Traits;
 trait ScopeActive
 {
     /**
-     * @param $query
      * @return mixed
      */
     public function scopeActive($query)

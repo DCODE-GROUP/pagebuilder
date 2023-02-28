@@ -13,7 +13,6 @@ trait CMSMenuResource
     }
 
     /**
-     * @param $value
      * @return mixed
      */
     public function getLabelAttribute($value)

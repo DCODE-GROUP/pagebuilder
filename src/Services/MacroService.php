@@ -7,9 +7,6 @@ use Illuminate\Support\Collection;
 class MacroService
 {
     /**
-     * @param  Collection  $collection
-     * @param $key
-     * @param $value
      * @return array
      */
     public static function constructSelectOptions(Collection $collection, $key, $value)
