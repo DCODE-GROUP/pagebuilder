@@ -106,7 +106,7 @@
 
 <style lang="postcss" scoped>
 .media {
-    @apply inline-flex items-center justify-center w-1/2 h-40 border rounded-lg border-brand-green text-center;
-    @apply cursor-pointer transition-colors hover:bg-brand-almond-100;
+    @apply inline-flex items-center justify-center w-1/2 h-40 border rounded-lg text-center;
+    @apply cursor-pointer transition-colors;
 }
 </style>
