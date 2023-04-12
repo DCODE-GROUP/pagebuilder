@@ -9,6 +9,7 @@ import ImageSlider from "./cms/ImageSlider.vue"
 import SingleColumn from "./cms/SingleColumn.vue"
 import TwoColumn from "./cms/TwoColumn.vue"
 import TwoColumnWithImage from "./cms/TwoColumnWithImage.vue"
+import Video from "./cms/Video.vue"
 import Selector from "./Selector.vue"
 import Tooltip from "./components/Tooltip.vue"
 import Modal from "./components/Modal.vue"
@@ -54,6 +55,7 @@ const contentBuilderPlugin = {
             ImageSlider,
             TwoColumn,
             TwoColumnWithImage,
+            Video,
             ...(options?.modules || {})
         };
 
