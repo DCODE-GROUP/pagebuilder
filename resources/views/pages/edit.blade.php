@@ -89,6 +89,11 @@
                                         :default-page-model="{{ \Illuminate\Support\Js::from($page ?? []) }}"
                                         page-model-class="{{ Page::class }}"
                                         media-upload-endpoint="{{ route(Dcodegroup\PageBuilder\Routes::admin('pages.upload-media')) }}"
+                                        get-folders-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.index')) }}"
+                                        save-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.store')) }}"
+                                        gallery-media-upload-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.upload')) }}"
+                                        get-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.show'), [':folder']) }}"
+                                        media-index-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.index')) }}"
                                 ></content-builder>
                                 {!! $errors->first('content', '<span class="form-error is-visible">:message</span>') !!}
                             </section>

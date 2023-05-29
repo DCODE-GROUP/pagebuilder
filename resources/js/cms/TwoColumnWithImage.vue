@@ -7,16 +7,38 @@
 
     <div class="flex mb-4 space-x-4">
       <div class="w-full">
-        <attachment
-            v-model="image"
-            :default-model="pageModel"
-            :model-class="pageModelClass"
-            :upload-endpoint="mediaUploadEndpoint"
-            :field="id"
-            :desktop-image="fields.image?.value"
-            :mobile-image="fields.mobileImage?.value"
-            @input="handleAttachment"
-        ></attachment>
+        <div>
+          Desktop:
+          <div v-if="fields.image?.value">
+            <a :href="fields.image?.value.url" target="_blank">
+              Link
+            </a>
+          </div>
+          <media-gallery
+              :get-folders-endpoint="getFoldersEndpoint"
+              :save-folder-endpoint="saveFolderEndpoint"
+              :gallery-media-upload-endpoint="galleryMediaUploadEndpoint"
+              :get-folder-endpoint="getFolderEndpoint"
+              :media-index-endpoint="mediaIndexEndpoint"
+              @input="(event) => handleAttachment(event, 'desktop')"
+          ></media-gallery>
+        </div>
+        <div>
+          Mobile:
+          <div v-if="fields.mobileImage?.value">
+            <a :href="fields.mobileImage?.value.url" target="_blank">
+              Link
+            </a>
+          </div>
+          <media-gallery
+              :get-folders-endpoint="getFoldersEndpoint"
+              :save-folder-endpoint="saveFolderEndpoint"
+              :gallery-media-upload-endpoint="galleryMediaUploadEndpoint"
+              :get-folder-endpoint="getFolderEndpoint"
+              :media-index-endpoint="mediaIndexEndpoint"
+              @input="(event) => handleAttachment(event, 'mobile')"
+          ></media-gallery>
+        </div>
       </div>
     </div>
 
@@ -68,7 +90,7 @@
 <script>
 import Module from "../Module.vue"
 import Editor from "@tinymce/tinymce-vue"
-import Attachment from "../Attachment.vue";
+import MediaGallery from "../media-gallery/MediaGallery.vue";
 
 export default {
   extends: Module,
@@ -99,10 +121,10 @@ export default {
   },
   components: {
     'tinymce-editor': Editor,
-    Attachment
+    MediaGallery
   },
   methods: {
-    handleAttachment(data) {
+    handleAttachment(data, type) {
       const key = data.type === 'desktop' ? 'image' : 'mobileImage'
 
       this.update(key, data.media);

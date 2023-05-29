@@ -6,6 +6,11 @@ export default {
     pageModel: Object,
     pageModelClass: String,
     mediaUploadEndpoint: String,
+    getFoldersEndpoint: String,
+    saveFolderEndpoint: String,
+    galleryMediaUploadEndpoint: String,
+    getFolderEndpoint: String,
+    mediaIndexEndpoint: String,
   },
   methods: {
     update(name, value) {

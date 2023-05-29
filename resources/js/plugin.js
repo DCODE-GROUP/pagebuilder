@@ -15,6 +15,12 @@ import Modal from "./components/Modal.vue"
 import Submit from "./Submit.vue";
 import Form from "./Form.vue";
 import Attachment from "./Attachment.vue";
+import MediaGallery from "./media-gallery/MediaGallery.vue";
+import Folders from "./media-gallery/Folders.vue";
+import ImageUpload from "./media-gallery/ImageUpload.vue";
+import GalleryModal from "./media-gallery/GalleryModal.vue";
+
+// import { PluginManager } from "tinymce";
 
 import $bus from "./lib/Vue3EventBus";
 
@@ -41,12 +47,51 @@ const contentBuilderPlugin = {
         app.component('Submit', Submit);
         app.component('VForm', Form);
         app.component('Attachment', Attachment);
+        app.component('MediaGallery', MediaGallery);
+        app.component('Folders', Folders);
+        app.component('ImageUpload', ImageUpload);
 
         app.component('Tooltip', Tooltip);
         app.component('Modal', Modal);
+        app.component('GalleryModal', GalleryModal);
 
         app.use(autoAnimatePlugin);
         app.use(seoSettingsPlugin);
+
+        // PluginManager.add('mediaGallery', (editor, url) => {
+        //     editor.ui.registry.addButton('mediaGalleryButton', {
+        //         icon: 'backcolor',
+        //         tooltip: 'Open Media Gallery',
+        //         onAction: function () {
+        //             editor.windowManager.open({
+        //                 title: 'Dialog Title', // The dialog's title - displayed in the dialog header
+        //                 body: {
+        //                     type: 'panel', // The root body type - a Panel or TabPanel
+        //                     items: [ // A list of panel components
+        //                         {
+        //                             type: 'htmlpanel', // an HTML panel component
+        //                             html: '<h1>Hello</h1>'
+        //                         }
+        //                     ]
+        //                 },
+        //                 buttons: [ // A list of footer buttons
+        //                     {
+        //                         type: 'submit',
+        //                         text: 'OK'
+        //                     }
+        //                 ]
+        //             });
+        //         }
+        //     });
+        //     return {
+        //         getMetadata: function () {
+        //             return {
+        //                 name: 'Media Gallery',
+        //                 url: 'https://dcodegroup.com'
+        //             };
+        //         }
+        //     }
+        // });
 
         const modules = {
             Heading,

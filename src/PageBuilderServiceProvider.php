@@ -6,7 +6,9 @@ use Collective\Html\FormBuilder;
 use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageController;
 use Dcodegroup\PageBuilder\Http\Controllers\Admin\PageRevisionController;
 use Dcodegroup\PageBuilder\Http\Controllers\Admin\TemplateController;
+use Dcodegroup\PageBuilder\Http\Controllers\FolderController;
 use Dcodegroup\PageBuilder\Http\Controllers\Media\UploadController;
+use Dcodegroup\PageBuilder\Http\Controllers\MediaController;
 use Dcodegroup\PageBuilder\Http\Controllers\SiteController;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Illuminate\Contracts\Foundation\Application;
@@ -62,6 +64,8 @@ class PageBuilderServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations/create_templates_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() - 1).'_create_templates_table.php'),
             __DIR__.'/../database/migrations/create_pages_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_pages_table.php'),
             __DIR__.'/../database/migrations/create_page_revisions_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_page_revisions_table.php'),
+            __DIR__.'/../database/migrations/create_folders_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_folders_table.php'),
+            __DIR__.'/../database/migrations/create_attachments_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_attachments_table.php'),
         ], 'page-builder-migrations');
     }
 
@@ -106,6 +110,13 @@ class PageBuilderServiceProvider extends ServiceProvider
                     ])->name('pages.revisions.destroy');
 
                     Route::post('pages/upload-media', UploadController::class)->name('pages.upload-media');
+
+                    Route::get('/folders', [FolderController::class, 'index'])->name('folders.index');
+                    Route::post('/folders', [FolderController::class, 'store'])->name('folders.store');
+                    Route::get('/folders/{folder}', [FolderController::class, 'show'])->name('folders.show');
+
+                    Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+                    Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
                 });
         });
 
@@ -115,6 +126,7 @@ class PageBuilderServiceProvider extends ServiceProvider
                 ->middleware(config('page-builder.routing.admin.middlewares'))
                 ->group(function () {
                     Route::get('/{slug}', SiteController::class)->name('view');
+                    Route::get('/media/{media}', [MediaController::class, 'get'])->name('media.get');
                 });
         });
     }

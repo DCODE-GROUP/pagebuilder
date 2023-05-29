@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c25d938522f4c284c32147f437b42505",
+    "content-hash": "077993a45fef52f5b280ce9619b36beb",
     "packages": [
         {
             "name": "brick/math",
@@ -61,70 +61,6 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
-        },
-        {
-            "name": "dcodegroup/laravel-attachments",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dcodegroup/laravel-attachments.git",
-                "reference": "f873531f73f187b9efdd3d85934ff5837982c3cb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dcodegroup/laravel-attachments/zipball/f873531f73f187b9efdd3d85934ff5837982c3cb",
-                "reference": "f873531f73f187b9efdd3d85934ff5837982c3cb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-imagick": "*",
-                "laravel/framework": "^7.0|^8.0|^9.0",
-                "mvanduijker/laravel-model-exists-rule": "^3.0",
-                "php": "^8.0",
-                "spatie/laravel-medialibrary": "^10.0.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Dcodegroup\\LaravelAttachments\\LaravelAttachmentsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dcodegroup\\LaravelAttachments\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robert Rimoczi",
-                    "email": "robert@dcodegroup.com"
-                },
-                {
-                    "name": "Dcode Group",
-                    "email": "forge@dcodegroup.com",
-                    "homepage": "https://dcodegroup.com"
-                }
-            ],
-            "keywords": [
-                "attachments",
-                "dcode",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/dcodegroup/laravel-attachments/issues",
-                "source": "https://github.com/dcodegroup/laravel-attachments/tree/master"
-            },
-            "time": "2022-09-06T08:24:18+00:00"
         },
         {
             "name": "dcodegroup/seo",
@@ -1576,23 +1512,23 @@
         },
         {
             "name": "league/glide",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/glide.git",
-                "reference": "446b1fc9f15101db52e8ddb7bec8cb16e814b244"
+                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/glide/zipball/446b1fc9f15101db52e8ddb7bec8cb16e814b244",
-                "reference": "446b1fc9f15101db52e8ddb7bec8cb16e814b244",
+                "url": "https://api.github.com/repos/thephpleague/glide/zipball/d31132bf5651d5abeef345ff523cd9cf2575b971",
+                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971",
                 "shasum": ""
             },
             "require": {
                 "intervention/image": "^2.7",
                 "league/flysystem": "^2.0|^3.0",
                 "php": "^7.2|^8.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0|^2.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.3.3",
@@ -1635,9 +1571,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/glide/issues",
-                "source": "https://github.com/thephpleague/glide/tree/2.2.3"
+                "source": "https://github.com/thephpleague/glide/tree/2.2.4"
             },
-            "time": "2023-02-14T06:15:26+00:00"
+            "time": "2023-04-18T18:42:22+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -1697,32 +1633,35 @@
         },
         {
             "name": "maennchen/zipstream-php",
-            "version": "v2.4.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maennchen/ZipStream-PHP.git",
-                "reference": "3fa72e4c71a43f9e9118752a5c90e476a8dc9eb3"
+                "reference": "b46726e666b5d2ad32959ae9492ee1034e798162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/3fa72e4c71a43f9e9118752a5c90e476a8dc9eb3",
-                "reference": "3fa72e4c71a43f9e9118752a5c90e476a8dc9eb3",
+                "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/b46726e666b5d2ad32959ae9492ee1034e798162",
+                "reference": "b46726e666b5d2ad32959ae9492ee1034e798162",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "myclabs/php-enum": "^1.5",
-                "php": "^8.0",
-                "psr/http-message": "^1.0"
+                "ext-zlib": "*",
+                "php-64bit": "^8.1"
             },
             "require-dev": {
                 "ext-zip": "*",
-                "friendsofphp/php-cs-fixer": "^3.9",
-                "guzzlehttp/guzzle": "^6.5.3 || ^7.2.0",
+                "friendsofphp/php-cs-fixer": "^3.16",
+                "guzzlehttp/guzzle": "^7.5",
                 "mikey179/vfsstream": "^1.6",
-                "php-coveralls/php-coveralls": "^2.4",
-                "phpunit/phpunit": "^8.5.8 || ^9.4.2",
+                "php-coveralls/php-coveralls": "^2.5",
+                "phpunit/phpunit": "^10.0",
                 "vimeo/psalm": "^5.0"
+            },
+            "suggest": {
+                "guzzlehttp/psr7": "^2.4",
+                "psr/http-message": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -1759,7 +1698,7 @@
             ],
             "support": {
                 "issues": "https://github.com/maennchen/ZipStream-PHP/issues",
-                "source": "https://github.com/maennchen/ZipStream-PHP/tree/v2.4.0"
+                "source": "https://github.com/maennchen/ZipStream-PHP/tree/3.0.2"
             },
             "funding": [
                 {
@@ -1771,7 +1710,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-12-08T12:29:14+00:00"
+            "time": "2023-04-19T19:51:03+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1874,134 +1813,6 @@
                 }
             ],
             "time": "2023-02-06T13:44:46+00:00"
-        },
-        {
-            "name": "mvanduijker/laravel-model-exists-rule",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mvanduijker/laravel-model-exists-rule.git",
-                "reference": "a8285bc714c119657ae4899bcca380241e726dee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mvanduijker/laravel-model-exists-rule/zipball/a8285bc714c119657ae4899bcca380241e726dee",
-                "reference": "a8285bc714c119657ae4899bcca380241e726dee",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "~6.0|~7.0|~8.0|~9.0|~10.0",
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "larapack/dd": "^1.0",
-                "orchestra/testbench": "~4.0|~5.0|~6.0|~7.0|~8.0",
-                "phpunit/phpunit": "^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Duijker\\LaravelModelExistsRule\\LaravelModelExistsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Duijker\\LaravelModelExistsRule\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark van Duijker",
-                    "email": "mark@duyker.nl",
-                    "homepage": "https://github.com/mvanduijker",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Validation rule to check if a model exists",
-            "homepage": "https://github.com/mvanduijker/laravel-model-exists-rule",
-            "keywords": [
-                "database",
-                "eloquent",
-                "laravel",
-                "laravel-model-exists-rule",
-                "model",
-                "rule",
-                "validation"
-            ],
-            "support": {
-                "issues": "https://github.com/mvanduijker/laravel-model-exists-rule/issues",
-                "source": "https://github.com/mvanduijker/laravel-model-exists-rule/tree/3.1.0"
-            },
-            "time": "2023-02-14T20:48:36+00:00"
-        },
-        {
-            "name": "myclabs/php-enum",
-            "version": "1.8.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/myclabs/php-enum.git",
-                "reference": "a867478eae49c9f59ece437ae7f9506bfaa27483"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/php-enum/zipball/a867478eae49c9f59ece437ae7f9506bfaa27483",
-                "reference": "a867478eae49c9f59ece437ae7f9506bfaa27483",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.3 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "1.*",
-                "vimeo/psalm": "^4.6.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MyCLabs\\Enum\\": "src/"
-                },
-                "classmap": [
-                    "stubs/Stringable.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP Enum contributors",
-                    "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
-                }
-            ],
-            "description": "PHP Enum implementation",
-            "homepage": "http://github.com/myclabs/php-enum",
-            "keywords": [
-                "enum"
-            ],
-            "support": {
-                "issues": "https://github.com/myclabs/php-enum/issues",
-                "source": "https://github.com/myclabs/php-enum/tree/1.8.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/mnapoli",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/myclabs/php-enum",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-08-04T09:53:51+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -2954,16 +2765,16 @@
         },
         {
             "name": "spatie/image",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "c78e2dbdbced9c1673800e5b813cc8a8127bc5ac"
+                "reference": "f72ca52acd77ca03b7843a0f86e2411ce90aecfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/c78e2dbdbced9c1673800e5b813cc8a8127bc5ac",
-                "reference": "c78e2dbdbced9c1673800e5b813cc8a8127bc5ac",
+                "url": "https://api.github.com/repos/spatie/image/zipball/f72ca52acd77ca03b7843a0f86e2411ce90aecfc",
+                "reference": "f72ca52acd77ca03b7843a0f86e2411ce90aecfc",
                 "shasum": ""
             },
             "require": {
@@ -3007,7 +2818,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/image/tree/2.2.5"
+                "source": "https://github.com/spatie/image/tree/2.2.6"
             },
             "funding": [
                 {
@@ -3019,20 +2830,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-19T17:06:04+00:00"
+            "time": "2023-05-06T10:20:33+00:00"
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.6.2",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "6db75529cbf8fa84117046a9d513f277aead90a0"
+                "reference": "d997e01ba980b2769ddca2f00badd3b80c2a2512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/6db75529cbf8fa84117046a9d513f277aead90a0",
-                "reference": "6db75529cbf8fa84117046a9d513f277aead90a0",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/d997e01ba980b2769ddca2f00badd3b80c2a2512",
+                "reference": "d997e01ba980b2769ddca2f00badd3b80c2a2512",
                 "shasum": ""
             },
             "require": {
@@ -3042,6 +2853,7 @@
                 "symfony/process": "^4.2|^5.0|^6.0"
             },
             "require-dev": {
+                "pestphp/pest": "^1.21",
                 "phpunit/phpunit": "^8.5.21|^9.4.4",
                 "symfony/var-dumper": "^4.2|^5.0|^6.0"
             },
@@ -3071,22 +2883,22 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/image-optimizer/issues",
-                "source": "https://github.com/spatie/image-optimizer/tree/1.6.2"
+                "source": "https://github.com/spatie/image-optimizer/tree/1.6.4"
             },
-            "time": "2021-12-21T10:08:05+00:00"
+            "time": "2023-03-10T08:43:19+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "10.7.11",
+            "version": "10.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "a6d562d2226c2b339db8299a3a02bacd031edabf"
+                "reference": "3bd7093d1c71807e85d1afd1bc7b506243210837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/a6d562d2226c2b339db8299a3a02bacd031edabf",
-                "reference": "a6d562d2226c2b339db8299a3a02bacd031edabf",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/3bd7093d1c71807e85d1afd1bc7b506243210837",
+                "reference": "3bd7093d1c71807e85d1afd1bc7b506243210837",
                 "shasum": ""
             },
             "require": {
@@ -3094,12 +2906,13 @@
                 "ext-fileinfo": "*",
                 "ext-json": "*",
                 "illuminate/bus": "^9.18|^10.0",
+                "illuminate/conditionable": "^9.18|^10.0",
                 "illuminate/console": "^9.18|^10.0",
                 "illuminate/database": "^9.18|^10.0",
                 "illuminate/pipeline": "^9.18|^10.0",
                 "illuminate/support": "^9.18|^10.0",
                 "intervention/image": "^2.7",
-                "maennchen/zipstream-php": "^2.0",
+                "maennchen/zipstream-php": "^2.0|^3.0",
                 "php": "^8.0",
                 "spatie/image": "^2.2.2",
                 "spatie/temporary-directory": "^2.0",
@@ -3169,7 +2982,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-medialibrary/issues",
-                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.7.11"
+                "source": "https://github.com/spatie/laravel-medialibrary/tree/10.9.2"
             },
             "funding": [
                 {
@@ -3181,20 +2994,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-17T08:44:20+00:00"
+            "time": "2023-05-03T08:49:22+00:00"
         },
         {
             "name": "spatie/temporary-directory",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/temporary-directory.git",
-                "reference": "e2818d871783d520b319c2d38dc37c10ecdcde20"
+                "reference": "0c804873f6b4042aa8836839dca683c7d0f71831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/temporary-directory/zipball/e2818d871783d520b319c2d38dc37c10ecdcde20",
-                "reference": "e2818d871783d520b319c2d38dc37c10ecdcde20",
+                "url": "https://api.github.com/repos/spatie/temporary-directory/zipball/0c804873f6b4042aa8836839dca683c7d0f71831",
+                "reference": "0c804873f6b4042aa8836839dca683c7d0f71831",
                 "shasum": ""
             },
             "require": {
@@ -3230,7 +3043,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/temporary-directory/issues",
-                "source": "https://github.com/spatie/temporary-directory/tree/2.1.1"
+                "source": "https://github.com/spatie/temporary-directory/tree/2.1.2"
             },
             "funding": [
                 {
@@ -3242,7 +3055,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-23T07:15:15+00:00"
+            "time": "2023-04-28T07:47:42+00:00"
         },
         {
             "name": "symfony/console",
@@ -8597,7 +8410,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dcodegroup/laravel-attachments": 20,
         "dcodegroup/seo": 20
     },
     "prefer-stable": false,
