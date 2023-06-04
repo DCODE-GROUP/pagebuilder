@@ -27,6 +27,78 @@ Then run the migrations:
 php artisan migrate
 ```
 
+Add as NPM dependency:
+```bash
+"@dcodegroup-au/page-builder": "./vendor/dcodegroup/page-builder",
+```
+
+Install vite-plugin-static-copy
+
+```bash
+npm install vite-plugin-static-copy
+```
+
+Install TinyMCE
+
+```bash
+npm install --save "@tinymce/tinymce-vue@^4"
+```
+
+Add to vite.config.js within plugins array after importing vite-plugin-static-copy:
+
+```js
+viteStaticCopy({
+    targets: [
+        {
+            src: "node_modules/tinymce",
+            dest: "plugins",
+        },
+    ],
+})
+```
+
+Add as resolve alias:
+
+```bash
+"~vendor": path.resolve(__dirname, "./vendor/"),
+```
+
+Working config, if you'd like to put the routes into web.php:
+
+```php
+<?php
+
+return [
+    'routing' => [
+        'admin' => [
+            'middlewares' => [
+                'auth:sanctum',
+                config('jetstream.auth_session'),
+                'verified',
+            ],
+
+            'prefix' => '/admin',
+
+            'name_prefix' => 'admin.',
+        ],
+
+        'front' => [
+            'middlewares' => [],
+
+            'prefix' => '/',
+
+            'name_prefix' => 'cms.',
+        ],
+    ],
+];
+```
+
+Add these to the bottom of routes/web.php, these will publish the routes:
+
+```php
+Route::pageBuilder();
+Route::cmsFront();
+```
 
 ## Configuration
 
