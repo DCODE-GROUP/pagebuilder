@@ -20,15 +20,15 @@ class MediaController
     {
         $mediaQuery = Media::query()
             ->isAttachment()
-            ->when(!empty($request->input('search')), fn (Builder $builder) => $builder->name($request->input('search')))
-            ->when(!empty($request->input('size')) && $request->input('size') > 0, fn (Builder $builder) => $builder->smallerThan($request->input('size')))
-            ->when(!empty($request->input('type')), fn (Builder $builder) => $builder->type($request->input('type')))
-            ->when(!empty($request->input('folder_id')), fn (Builder $builder) => $builder->hasFolder($request->input('folder_id')));
+            ->when(! empty($request->input('search')), fn (Builder $builder) => $builder->name($request->input('search')))
+            ->when(! empty($request->input('size')) && $request->input('size') > 0, fn (Builder $builder) => $builder->smallerThan($request->input('size')))
+            ->when(! empty($request->input('type')), fn (Builder $builder) => $builder->type($request->input('type')))
+            ->when(! empty($request->input('folder_id')), fn (Builder $builder) => $builder->hasFolder($request->input('folder_id')));
 
         $media = $mediaQuery->get();
 
         return response()->json([
-            'media' => $media->toArray()
+            'media' => $media->toArray(),
         ]);
     }
 
