@@ -4,8 +4,10 @@ const mediaGalleryPlugin = function (editor) {
         icon:'user',
         onAction: () => function () {
             const event = new CustomEvent('open-gallery', {
-                callback: (payload) => {
-                    editor.insertContent("<img src='"+payload.media.url+"'>");
+                detail: {
+                    callback: (payload) => {
+                        editor.insertContent("<img src='"+payload.media.url+"'>");
+                    }
                 }
             })
         }

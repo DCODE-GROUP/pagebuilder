@@ -66,7 +66,7 @@ export default {
   },
   created() {
     window.addEventListener('open-gallery', (payload) => {
-      this.callback = payload.callback;
+      this.callback = payload.detail.callback;
     })
 
     this.bus.$on('open-gallery', (payload) => {
@@ -105,11 +105,13 @@ export default {
       };
       this.$emit('input', data);
 
-      this.bus.$emit('close-gallery');
-
       if (this.callback) {
         this.callback(data);
       }
+
+      this.bus.$emit('close-gallery');
+
+      this.callback = null;
     },
     handleSearch(event) {
       this.searchString = event.search;
