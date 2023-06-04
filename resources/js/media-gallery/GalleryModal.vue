@@ -38,6 +38,10 @@ bus.$on("open-gallery", (data) => {
   modalIsVisible.value = true;
 })
 
+window.addEventListener('open-gallery', (payload) => {
+  modalIsVisible.value = true;
+})
+
 function toggleModalVisibility() {
 	modalIsVisible.value = !modalIsVisible.value
 }
