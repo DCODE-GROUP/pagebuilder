@@ -14,7 +14,7 @@ class MediaBuilder extends Builder
 
     public function name(string $name): self
     {
-        return $this->where("name", "LIKE", "%$name%");
+        return $this->where('name', 'LIKE', "%$name%");
     }
 
     public function smallerThan(int $size): self
@@ -34,7 +34,7 @@ class MediaBuilder extends Builder
 
     public function hasFolder(int $folderId): self
     {
-        return $this->whereHasMorph('model', Attachment::class, function(Builder $builder, $type) use ($folderId) {
+        return $this->whereHasMorph('model', Attachment::class, function (Builder $builder, $type) use ($folderId) {
             $builder->where('folder_id', $folderId);
         });
     }

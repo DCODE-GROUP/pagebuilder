@@ -3,7 +3,6 @@
 namespace Dcodegroup\PageBuilder\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class FolderRequest extends FormRequest
 {

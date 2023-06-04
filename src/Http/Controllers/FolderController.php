@@ -4,7 +4,6 @@ namespace Dcodegroup\PageBuilder\Http\Controllers;
 
 use Dcodegroup\PageBuilder\Http\Requests\FolderRequest;
 use Dcodegroup\PageBuilder\Models\Folder;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 
 class FolderController
