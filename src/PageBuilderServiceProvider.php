@@ -65,7 +65,7 @@ class PageBuilderServiceProvider extends ServiceProvider
             __DIR__.'/../database/migrations/create_pages_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_pages_table.php'),
             __DIR__.'/../database/migrations/create_page_revisions_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_page_revisions_table.php'),
             __DIR__.'/../database/migrations/create_folders_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_folders_table.php'),
-            __DIR__.'/../database/migrations/create_attachments_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_attachments_table.php'),
+            __DIR__.'/../database/migrations/create_attachments_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 3).'_create_attachments_table.php'),
         ], 'page-builder-migrations');
     }
 
