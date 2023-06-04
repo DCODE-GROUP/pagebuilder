@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gallery-modal custom-class="w-1/2" button-text="Upload">
+    <gallery-modal custom-class="w-1/2">
       <div class="flex">
         <div class="w-1/3">
           <folders
@@ -64,6 +64,15 @@ export default {
     Folders, GalleryModal, ImageUpload,
     Search,
   },
+  created() {
+    window.addEventListener('open-gallery', (payload) => {
+      this.callback = payload.callback;
+    })
+
+    this.bus.$on('open-gallery', (payload) => {
+      this.callback = payload.callback;
+    });
+  },
   data() {
     return {
       currentFolder: null,
@@ -73,6 +82,7 @@ export default {
       searchString: '',
       searchType: '',
       searchSize: 0,
+      callback: null,
     }
   },
   methods: {
@@ -90,11 +100,16 @@ export default {
       this.currentFolder = response.data.folder;
     },
     handleClick(media) {
-      this.$emit('input', {
+      const data = {
         media: media
-      });
+      };
+      this.$emit('input', data);
 
       this.bus.$emit('close-gallery');
+
+      if (this.callback) {
+        this.callback(data);
+      }
     },
     handleSearch(event) {
       this.searchString = event.search;

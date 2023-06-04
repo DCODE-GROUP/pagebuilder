@@ -34,6 +34,10 @@ bus.$on("close-gallery", (data) => {
   modalIsVisible.value = false;
 })
 
+bus.$on("open-gallery", (data) => {
+  modalIsVisible.value = true;
+})
+
 function toggleModalVisibility() {
 	modalIsVisible.value = !modalIsVisible.value
 }

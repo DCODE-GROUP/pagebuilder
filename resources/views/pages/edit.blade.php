@@ -129,6 +129,13 @@
                     </div>
                 </div>
             </footer>
+            <media-gallery
+                    get-folders-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.index')) }}"
+                    save-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.store')) }}"
+                    gallery-media-upload-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.upload')) }}"
+                    get-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.show'), [':folder']) }}"
+                    media-index-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.index')) }}"
+            ></media-gallery>
         </template>
     </v-form>
 </x-page-builder::layouts.admin>

@@ -14,14 +14,9 @@
               Link
             </a>
           </div>
-          <media-gallery
-              :get-folders-endpoint="getFoldersEndpoint"
-              :save-folder-endpoint="saveFolderEndpoint"
-              :gallery-media-upload-endpoint="galleryMediaUploadEndpoint"
-              :get-folder-endpoint="getFolderEndpoint"
-              :media-index-endpoint="mediaIndexEndpoint"
+          <media-gallery-button
               @input="(event) => handleAttachment(event, 'desktop')"
-          ></media-gallery>
+          ></media-gallery-button>
         </div>
         <div>
           Mobile:
@@ -30,14 +25,9 @@
               Link
             </a>
           </div>
-          <media-gallery
-              :get-folders-endpoint="getFoldersEndpoint"
-              :save-folder-endpoint="saveFolderEndpoint"
-              :gallery-media-upload-endpoint="galleryMediaUploadEndpoint"
-              :get-folder-endpoint="getFolderEndpoint"
-              :media-index-endpoint="mediaIndexEndpoint"
+          <media-gallery-button
               @input="(event) => handleAttachment(event, 'mobile')"
-          ></media-gallery>
+          ></media-gallery-button>
         </div>
       </div>
     </div>
@@ -90,7 +80,7 @@
 <script>
 import Module from "../Module.vue"
 import Editor from "@tinymce/tinymce-vue"
-import MediaGallery from "../media-gallery/MediaGallery.vue";
+import MediaGalleryButton from "../media-gallery/MediaGalleryButton.vue";
 
 export default {
   extends: Module,
@@ -121,7 +111,7 @@ export default {
   },
   components: {
     'tinymce-editor': Editor,
-    MediaGallery
+    MediaGalleryButton
   },
   methods: {
     handleAttachment(data, type) {
