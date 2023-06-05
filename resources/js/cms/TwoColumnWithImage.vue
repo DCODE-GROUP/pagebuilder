@@ -2,7 +2,7 @@
   <div>
     <div class="mb-4">
       <label class="form-label">Body</label>
-      <tinymce-editor v-model="body" :init="tinyMCEConfig" @change="update('body')"></tinymce-editor>
+      <editor v-model="body" @change="update('body')"></editor>
     </div>
 
     <div class="flex mb-4 space-x-4">
@@ -79,7 +79,7 @@
 
 <script>
 import Module from "../Module.vue"
-import Editor from "@tinymce/tinymce-vue"
+import Editor from "../Editor.vue"
 import MediaGalleryButton from "../media-gallery/MediaGalleryButton.vue";
 
 export default {
@@ -110,7 +110,7 @@ export default {
     this.alignment = this.fields.alignment.value;
   },
   components: {
-    'tinymce-editor': Editor,
+    Editor,
     MediaGalleryButton
   },
   methods: {

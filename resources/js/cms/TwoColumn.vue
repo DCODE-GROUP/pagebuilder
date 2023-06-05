@@ -7,12 +7,12 @@
 
     <div class="mb-4">
       <label class="form-label">First column content</label>
-      <tinymce-editor v-model="body_one" :init="tinyMCEConfig" @change="update('body_one')"></tinymce-editor>
+      <editor v-model="body_one" @change="update('body_one')"></editor>
     </div>
 
     <div class="mb-4">
       <label class="form-label">Second column content</label>
-      <tinymce-editor v-model="body_two" :init="tinyMCEConfig" @change="update('body_two')"></tinymce-editor>
+      <editor v-model="body_two" @change="update('body_two')"></editor>
     </div>
 
     <label class="sm-toggleable sm-switch" for="twoColumnPadding">
@@ -25,12 +25,12 @@
 
 <script>
 import Module from "../Module.vue"
-import Editor from "@tinymce/tinymce-vue"
+import Editor from "../Editor.vue"
 
 export default {
   extends: Module,
   components: {
-    "tinymce-editor": Editor
+    Editor
   },
   data() {
     return {
@@ -38,7 +38,6 @@ export default {
       body_one: null,
       body_two: null,
       padding: false,
-      tinyMCEConfig: {},
     }
   },
   mounted() {

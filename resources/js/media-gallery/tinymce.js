@@ -1,8 +1,9 @@
 const mediaGalleryPlugin = function (editor) {
+
     editor.ui.registry.addButton('mediaGalleryPlugin', {
         text: 'Insert Image',
-        icon:'user',
-        onAction: () => function () {
+        icon: 'upload',
+        onAction: () => {
             const event = new CustomEvent('open-gallery', {
                 detail: {
                     callback: (payload) => {
@@ -10,6 +11,7 @@ const mediaGalleryPlugin = function (editor) {
                     }
                 }
             })
+            window.dispatchEvent(event);
         }
     });
 }
