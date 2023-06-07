@@ -10,20 +10,22 @@
       <button class="btn btn-primary" @click="saveFolder">Save</button>
     </div>
     <div v-for="folder in folders">
-      <span class="cursor-pointer hover:underline hover:text-teal-500 transition-colors" @click="setCurrentFolder(folder)">
-        {{ folder.name }}
-      </span>
+      <folder :folder="folder" @setCurrentFolder="(event) => setCurrentFolder(event.folder)"></folder>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios"
+import Folder from "./Folder.vue"
 
 export default {
   inject: ["bus"],
   props: {
     getFoldersEndpoint: String,
     saveFolderEndpoint: String,
+  },
+  components: {
+    Folder
   },
   created() {
     this.getFolders();
@@ -55,6 +57,7 @@ export default {
     },
     setCurrentFolder(folder) {
       this.currentFolder = folder;
+      this.newFolder.parent_id = this.currentFolder.id
       this.$emit('setCurrentFolder', {
         folder: this.currentFolder,
       });

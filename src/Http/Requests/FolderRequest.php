@@ -15,6 +15,7 @@ class FolderRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'parent_id' => 'nullable|exists:folders,id',
         ];
     }
 }

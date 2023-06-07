@@ -12,7 +12,8 @@ class FolderController
     {
         return response()->json([
             'folders' => Folder::query()
-                ->with('attachments.media')
+                ->whereNull('parent_id')
+                ->with(['attachments.media', 'children'])
                 ->get(),
         ]);
     }
@@ -20,7 +21,7 @@ class FolderController
     public function show(Folder $folder): JsonResponse
     {
         return response()->json([
-            'folder' => $folder->loadMissing('attachments.media'),
+            'folder' => $folder->loadMissing(['attachments.media', 'children']),
         ]);
     }
 
