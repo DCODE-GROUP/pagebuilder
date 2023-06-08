@@ -187,7 +187,7 @@ class PageService
         return json_encode($content);
     }
 
-    public function render(Page $page): string|null
+    public function render(Page $page, ?array $variables = []): string|null
     {
         if (! $modules = json_decode($page->content)) {
             return null;
@@ -217,6 +217,10 @@ class PageService
             $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
 
             $html .= view($view)->with('fields', $content->fields)->render();
+        }
+
+        foreach($variables as $key => $value) {
+            $html = str_replace($key, $value, $html);
         }
 
         return $html;
