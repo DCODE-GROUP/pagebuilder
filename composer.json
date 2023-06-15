@@ -21,8 +21,8 @@
     "require": {
         "php": "^8.0",
         "laravelcollective/html": "^6.3",
-        "dcodegroup/seo": "dev-develop",
-        "spatie/laravel-medialibrary": "^10.0.0"
+        "spatie/laravel-medialibrary": "^10.0.0",
+        "dcodegroup/seo": "^0.1.0"
     },
     "require-dev": {
         "orchestra/testbench": "^7.18",
@@ -34,11 +34,5 @@
                 "Dcodegroup\\PageBuilder\\PageBuilderServiceProvider"
             ]
         }
-    },
-    "repositories":[
-        {
-            "type": "git",
-            "url": "https://github.com/dcodegroup/seo.git"
-        }
-    ]
+    }
 }
