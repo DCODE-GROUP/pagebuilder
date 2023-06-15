@@ -219,7 +219,7 @@ class PageService
             $html .= view($view)->with('fields', $content->fields)->render();
         }
 
-        foreach($variables as $key => $value) {
+        foreach ($variables as $key => $value) {
             $html = str_replace($key, $value, $html);
         }
 
