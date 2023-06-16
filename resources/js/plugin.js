@@ -16,6 +16,13 @@ import Modal from "./components/Modal.vue"
 import Submit from "./Submit.vue";
 import Form from "./Form.vue";
 import Attachment from "./Attachment.vue";
+import MediaGallery from "./media-gallery/MediaGallery.vue";
+import Folders from "./media-gallery/Folders.vue";
+import Folder from "./media-gallery/Folder.vue";
+import FolderContent from "./media-gallery/FolderContent.vue";
+import ImageUpload from "./media-gallery/ImageUpload.vue";
+import GalleryModal from "./media-gallery/GalleryModal.vue";
+import MediaGalleryButton from "./media-gallery/MediaGalleryButton.vue";
 
 import $bus from "./lib/Vue3EventBus";
 
@@ -42,9 +49,16 @@ const contentBuilderPlugin = {
         app.component('Submit', Submit);
         app.component('VForm', Form);
         app.component('Attachment', Attachment);
+        app.component('MediaGallery', MediaGallery);
+        app.component('Folders', Folders);
+        app.component('Folder', Folder);
+        app.component('FolderContent', FolderContent);
+        app.component('ImageUpload', ImageUpload);
 
         app.component('Tooltip', Tooltip);
         app.component('Modal', Modal);
+        app.component('GalleryModal', GalleryModal);
+        app.component('MediaGalleryButton', MediaGalleryButton);
 
         app.use(autoAnimatePlugin);
         app.use(seoSettingsPlugin);

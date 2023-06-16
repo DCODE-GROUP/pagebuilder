@@ -26,7 +26,21 @@ defineProps({
   customClass: { type: String, required: false, default: '' },
 })
 
+const bus = inject("bus")
+
 const modalIsVisible = ref(false)
+
+bus.$on("close-gallery", (data) => {
+  modalIsVisible.value = false;
+})
+
+bus.$on("open-gallery", (data) => {
+  modalIsVisible.value = true;
+})
+
+window.addEventListener('open-gallery', (payload) => {
+  modalIsVisible.value = true;
+})
 
 function toggleModalVisibility() {
 	modalIsVisible.value = !modalIsVisible.value

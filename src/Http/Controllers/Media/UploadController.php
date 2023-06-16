@@ -2,7 +2,6 @@
 
 namespace Dcodegroup\PageBuilder\Http\Controllers\Media;
 
-use Dcodegroup\LaravelAttachments\Models\Media;
 use Dcodegroup\PageBuilder\Http\Requests\UploadRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
@@ -14,8 +13,6 @@ class UploadController
 
     public function __invoke(UploadRequest $request): JsonResponse
     {
-        $this->authorize('create', Media::class);
-
         if (! $request->hasFile('file')) {
             return response()->json([
                 'message' => __('attachments::media.status.upload_failed'),

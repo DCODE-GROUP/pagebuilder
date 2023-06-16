@@ -23,7 +23,7 @@
 
     <div class="mb-4">
       <label class="form-label">Body</label>
-      <tinymce-editor v-model="body" :init="tinyMCEConfig" @change="update('body')"></tinymce-editor>
+      <editor v-model="body" @change="update('body')"></editor>
     </div>
 
     <label class="sm-toggleable sm-switch" for="singleColumnPadding">
@@ -34,13 +34,14 @@
 </template>
 
 <script>
-import Editor from "@tinymce/tinymce-vue"
 import Module from "../Module.vue";
+import Editor from "../Editor.vue"
+
 
 export default {
   extends: Module,
   components: {
-    "tinymce-editor": Editor
+    Editor
   },
   data() {
     return {
@@ -48,7 +49,6 @@ export default {
       heading: null,
       body: null,
       padding: false,
-      tinyMCEConfig: {},
     }
   },
   mounted() {
@@ -56,6 +56,6 @@ export default {
     this.heading = this.fields.heading.value;
     this.body = this.fields.body.value;
     this.padding = this.fields.padding.value;
-  }
+  },
 }
 </script>

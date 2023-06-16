@@ -64,6 +64,11 @@
                       :page-model="pageModel"
                       :page-model-class="pageModelClass"
                       :media-upload-endpoint="mediaUploadEndpoint"
+                      :get-folders-endpoint="getFoldersEndpoint"
+                      :save-folder-endpoint="saveFolderEndpoint"
+                      :gallery-media-upload-endpoint="galleryMediaUploadEndpoint"
+                      :get-folder-endpoint="getFolderEndpoint"
+                      :media-index-endpoint="mediaIndexEndpoint"
                       @update-content="update"
                   ></component>
                 </section>
@@ -101,6 +106,11 @@ export default {
     defaultPageModel: Object,
     pageModelClass: String,
     mediaUploadEndpoint: String,
+    getFoldersEndpoint: String,
+    saveFolderEndpoint: String,
+    galleryMediaUploadEndpoint: String,
+    getFolderEndpoint: String,
+    mediaIndexEndpoint: String,
   },
   data() {
     return {

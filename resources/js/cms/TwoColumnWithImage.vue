@@ -2,21 +2,33 @@
   <div>
     <div class="mb-4">
       <label class="form-label">Body</label>
-      <tinymce-editor v-model="body" :init="tinyMCEConfig" @change="update('body')"></tinymce-editor>
+      <editor v-model="body" @change="update('body')"></editor>
     </div>
 
     <div class="flex mb-4 space-x-4">
       <div class="w-full">
-        <attachment
-            v-model="image"
-            :default-model="pageModel"
-            :model-class="pageModelClass"
-            :upload-endpoint="mediaUploadEndpoint"
-            :field="id"
-            :desktop-image="fields.image?.value"
-            :mobile-image="fields.mobileImage?.value"
-            @input="handleAttachment"
-        ></attachment>
+        <div>
+          Desktop:
+          <div v-if="fields.image?.value">
+            <a :href="fields.image?.value.url" target="_blank">
+              Link
+            </a>
+          </div>
+          <media-gallery-button
+              @input="(event) => handleAttachment(event, 'desktop')"
+          ></media-gallery-button>
+        </div>
+        <div>
+          Mobile:
+          <div v-if="fields.mobileImage?.value">
+            <a :href="fields.mobileImage?.value.url" target="_blank">
+              Link
+            </a>
+          </div>
+          <media-gallery-button
+              @input="(event) => handleAttachment(event, 'mobile')"
+          ></media-gallery-button>
+        </div>
       </div>
     </div>
 
@@ -67,8 +79,8 @@
 
 <script>
 import Module from "../Module.vue"
-import Editor from "@tinymce/tinymce-vue"
-import Attachment from "../Attachment.vue";
+import Editor from "../Editor.vue"
+import MediaGalleryButton from "../media-gallery/MediaGalleryButton.vue";
 
 export default {
   extends: Module,
@@ -98,11 +110,11 @@ export default {
     this.alignment = this.fields.alignment.value;
   },
   components: {
-    'tinymce-editor': Editor,
-    Attachment
+    Editor,
+    MediaGalleryButton
   },
   methods: {
-    handleAttachment(data) {
+    handleAttachment(data, type) {
       const key = data.type === 'desktop' ? 'image' : 'mobileImage'
 
       this.update(key, data.media);
