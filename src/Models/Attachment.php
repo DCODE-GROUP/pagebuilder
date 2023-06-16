@@ -20,6 +20,8 @@ class Attachment extends Model implements HasMedia
      */
     protected $guarded = ['id'];
 
+    protected $table = 'pagebuilder_attachments';
+
     public function folder(): BelongsTo
     {
         return $this->belongsTo(Folder::class, 'folder_id', 'id');

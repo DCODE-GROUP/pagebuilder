@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('pagebuilder_attachments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('folder_id')
                 ->nullable()
