@@ -158,6 +158,7 @@ class PageBuilderServiceProvider extends ServiceProvider
             Modules\SingleColumn::class,
             Modules\TwoColumn::class,
             Modules\TwoColumnWithImage::class,
+            Modules\Video::class,
         ], 'page-builder-modules');
     }
 }
