@@ -1,6 +1,6 @@
 @php use Dcodegroup\PageBuilder\Models\Page;use Dcodegroup\PageBuilder\Models\Template;use Dcodegroup\PageBuilder\Services\PageService; @endphp
 <x-page-builder::layouts.admin page-class="h-full max-w-full px-0 pb-32">
-    <v-form
+    <page-builder-v-form
             store-action="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.store')) }}"
             update-action="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.update'), ':page') }}"
             :default-page="{{ json_encode($page) }}"
@@ -34,7 +34,7 @@
                                     <div class="mb-4">
                                         <div class="flex items-center mb-2">
                                             {{ Form::label('parent_id', 'Parent page', ['class' => 'form-label !mb-0']) }}
-                                            <tooltip iconclasses="ml-1 text-brand-green">If a parent page is selected, this page's URL will be prefixed with the parent page slug.</tooltip>
+                                            <page-builder-tooltip iconclasses="ml-1 text-brand-green">If a parent page is selected, this page's URL will be prefixed with the parent page slug.</page-builder-tooltip>
                                         </div>
                                         <div>
                                             {{ Form::vSelect('parent_id', Page::class,
@@ -56,7 +56,7 @@
                                     <div class="mb-4">
                                         <div class="flex items-center mb-2">
                                             {{ Form::label('abstract', 'Abstract', ['class' => 'form-label !mb-0']) }}
-                                            <tooltip iconclasses="ml-1 text-brand-green">The abstract displayed on listing pages.</tooltip>
+                                            <page-builder-tooltip iconclasses="ml-1 text-brand-green">The abstract displayed on listing pages.</page-builder-tooltip>
                                         </div>
                                         {{ Form::textarea('abstract', null, ['rows' => 7, 'class' => 'form-input']) }}
                                         {!! $errors->first('abstract', '<span class="form-error is-visible">:message</span>') !!}
@@ -64,16 +64,16 @@
                                     <div class="mb-4">
                                         <label class="form-label">
                                             Featured image
-                                            <tooltip iconclasses="ml-1 text-brand-green">If a featured image is set, it will appear as a hero image on the page.</tooltip>
+                                            <page-builder-tooltip iconclasses="ml-1 text-brand-green">If a featured image is set, it will appear as a hero image on the page.</page-builder-tooltip>
                                         </label>
-                                        <attachment
+                                        <page-builder-attachment
                                                 :default-model="{{ \Illuminate\Support\Js::from($page ?? []) }}"
                                                 model-class="{{ Page::class }}"
                                                 upload-endpoint="{{ route(Dcodegroup\PageBuilder\Routes::admin('pages.upload-media')) }}"
                                                 field="featured_image"
                                                 :desktop-image="{{ \Illuminate\Support\Js::from($featuredImage ?? []) }}"
                                                 :mobile-image="{{ \Illuminate\Support\Js::from($mobileFeaturedImage ?? []) }}"
-                                        ></attachment>
+                                        ></page-builder-attachment>
                                     </div>
                                 </section>
                             </div>
@@ -101,14 +101,14 @@
                     </page-builder-sidebar>
                 </div>
                 <div class="w-9/12 px-4">
-                    <page-preview {{ $page->exists ? 'page-id=' . $page->id : ''}}></page-preview>
+                    <page-builder-page-preview {{ $page->exists ? 'page-id=' . $page->id : ''}}></page-builder-page-preview>
                 </div>
             </div>
 
             <footer class="fixed bottom-0 left-0 w-full px-6 py-4 bg-brand-almond-100">
                 <div class="container">
                     <div class="flex items-center space-x-2">
-                        <submit :default-value="{{ json_encode(!$page->exists) }}"></submit>
+                        <page-builder-submit :default-value="{{ json_encode(!$page->exists) }}"></page-builder-submit>
 
                         @if ($page->exists)
                             <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
@@ -117,25 +117,25 @@
                         @endif
 
                         @if ($page->exists)
-                            <modal button-text="Delete">
+                            <page-builder-modal button-text="Delete">
                                 @include('page-builder::_partials.delete-confirm', [
                                 'object' => $page,
                                 'type' => 'page',
                                 'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.destroy'),
                                 'label' => 'page ' . $page->title
                                 ])
-                            </modal>
+                            </page-builder-modal>
                         @endif
                     </div>
                 </div>
             </footer>
-            <media-gallery
+            <page-builder-media-gallery
                     get-folders-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.index')) }}"
                     save-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.store')) }}"
                     gallery-media-upload-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.upload')) }}"
                     get-folder-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('folders.show'), [':folder']) }}"
                     media-index-endpoint="{{ route(\Dcodegroup\PageBuilder\Routes::admin('media.index')) }}"
-            ></media-gallery>
+            ></page-builder-media-gallery>
         </template>
-    </v-form>
+    </page-builder-v-form>
 </x-page-builder::layouts.admin>

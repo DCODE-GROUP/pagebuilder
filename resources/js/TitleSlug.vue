@@ -3,7 +3,7 @@
     <div class="mb-4">
       <label for="title" class="form-label">
         Title
-        <tooltip>The title of the page displayed on the first heading.</tooltip>
+        <page-builder-tooltip>The title of the page displayed on the first heading.</page-builder-tooltip>
         <!-- <span data-tooltip title="The title of the page displayed on the first heading.">
             <i class="fa-solid fa-circle-info"></i>
         </span> -->
@@ -15,8 +15,8 @@
     <div class="mb-4">
       <label for="slug" class="form-label">
         Slug
-        <tooltip>The slug is used in the page URL, this is generated from the title but can also be manually edited.
-        </tooltip>
+        <page-builder-tooltip>The slug is used in the page URL, this is generated from the title but can also be manually edited.
+        </page-builder-tooltip>
       </label>
       <div class="input-group">
         <div class="flex items-center">

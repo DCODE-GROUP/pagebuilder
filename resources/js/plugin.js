@@ -36,27 +36,27 @@ const contentBuilderPlugin = {
     install(app, options) {
         app.provide("bus", $bus);
 
-        app.component('draggable', vuedraggable);
+        app.component('PageBuilderDraggable', vuedraggable);
 
         app.component('PageBuilderSidebar', PageBuilderSidebar);
         
         app.component('ContentBuilder', ContentBuilder);
-        app.component('Module', Module);
-        app.component('PagePreview', PagePreview);
+        app.component('PageBuilderModule', Module);
+        app.component('PageBuilderPagePreview', PagePreview);
         app.component('SelectMedia', SelectMedia);
         app.component('TitleSlug', TitleSlug);
         app.component('Selector', Selector);
-        app.component('Submit', Submit);
-        app.component('VForm', Form);
-        app.component('Attachment', Attachment);
-        app.component('MediaGallery', MediaGallery);
+        app.component('PageBuilderSubmit', Submit);
+        app.component('PageBuilderVForm', Form);
+        app.component('PageBuilderAttachment', Attachment);
+        app.component('PageBuilderMediaGallery', MediaGallery);
         app.component('Folders', Folders);
         app.component('Folder', Folder);
         app.component('FolderContent', FolderContent);
         app.component('ImageUpload', ImageUpload);
 
-        app.component('Tooltip', Tooltip);
-        app.component('Modal', Modal);
+        app.component('PageBuilderTooltip', Tooltip);
+        app.component('PageBuilderModal', Modal);
         app.component('GalleryModal', GalleryModal);
         app.component('MediaGalleryButton', MediaGalleryButton);
 

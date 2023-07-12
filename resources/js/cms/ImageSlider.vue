@@ -21,7 +21,7 @@
             <i class="text-white fa-solid fa-align-justify"></i>
           </div>
           <div class="grid grid-cols-2 gap-4 mb-4">
-            <attachment
+            <page-builder-attachment
                 :default-model="pageModel"
                 :model-class="pageModelClass"
                 :upload-endpoint="mediaUploadEndpoint"
@@ -29,7 +29,7 @@
                 :desktop-image="element.image?.value"
                 :mobile-image="element.mobile_image?.value"
                 @input="(data) => handleAttachment(data, index)"
-            ></attachment>
+            ></page-builder-attachment>
           </div>
           <div class="module-item-options">
             <div class="grid grid-cols-2 gap-4">

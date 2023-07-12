@@ -33,14 +33,14 @@
                         {{ Form::open(['route' => [\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.restore'), $revision], 'method' => 'put']) }}
                             <button type="submit" class="btn btn-primary">Restore</button>
                         {{ Form::close() }}
-                        <modal button-text="Delete">
+                        <page-builder-modal button-text="Delete">
                         @include('page-builder::_partials.delete-confirm', [
                             'route' => \Dcodegroup\PageBuilder\Routes::admin('pages.revisions.destroy'),
                             'object' => $revision,
                             'label' => 'this page revision',
                             'type' => 'revision'
                         ])
-                        </modal>
+                        </page-builder-modal>
                     </div>
                 </td>
             </tr>
