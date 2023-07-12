@@ -94,6 +94,7 @@
 import Draggable from 'vuedraggable';
 import { v4 as uuidv4 } from 'uuid';
 import debounce from 'lodash/debounce';
+import _ from 'lodash';
 
 export default {
   inject: ["bus"],
