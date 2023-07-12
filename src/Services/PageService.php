@@ -216,7 +216,10 @@ class PageService
 
             $content->fields = (object) array_merge((array) $templateFields, (array) $content->fields);
 
-            $html .= view($view)->with('fields', $content->fields)->render();
+            $html .= view($view)
+                ->with('fields', $content->fields)
+                ->with('page', $page)
+                ->render();
         }
 
         foreach ($variables as $key => $value) {
