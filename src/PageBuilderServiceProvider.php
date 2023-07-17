@@ -120,12 +120,14 @@ class PageBuilderServiceProvider extends ServiceProvider
                 });
         });
 
-        Route::macro('cmsFront', function () {
+        Route::macro('cmsFront', function ($addPageRoute = true) {
             Route::name(config('page-builder.routing.front.name_prefix'))
                 ->prefix(config('page-builder.routing.front.prefix'))
                 ->middleware(config('page-builder.routing.admin.middlewares'))
-                ->group(function () {
-                    Route::get('/{slug}', SiteController::class)->name('view');
+                ->group(function () use ($addPageRoute) {
+                    if ($addPageRoute) {
+                        Route::get('/{slug}', SiteController::class)->name('view');
+                    }
                     Route::get('/media/{media}', [MediaController::class, 'get'])->name('media.get');
                 });
         });
