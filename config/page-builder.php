@@ -18,4 +18,20 @@ return [
             'name_prefix' => 'cms.',
         ],
     ],
+    'media' => [
+        'conversions' => [
+            'thumb' => [
+                'width' => 150,
+                'height' => 150,
+            ],
+            'list' => [
+                'width' => 150,
+                'height' => 150,
+            ],
+            'grid' => [
+                'width' => 150,
+                'height' => 150,
+            ],
+        ]
+    ],
 ];
