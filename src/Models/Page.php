@@ -99,8 +99,8 @@ class Page extends UsesMedia
         return $options;
     }
 
-    public function render()
+    public function render(?array $variables = [])
     {
-        return resolve(PageService::class)->render($this);
+        return resolve(PageService::class)->render($this, $variables);
     }
 }
