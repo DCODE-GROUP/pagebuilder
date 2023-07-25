@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-page-builder::layouts.admin>
 @section('title', 'Revisions for page ' . $page->title)
 
 <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}" class="button">
@@ -49,4 +49,4 @@
     </table>
     {{ $revisions->appends(request()->except(['page','_token']))->links() }}
 @endif
-</x-admin-layout>
+</x-page-builder::layouts.admin>
