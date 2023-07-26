@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Attachment extends Model implements HasMedia
+class Attachment extends UsesMedia implements HasMedia
 {
     use InteractsWithMedia;
     use SoftDeletes;
