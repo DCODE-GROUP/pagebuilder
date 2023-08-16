@@ -32,6 +32,9 @@
                     <td>{{ $page->status }}</td>
                     <td>{{ $page->updatedAtForHumans }}</td>
                     <td>
+                        <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.preview-live'), $page) }}">
+                            Preview
+                        </a>
                         <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.edit'), $page) }}">
                             Edit
                         </a>

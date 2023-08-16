@@ -26,7 +26,9 @@ class PageRevisionController extends Controller
 
         $page->fill($revision->only(['title', 'abstract', 'content']));
 
-        return view('page-builder::cms.page', ['page' => $page]);
+        $templateKey = $page->template?->key ?? 'base';
+
+        return view("page-builder::templates.$templateKey", ['page' => $page]);
     }
 
     public function restore(PageRevision $revision): RedirectResponse

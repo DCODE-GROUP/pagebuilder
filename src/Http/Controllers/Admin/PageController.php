@@ -102,4 +102,11 @@ class PageController extends Controller
 
         return redirect()->route(Routes::admin('pages.index'))->with('status', 'Page was successfully deleted');
     }
+
+    public function previewPage(Page $page)
+    {
+        $templateKey = $page->template?->key ?? 'base';
+
+        return view("page-builder::templates.$templateKey", ['page' => $page]);
+    }
 }
