@@ -6,11 +6,11 @@
 </a>
 
 @if ($revisions->isNotEmpty())
-    <table>
+    <table class="text-left">
         <thead>
         <tr>
             <th>Updated</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
         </tr>
         @foreach($revisions as $revision)
             <tr>
-                <td>{!! nl2br($revision->updatedByForHumans) !!}</td>
+                <td width="70%">{!! nl2br($revision->updatedByForHumans) !!}</td>
                 <td>
                     <div class="btn-group space-x-2 flex flex-1">
                         <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.show'), $revision) }}" class="btn btn-primary" target="_blank">

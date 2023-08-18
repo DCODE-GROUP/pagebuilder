@@ -150,12 +150,12 @@ class PageService
 
     public static function restoreRevision(PageRevision $revision): void
     {
+        self::saveRevision($revision->page);
+
         $pageData = array_merge($revision->attributesToArray(), $revision->page->attributesToArray());
 
         // Save and restore revision
         self::save($pageData, $revision->page);
-
-        self::deleteRevision($revision);
     }
 
     public static function deleteRevision(PageRevision $revision): void
