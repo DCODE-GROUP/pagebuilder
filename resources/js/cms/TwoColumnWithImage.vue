@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     handleAttachment(data, type) {
-      const key = data.type === 'desktop' ? 'image' : 'mobileImage'
+      const key = type === 'desktop' ? 'image' : 'mobileImage'
 
       this.update(key, data.media);
     }
