@@ -79,7 +79,7 @@ class PageBuilderServiceProvider extends ServiceProvider
                     Route::resource('pages', PageController::class)->except('show');
                     Route::resource('templates', TemplateController::class)->except('show');
 
-                    Route::get('/page/{page}/preview', [
+                    Route::get('/pages/{page}/preview', [
                         PageController::class,
                         'previewPage',
                     ])->name('pages.preview-live');
