@@ -114,6 +114,9 @@
                             <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.revisions.index'), $page) }}" class="btn btn-primary btn-primary-outlined">
                                 Revisions {{ $page->revisionsCount ? '(' . $page->revisionsCount . ')' : null }}
                             </a>
+                            <a href="{{ route(\Dcodegroup\PageBuilder\Routes::admin('pages.preview-live'), $page) }}" class="btn btn-primary btn-primary-outlined">
+                                Preview
+                            </a>
                         @endif
 
                         @if ($page->exists)
