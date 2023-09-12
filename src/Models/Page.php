@@ -16,9 +16,9 @@ class Page extends UsesMedia
 {
     use CMSMenuResource;
     use DatesForHumans;
+    use HasSeo;
     use ScopeActive;
     use SoftDeletes;
-    use HasSeo;
 
     /**
      * The attributes that aren't mass assignable.
@@ -46,10 +46,10 @@ class Page extends UsesMedia
         return $this->belongsTo(Template::class);
     }
 
-//    public function seo(): MorphOne
-//    {
-//        return $this->morphOne(Seo::class, 'seoable');
-//    }
+    //    public function seo(): MorphOne
+    //    {
+    //        return $this->morphOne(Seo::class, 'seoable');
+    //    }
 
     /**
      * @return string

@@ -44,7 +44,6 @@ class PageService
     }
 
     /**
-     * @param  null  $page
      * @return mixed
      */
     public static function save(array $data, $page = null)
@@ -113,7 +112,7 @@ class PageService
         return Page::query()->where('slug', $slug)->whereNull('parent_id')->first();
     }
 
-    public static function delete(Page $page): bool|null
+    public static function delete(Page $page): ?bool
     {
         return $page->delete();
     }
@@ -187,7 +186,7 @@ class PageService
         return json_encode($content);
     }
 
-    public function render(Page $page, ?array $variables = []): string|null
+    public function render(Page $page, ?array $variables = []): ?string
     {
         if (! $modules = json_decode($page->content)) {
             return null;

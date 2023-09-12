@@ -26,12 +26,12 @@ class UploadController
         $model = $modelClass::findOrFail($modelId);
 
         $media = $model->addMediaFromRequest('file')
-                       ->usingFileName($file->hashName())
-                       ->withCustomProperties([
-                           'original_filename' => $file->getClientOriginalName(),
-                           'encoding_format' => $file->extension(),
-                       ])
-                       ->toMediaCollection($request->input('field'));
+            ->usingFileName($file->hashName())
+            ->withCustomProperties([
+                'original_filename' => $file->getClientOriginalName(),
+                'encoding_format' => $file->extension(),
+            ])
+            ->toMediaCollection($request->input('field'));
 
         return response()->json([
             'message' => __('attachments::media.status.upload_success'),
