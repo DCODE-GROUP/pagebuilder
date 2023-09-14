@@ -28,7 +28,7 @@ class PageRevisionController extends Controller
 
         $templateKey = $page->template?->key ?? 'base';
 
-        return view("page-builder::templates.$templateKey", ['page' => $page, 'isRevision' => true]);
+        return view("page-builder::templates.$templateKey", ['page' => $page, 'revision' => $revision]);
     }
 
     public function restore(PageRevision $revision): RedirectResponse
