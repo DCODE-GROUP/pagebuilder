@@ -32,7 +32,6 @@ class Redirection extends Model
     ];
 
     /**
-     * @param  null  $searchTerm
      * @return LengthAwarePaginator
      */
     public static function getRedirection($searchTerm = null)
@@ -40,7 +39,7 @@ class Redirection extends Model
         $query = Redirection::query();
         if ($searchTerm) {
             $query->where('from', 'like', "%$searchTerm%")->orWhere('to', 'like', "%$searchTerm%")
-                  ->orWhere('info', 'like', "%$searchTerm%");
+                ->orWhere('info', 'like', "%$searchTerm%");
         }
 
         return $query->paginate(20);

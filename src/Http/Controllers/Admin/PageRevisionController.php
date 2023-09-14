@@ -36,7 +36,7 @@ class PageRevisionController extends Controller
         PageService::restoreRevision($revision);
 
         return redirect()->route(Routes::admin('pages.edit'), $revision->page)
-                         ->with('status', 'Page revision content was restored');
+            ->with('status', 'Page revision content was restored');
     }
 
     public function destroy(PageRevision $revision): RedirectResponse

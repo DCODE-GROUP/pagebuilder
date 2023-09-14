@@ -150,9 +150,9 @@ class MenuService
                 }
 
                 $item->children = $item->children ?? $items->where('parent', $childItem->id)
-                                                           ->map(function ($grandChildItem) use ($structureMethod) {
-                                                               return call_user_func('self::'.$structureMethod, $grandChildItem);
-                                                           })->flatten()->toArray();
+                    ->map(function ($grandChildItem) use ($structureMethod) {
+                        return call_user_func('self::'.$structureMethod, $grandChildItem);
+                    })->flatten()->toArray();
 
                 return $item;
             })->flatten()->toArray();
@@ -178,7 +178,7 @@ class MenuService
                     $fp['count'] = $fp['count'] === 'all' ? -1 : $fp['count'];
 
                     $feed = $isChildFeed ? $menuItem->linkable->{$fp['relation']}()
-                                                              ->limit($fp['count']) : call_user_func($fp['class'].'::take', $fp['count']);
+                        ->limit($fp['count']) : call_user_func($fp['class'].'::take', $fp['count']);
                 }
 
                 $feed->get()->each(function ($feedItem) use (&$item, $menuItem, $fp, $isChildFeed) {
