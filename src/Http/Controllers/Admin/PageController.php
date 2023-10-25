@@ -4,6 +4,7 @@ namespace Dcodegroup\PageBuilder\Http\Controllers\Admin;
 
 use Dcodegroup\PageBuilder\Http\Requests\PageRequest;
 use Dcodegroup\PageBuilder\Models\Page;
+use Dcodegroup\PageBuilder\Models\Template;
 use Dcodegroup\PageBuilder\Repositories\ModuleRepository;
 use Dcodegroup\PageBuilder\Routes;
 use Dcodegroup\PageBuilder\Services\PageService;
@@ -39,7 +40,9 @@ class PageController extends Controller
         return view('page-builder::pages.edit')
             ->with('page', new Page())
             ->with('CMSModules', $this->moduleRepository->buildConfigurations())
-            ->with('pageService', $this->pageService);
+            ->with('pageService', $this->pageService)
+            ->with('parentOptions', Page::query()->get()->pluck('title', 'id'))
+            ->with('templateOptions', Template::query()->get()->pluck('name', 'id'));
     }
 
     public function store(PageRequest $request): JsonResponse|RedirectResponse
@@ -86,7 +89,9 @@ class PageController extends Controller
             ->with('CMSModules', $this->moduleRepository->buildConfigurations())
             ->with('pageService', $this->pageService)
             ->with('featuredImage', $page->getFirstMedia('featured_image'))
-            ->with('mobileFeaturedImage', $page->getFirstMedia('mobile_featured_image'));
+            ->with('mobileFeaturedImage', $page->getFirstMedia('mobile_featured_image'))
+            ->with('parentOptions', Page::query()->get()->pluck('title', 'id'))
+            ->with('templateOptions', Template::query()->get()->pluck('name', 'id'));
     }
 
     public function update(PageRequest $request, Page $page): RedirectResponse
