@@ -84,6 +84,11 @@ class PageBuilderServiceProvider extends ServiceProvider
                         'previewPage',
                     ])->name('pages.preview-live');
 
+                    Route::get('/pages/{page}/duplicate', [
+                        PageController::class,
+                        'duplicate',
+                    ])->name('pages.duplicate');
+
                     Route::post('pages/preview', [
                         PageController::class,
                         'preview',

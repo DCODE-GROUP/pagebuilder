@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class PageController extends Controller
 {
@@ -113,5 +114,15 @@ class PageController extends Controller
         $templateKey = $page->template?->key ?? 'base';
 
         return view("page-builder::templates.$templateKey", ['page' => $page]);
+    }
+
+    public function duplicate(Page $page)
+    {
+        $newPage = $page->replicate();
+        $newPage->created_at = Carbon::now();
+        $newPage->title = $page->name . " (copy)";
+        $newPage->save();
+
+        return redirect()->back();
     }
 }
