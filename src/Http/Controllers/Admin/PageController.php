@@ -120,7 +120,7 @@ class PageController extends Controller
     {
         $newPage = $page->replicate();
         $newPage->created_at = Carbon::now();
-        $newPage->title = $page->name . " (copy)";
+        $newPage->title = $page->name.' (copy)';
         $newPage->save();
 
         return redirect()->back();
