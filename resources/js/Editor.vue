@@ -17,6 +17,7 @@ export default {
     "tinymce-editor": Editor,
   },
   data() {
+    console.log(this.tinyMceLicenseKey);
     return {
       content: this.modelValue,
       config: this.init ?? tinymceConfig.config,
