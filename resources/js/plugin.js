@@ -36,6 +36,7 @@ const contentBuilderPlugin = {
     install(app, options) {
         app.provide("bus", $bus);
         app.provide("tinyMceLicenseKey", options?.tinyMceLicenseKey || "");
+        console.log(options?.tinyMceLicenseKey || "");
 
         app.component('PageBuilderDraggable', vuedraggable);
 
