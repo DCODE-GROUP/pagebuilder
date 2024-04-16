@@ -20,6 +20,7 @@ export default {
     return {
       content: this.modelValue,
       config: this.init ?? tinymceConfig.config,
+      tinyMceLicenseKey: this.tinyMceLicenseKey,
     }
   },
   methods: {
