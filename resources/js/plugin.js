@@ -35,6 +35,7 @@ import "toastify-js/src/toastify.css"
 const contentBuilderPlugin = {
     install(app, options) {
         app.provide("bus", $bus);
+        app.provide("tinyMceLicenseKey", options?.tinyMceLicenseKey || "");
 
         app.component('PageBuilderDraggable', vuedraggable);
 

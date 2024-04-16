@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tinymce-editor v-model="content" :init="config" @change="handleChange"></tinymce-editor>
+    <tinymce-editor v-model="content" :api-key="tinyMceLicenseKey" :init="config" @change="handleChange"></tinymce-editor>
   </div>
 </template>
 <script>
@@ -12,6 +12,7 @@ export default {
     init: Object,
     modelValue: '',
   },
+  inject: ["tinyMceLicenseKey"],
   components: {
     "tinymce-editor": Editor,
   },
