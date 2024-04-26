@@ -133,7 +133,7 @@ class PageBuilderServiceProvider extends ServiceProvider
         Route::macro('cmsFront', function ($addPageRoute = true) {
             Route::name(config('page-builder.routing.front.name_prefix'))
                 ->prefix(config('page-builder.routing.front.prefix'))
-                ->middleware(config('page-builder.routing.admin.middlewares'))
+                ->middleware(config('page-builder.routing.front.middlewares'))
                 ->group(function () use ($addPageRoute) {
                     if ($addPageRoute) {
                         Route::get('/{slug}', SiteController::class)->name('view');
