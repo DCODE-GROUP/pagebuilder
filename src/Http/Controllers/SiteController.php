@@ -8,7 +8,7 @@ class SiteController
 {
     public function __invoke(PageService $pageService, string $slug)
     {
-        $slug = '/' . $slug;
+        $slug = '/'.$slug;
         $page = $pageService->getPageBySlug($slug);
 
         if (! $page) {
