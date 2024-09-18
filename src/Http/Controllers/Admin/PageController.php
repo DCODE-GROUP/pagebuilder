@@ -14,7 +14,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
@@ -122,7 +121,7 @@ class PageController extends Controller
         $newPage = $page->replicate();
         $newPage->created_at = Carbon::now();
         $newPage->title = $page->title.' (copy)';
-        $newPage->slug = $page->slug.'_copy_' . time();
+        $newPage->slug = $page->slug.'_copy_'.time();
         $newPage->save();
 
         return redirect()->back();
