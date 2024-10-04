@@ -12,7 +12,8 @@ const config = {
     ],
     setup: function () {
         window.tinymce.PluginManager.add('mediaGalleryPlugin', mediaGalleryPlugin);
-    }
+    },
+    base_url: '/build/plugins/tinymce',
 }
 
 export default { config };
